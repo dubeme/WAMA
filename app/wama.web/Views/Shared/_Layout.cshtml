@@ -44,12 +44,14 @@
             <p>&copy; 2016 - wama.web</p>
         </footer>
     </div>
-
+                     
     <environment names="Development">
         <script src="~/js/jquery-3.1.1.js"></script>
         <script src="~/js/bootstrap-3.3.7.js"></script>
         <script src="~/js/lodash-4.16.6.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" 
+                asp-append-version="true"
+                asp-fallback-test="window.jQuery"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/js/jquery-3.1.1.min.js"
