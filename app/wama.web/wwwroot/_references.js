@@ -5,6 +5,5 @@
 /// <reference path="js/jquery-3.1.1.min.js" />
 /// <reference path="js/lodash-4.16.6.js" />
 /// <reference path="js/lodash-4.16.6.min.js" />
-/// <reference path="js/site.js" />
 /// <reference path="js/wama.constants.js" />
 /// <reference path="js/wama.core.js" />
