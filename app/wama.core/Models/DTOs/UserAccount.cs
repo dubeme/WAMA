@@ -2,7 +2,7 @@
 
 namespace WAMA.Core.Models.DTOs
 {
-    public class UserAccount
+    public class UserAccount : TableRow
     {
         public string MemberId { get; set; }
         public string FirstName { get; set; }
