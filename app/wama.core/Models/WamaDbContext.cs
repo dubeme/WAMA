@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WAMA.Core.Models.POCOs;
+using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.Models
 {

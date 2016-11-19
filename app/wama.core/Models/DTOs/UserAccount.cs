@@ -1,6 +1,6 @@
-﻿using Models.POCOs;
+﻿using Models.DTOs;
 
-namespace WAMA.Core.Models.POCOs
+namespace WAMA.Core.Models.DTOs
 {
     public class UserAccount
     {

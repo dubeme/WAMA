@@ -1,4 +1,4 @@
-﻿namespace Models.POCOs
+﻿namespace Models.DTOs
 {
     public enum UserAccountType
     {

@@ -1,4 +1,4 @@
-﻿namespace WAMA.Core.Models.POCOs
+﻿namespace WAMA.Core.Models.DTOs
 {
     public class LoginCredential
     {

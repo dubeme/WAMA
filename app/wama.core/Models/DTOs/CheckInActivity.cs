@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WAMA.Core.Models.POCOs
+namespace WAMA.Core.Models.DTOs
 {
     public class CheckInActivity
     {

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using WAMA.Core.Models;
-using WAMA.Core.Models.POCOs;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Service;
 
 namespace WAMA.Core.Services
