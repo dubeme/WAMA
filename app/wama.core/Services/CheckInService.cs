@@ -7,11 +7,11 @@ namespace WAMA.Core.Services
 {
     public class CheckInService : ICheckInService
     {
-        public LoginCredential GetLoginCredential(string id)
+        public LoginCredential GetLoginCredential(string memberId)
         {
             using (var dbCtx = new WamaDbContext())
             {
-                return dbCtx.LoginCredentials.First(lc => lc.UserId == id);
+                return dbCtx.LoginCredentials.First(lc => lc.UserId == memberId);
             }
         }
     }
