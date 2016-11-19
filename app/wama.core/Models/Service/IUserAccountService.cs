@@ -3,7 +3,7 @@ using WAMA.Core.Models.POCOs;
 
 namespace WAMA.Core.Models.Service
 {
-    internal interface IUserAccountService
+    public interface IUserAccountService
     {
         void CreateUser(UserAccount userAccount);
 

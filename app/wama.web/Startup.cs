@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WAMA.Core.Models.Service;
+using WAMA.Core.Services;
 
 namespace WAMA.Web
 {
@@ -29,6 +27,9 @@ namespace WAMA.Web
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddTransient<ICheckInService, CheckInService>();
+            services.AddTransient<IUserAccountService, UserAccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +58,7 @@ namespace WAMA.Web
                     defaults: new
                     {
                         Controller = "CheckIn",
-                        Action= "Index"
+                        Action = "Index"
                     });
             });
         }
