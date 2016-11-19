@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace wama.web
+namespace WAMA.Web
 {
     public class Program
     {

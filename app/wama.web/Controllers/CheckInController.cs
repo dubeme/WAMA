@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace wama.web.Controllers
+namespace WAMA.Web.Controllers
 {
     public class CheckInController : Controller
     {
