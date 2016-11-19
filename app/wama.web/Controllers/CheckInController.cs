@@ -10,8 +10,15 @@ namespace wama.web.Controllers
 {
     public class CheckInController : Controller
     {
-        // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Index(string id)
         {
             return View();
         }
