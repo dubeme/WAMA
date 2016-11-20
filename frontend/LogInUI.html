@@ -5,21 +5,52 @@
 
 <body>
 <form name = "js">
-ID:<input type = "text" name = "txtb" value = ""><br>
-<input type = "button" value="Check-in" onclick = "LogCheck()"><br>
+ID:<input type = "text" 
+          name = "txtb"
+		  onkeypress = "return KeyDetect(event)"
+          /><br>
+<input type = "button" 
+       value="Log-In" 
+	   onclick = "LogCheck()"
+	   /><br>
 </form>
 <script type = "text/javascript">
-
+/*
+==============================================================================
+Need to add:access database and use search of database get id validation
+            need to implement background jpg in here... but how?
+			need to get use CSS to get button and ID string looks prittier
+			need to center the login method somehow....
+Need to fix:many need to added
+Need to change:none
+Need to delete:none
+==============================================================================
+*/
 function LogCheck()
 {
     var InId = document.js.txtb.value;
-	if(InId == 7175174)
+	var pw;
+	if(InId == 1234567)
 	{
-	     alert("Welcome client "+InId);
+	     alert("Welcome common user " + InId);
 	}
 	else if(InId == 12345)
 	{
-	     alert("Welcome employee # "+InId);
+	     alert("Additional authentication required");
+		 location.href = "LoginAuth.html"
+	}
+	else if(InId == "WAMA")
+	{
+	     alert("Developer mode login");
+		 pw = prompt("password: ");
+		 if(pw == 4649)
+		 {
+		      alert("Developer login success");
+		 }
+		 else
+		 {
+		      alert("you are not developer");
+		 }
 	}
 	else
 	{
@@ -27,7 +58,15 @@ function LogCheck()
 	}
     document.js.txtb.value = "";	
 }
-
+function KeyDetect(event) //enter key detection
+{
+     if (event.keyCode == 13)
+	 {
+	      LogCheck();
+		  return false;
+	 }
+	 return true;
+}
 </script>
 
 </body>
