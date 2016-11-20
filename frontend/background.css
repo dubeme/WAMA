@@ -1,0 +1,15 @@
+body
+{
+	/*set the image file*/
+	background-image: url(Project/background.jpg);
+	/*center the image*/
+	background-position: center center;
+	/*no repeat for background*/
+	background-repeat: no-repeat;
+	/*fix the hight of the background*/
+	background-attachment: fixed;
+	/*change background size depend on container size*/
+	background-size: cover;
+	/*background default color*/
+	background-color: #F8F8FF /*set as white*/
+}
