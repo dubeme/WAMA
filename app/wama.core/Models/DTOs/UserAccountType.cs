@@ -1,4 +1,4 @@
-﻿namespace Models.DTOs
+﻿namespace WAMA.Core.Models.DTOs
 {
     public enum UserAccountType
     {

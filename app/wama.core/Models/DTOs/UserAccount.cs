@@ -1,4 +1,4 @@
-﻿using Models.DTOs;
+﻿using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.Models.DTOs
 {
