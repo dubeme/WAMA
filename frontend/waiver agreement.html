@@ -1,0 +1,31 @@
+<html>
+<head>
+<link rel="stylesheet" href = "background.css"/>
+<meta charset="utf-8" />
+</head>
+<body>
+     <h1>Waiver<h1><BR>
+	 <h1>Sample Waiver<h1><BR>
+<form name = "js">
+	 <input type = "button"
+	        value = "Agree"
+			onclick = "ToCheckin()"
+			/>
+	 <input type = "button"
+	        value = "Disagree"
+			onclick = "GoHome()"
+			/><br>
+</form>
+<script type = "text/javascript">
+function ToCheckin()
+{
+     location.href = "CheckInSuccess.html"
+}
+function GoHome()
+{
+     alert("you disagreed the waiver \n need to agree waiver to check-in");
+     location.href = "LogInUI.html";
+}
+</script>
+</body>
+</html>
