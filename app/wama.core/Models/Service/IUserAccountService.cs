@@ -1,20 +1,21 @@
 ﻿using System.Threading.Tasks;
 using WAMA.Core.Models.DTOs;
+using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Models.Service
 {
     public interface IUserAccountService
     {
-        void CreateUser(UserAccount userAccount);
+        void CreateUser(UserAccountViewModel userAccount);
 
-        UserAccount GetUserAccount(string memberId);
+        UserAccountViewModel GetUserAccount(string memberId);
 
-        void UpdateUserAccount(UserAccount updated);
+        void UpdateUserAccount(UserAccountViewModel updated);
 
-        Task CreateUserAsync(UserAccount userAccount);
+        Task CreateUserAsync(UserAccountViewModel userAccount);
 
-        Task<UserAccount> GetUserAccountAsync(string memberId);
+        Task<UserAccountViewModel> GetUserAccountAsync(string memberId);
 
-        Task UpdateUserAccountAsync(UserAccount updated);
+        Task UpdateUserAccountAsync(UserAccountViewModel updated);
     }
 }

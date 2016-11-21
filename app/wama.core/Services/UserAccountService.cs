@@ -2,14 +2,16 @@
 using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Models;
+using WAMA.Core.Extensions;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Service;
+using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
 {
     public class UserAccountService : IUserAccountService
     {
-        public void CreateUser(UserAccount userAccount)
+        public void CreateUser(UserAccountViewModel userAccount)
         {
             Task.Run(async () =>
             {
@@ -17,16 +19,16 @@ namespace WAMA.Core.Services
             });
         }
 
-        public async Task CreateUserAsync(UserAccount userAccount)
+        public async Task CreateUserAsync(UserAccountViewModel userAccount)
         {
             using (var dbCtx = new WamaDbContext())
             {
-                dbCtx.UserAccounts.Add(userAccount);
+                dbCtx.UserAccounts.Add(userAccount.ToUserAccountDTO());
                 await dbCtx.SaveChangesAsync();
             }
         }
 
-        public UserAccount GetUserAccount(string memberId)
+        public UserAccountViewModel GetUserAccount(string memberId)
         {
             return Task.Run(async () =>
             {
@@ -34,15 +36,15 @@ namespace WAMA.Core.Services
             }).Result;
         }
 
-        public async Task<UserAccount> GetUserAccountAsync(string memberId)
+        public async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
             using (var dbCtx = new WamaDbContext())
             {
-                return await dbCtx.UserAccounts.FindAsync(memberId);
+                return (await dbCtx.UserAccounts.FindAsync(memberId)).ToUserAccountViewModel();
             }
         }
 
-        public void UpdateUserAccount(UserAccount updated)
+        public void UpdateUserAccount(UserAccountViewModel updated)
         {
             Task.Run(async () =>
             {
@@ -50,7 +52,7 @@ namespace WAMA.Core.Services
             });
         }
 
-        public async Task UpdateUserAccountAsync(UserAccount updated)
+        public async Task UpdateUserAccountAsync(UserAccountViewModel updated)
         {
             using (var dbCtx = new WamaDbContext())
             {
