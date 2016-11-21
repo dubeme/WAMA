@@ -20,11 +20,8 @@ namespace WAMA.Core.ViewModel.User
         [Display(Name = "Email Address")]
         public string Email { get; set; }
 
-
         [Required]
         [Display(Name = "Member Id")]
         public string MemberId { get; set; }
-
-        public abstract UserAccount ToUserAccount();
     }
 }

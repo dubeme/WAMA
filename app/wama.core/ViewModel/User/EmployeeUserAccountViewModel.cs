@@ -1,15 +1,9 @@
-﻿using System;
-using WAMA.Core.Models.DTOs;
+﻿using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.ViewModel.User
 {
     public class EmployeeUserAccountViewModel : UserAccountViewModel
     {
         public new UserAccountType AccountType { get; } = UserAccountType.Employee;
-
-        public override UserAccount ToUserAccount()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
