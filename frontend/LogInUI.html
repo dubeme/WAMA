@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href = "background.css"/>
+<meta charset="utf-8" />
 </head>
 
 <body>
@@ -33,6 +34,13 @@ function LogCheck()
 	if(InId == 1234567)
 	{
 	     alert("Welcome common user " + InId);
+		 alert("Your waiver is expired, please agree waiver again");
+		 location.href = "waiver agreement.html"
+	}
+	else if(InId == 7777777)
+	{
+	     alert("Welcome common user " + InId);
+		 location.href = "CheckInSuccess.html"
 	}
 	else if(InId == 12345)
 	{
