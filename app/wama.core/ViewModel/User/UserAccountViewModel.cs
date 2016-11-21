@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WAMA.Core.Models.DTOs;
 
-namespace WAMA.Core.ViewModel.UserAccount
+namespace WAMA.Core.ViewModel.User
 {
     public abstract class UserAccountViewModel
     {
@@ -24,5 +24,7 @@ namespace WAMA.Core.ViewModel.UserAccount
         [Required]
         [Display(Name = "Member Id")]
         public string MemberId { get; set; }
+
+        public abstract UserAccount ToUserAccount();
     }
 }
