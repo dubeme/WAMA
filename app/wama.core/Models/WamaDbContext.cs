@@ -6,7 +6,7 @@ namespace WAMA.Core.Models
     internal class WamaDbContext : DbContext
     {
         public DbSet<UserAccount> UserAccounts { get; set; }
-        public DbSet<LoginCredential> LoginCredentials { get; set; }
+        public DbSet<LogInCredential> LogInCredentials { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

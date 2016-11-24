@@ -4,6 +4,6 @@ namespace WAMA.Core.Models.Service
 {
     public interface ICheckInService
     {
-        LoginCredential GetLoginCredential(string memberId);
+        LogInCredential GetLogInCredential(string memberId);
     }
 }
