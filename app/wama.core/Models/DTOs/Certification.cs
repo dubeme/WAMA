@@ -7,6 +7,6 @@ namespace WAMA.Core.Models.DTOs
         public string MemberID { get; set; }
         public CertificationType Type { get; set; }
         public DateTimeOffset CertifiedOn { get; set; }
-        public DateTimeOffset MyProperty { get; set; }
+        public DateTimeOffset ExpiresOn { get; set; }
     }
 }
