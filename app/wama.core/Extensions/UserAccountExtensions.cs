@@ -4,9 +4,9 @@ using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Extensions
 {
-    public static class UserAccountViewModelExtension
+    public static class UserAccountExtensions
     {
-        public static UserAccount ToUserAccountDTO(this UserAccountViewModel user)
+        public static UserAccount ToDTO(this UserAccountViewModel user)
         {
             return new UserAccount
             {
@@ -17,7 +17,7 @@ namespace WAMA.Core.Extensions
             };
         }
 
-        public static UserAccountViewModel ToUserAccountViewModel(this UserAccount user)
+        public static UserAccountViewModel ToViewModel(this UserAccount user)
         {
             UserAccountViewModel userViewModel;
 
