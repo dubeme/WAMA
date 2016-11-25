@@ -3,10 +3,14 @@ using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.Models
 {
-    internal class WamaDbContext : DbContext
+    public class WamaDbContext : DbContext
     {
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<LogInCredential> LogInCredentials { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<Waiver> Waivers { get; set; }
+        public DbSet<CheckInActivity> CheckInActivities { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
