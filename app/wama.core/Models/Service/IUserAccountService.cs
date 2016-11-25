@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Models.Service
@@ -8,13 +7,13 @@ namespace WAMA.Core.Models.Service
     {
         void CreateUser(UserAccountViewModel userAccount);
 
-        UserAccountViewModel GetUserAccount(string memberId);
-
-        void UpdateUserAccount(UserAccountViewModel updated);
-
         Task CreateUserAsync(UserAccountViewModel userAccount);
 
+        UserAccountViewModel GetUserAccount(string memberId);
+
         Task<UserAccountViewModel> GetUserAccountAsync(string memberId);
+
+        void UpdateUserAccount(UserAccountViewModel updated);
 
         Task UpdateUserAccountAsync(UserAccountViewModel updated);
     }

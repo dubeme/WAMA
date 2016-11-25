@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WAMA.Core.Models;
 using WAMA.Core.Extensions;
-using WAMA.Core.Models.DTOs;
+using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel.User;
 
@@ -11,6 +10,13 @@ namespace WAMA.Core.Services
 {
     public class UserAccountService : IUserAccountService
     {
+        private IDbContextProvider _DbCtxProvider;
+
+        public UserAccountService(IDbContextProvider dbCtx)
+        {
+            _DbCtxProvider = dbCtx;
+        }
+
         public void CreateUser(UserAccountViewModel userAccount)
         {
             Task.Run(async () =>
@@ -21,27 +27,24 @@ namespace WAMA.Core.Services
 
         public async Task CreateUserAsync(UserAccountViewModel userAccount)
         {
-            using (var dbCtx = new WamaDbContext())
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                dbCtx.UserAccounts.Add(userAccount.ToUserAccountDTO());
+                dbCtx.UserAccounts.Add(userAccount.ToDTO());
                 await dbCtx.SaveChangesAsync();
             }
         }
 
         public UserAccountViewModel GetUserAccount(string memberId)
         {
-            return Task.Run(async () =>
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return await GetUserAccountAsync(memberId);
-            }).Result;
+                return dbCtx.UserAccounts.FirstOrDefault(user => user.MemberId == memberId).ToViewModel();
+            }
         }
 
-        public async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
+        public Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
-            using (var dbCtx = new WamaDbContext())
-            {
-                return (await dbCtx.UserAccounts.FindAsync(memberId)).ToUserAccountViewModel();
-            }
+            throw new NotImplementedException();
         }
 
         public void UpdateUserAccount(UserAccountViewModel updated)
@@ -54,7 +57,7 @@ namespace WAMA.Core.Services
 
         public async Task UpdateUserAccountAsync(UserAccountViewModel updated)
         {
-            using (var dbCtx = new WamaDbContext())
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 var old = dbCtx.UserAccounts.SingleOrDefault(user => user.MemberId.Equals(updated.MemberId));
 
