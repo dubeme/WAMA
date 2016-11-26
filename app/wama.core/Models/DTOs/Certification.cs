@@ -8,5 +8,7 @@ namespace WAMA.Core.Models.DTOs
         public CertificationType Type { get; set; }
         public DateTimeOffset CertifiedOn { get; set; }
         public DateTimeOffset ExpiresOn { get; set; }
+
+        public virtual UserAccount Member { get; set; }
     }
 }

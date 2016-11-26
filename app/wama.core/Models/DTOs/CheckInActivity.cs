@@ -6,5 +6,7 @@ namespace WAMA.Core.Models.DTOs
     {
         public string MemberId { get; set; }
         public DateTimeOffset CheckInDateTime { get; set; }
+
+        public virtual UserAccount Member { get; set; }
     }
 }
