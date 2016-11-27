@@ -20,7 +20,7 @@ namespace WAMA.Core.Services
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return dbCtx.LogInCredentials.FirstOrDefault(lc => lc.UserId == memberId);
+                return dbCtx.LogInCredentials.FirstOrDefault(lc => lc.MemberId == memberId);
             }
         }
 
