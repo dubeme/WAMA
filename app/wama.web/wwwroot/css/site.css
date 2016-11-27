@@ -1,0 +1,28 @@
+﻿body {
+    padding-top: 2rem;
+}
+
+input#check-in-user-id {
+    font-size: 3.25rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.big-action-button {
+    padding: 1rem 4rem;
+}
+
+.horizontal-align-element {
+    text-align: center;
+    align-self: center;
+}
+
+.vertical-align-element {
+    display: flex;
+    justify-content: center;
+    height: 480px;
+}
+
+.inline-block {
+    display: inline-block;
+}
