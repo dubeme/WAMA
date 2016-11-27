@@ -3,29 +3,10 @@
 }
 
 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+
+    @Html.Partial("DisplayError")
+
     <form asp-action="Create" asp-antiforgery="true" method="post">
-
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="form-group col-xs-12" asp>
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button"
-                            class="close"
-                            data-dismiss="alert"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    @foreach (var item in ViewData.ModelState.Values)
-                    {
-                        if (item.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
-                        {
-                            <p>@item.Errors.FirstOrDefault().ErrorMessage</p>
-                        }
-                    }
-                </div>
-            </div>
-        }
-
         <div class="form-group col-xs-12" asp>
             <label asp-for="FirstName"></label>
             <input asp-for="FirstName" class="form-control" />
