@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
+using WAMA.Core.Providers;
 using WAMA.Core.Services;
 
 namespace WAMA.Web
@@ -28,6 +30,7 @@ namespace WAMA.Web
             // Add framework services.
             services.AddMvc();
 
+            services.AddTransient<IDbContextProvider, DbContextProvider>();
             services.AddTransient<ICheckInService, CheckInService>();
             services.AddTransient<IUserAccountService, UserAccountService>();
         }
