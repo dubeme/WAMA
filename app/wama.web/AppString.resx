@@ -120,4 +120,8 @@
   <data name="Controller" xml:space="preserve">
     <value>Controller</value>
   </data>
+  <data name="ErrorMessages" xml:space="preserve">
+    <value>ErrorMessages</value>
+    <comment>A key that will be used for passing a collection of error messages to be sent to the user</comment>
+  </data>
 </root>

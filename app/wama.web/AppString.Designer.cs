@@ -67,5 +67,14 @@ namespace WAMA.Web {
                 return ResourceManager.GetString("Controller", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to ErrorMessages.
+        /// </summary>
+        public static string ErrorMessages {
+            get {
+                return ResourceManager.GetString("ErrorMessages", resourceCulture);
+            }
+        }
     }
 }
