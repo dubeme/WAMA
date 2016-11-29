@@ -3,7 +3,7 @@ using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Models.Service
 {
-    internal interface ICertificationService
+    public interface ICertificationService
     {
         void AddCertification(CertificationViewModel certification);
 
