@@ -4,6 +4,6 @@ namespace WAMA.Core.ViewModel.User
 {
     public class AdministratorUserAccountViewModel : UserAccountViewModel
     {
-        public new UserAccountType AccountType { get; } = UserAccountType.Administrator;
+        public override UserAccountType AccountType { get; } = UserAccountType.Administrator;
     }
 }
