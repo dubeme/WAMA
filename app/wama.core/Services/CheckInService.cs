@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
+using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
 {
@@ -14,6 +15,24 @@ namespace WAMA.Core.Services
         public CheckInService(IDbContextProvider dbCtx)
         {
             _DbCtxProvider = dbCtx;
+        }
+
+        public void CreateLogInCredential(UserAccountViewModel user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task CreateLogInCredentialAsync(UserAccountViewModel user)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                dbCtx.LogInCredentials.Add(new LogInCredential
+                {
+                    MemberId = user.MemberId,
+                    RequiresPassword = user.AccountType != UserAccountType.Patron
+                });
+                await dbCtx.SaveChangesAsync();
+            }
         }
 
         public LogInCredential GetLogInCredential(string memberId)
