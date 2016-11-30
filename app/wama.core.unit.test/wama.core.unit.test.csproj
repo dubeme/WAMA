@@ -6,7 +6,7 @@
     <ProjectGuid>{5F1712C2-23F1-47DB-894B-138145157E23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>wama.core.unit.test</RootNamespace>
+    <RootNamespace>WAMAcut</RootNamespace>
     <AssemblyName>wama.core.unit.test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
