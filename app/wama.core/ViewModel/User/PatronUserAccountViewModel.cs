@@ -4,6 +4,6 @@ namespace WAMA.Core.ViewModel.User
 {
     public class PatronUserAccountViewModel : UserAccountViewModel
     {
-        public new UserAccountType AccountType { get; } = UserAccountType.Patron;
+        public override UserAccountType AccountType { get; } = UserAccountType.Patron;
     }
 }

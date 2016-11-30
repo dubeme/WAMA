@@ -33,6 +33,8 @@ namespace WAMA.Web
             services.AddTransient<IDbContextProvider, DbContextProvider>();
             services.AddTransient<ICheckInService, CheckInService>();
             services.AddTransient<IUserAccountService, UserAccountService>();
+            services.AddTransient<ICertificationService, CertificationService>();
+            services.AddTransient<IWaiverService, WaiverService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

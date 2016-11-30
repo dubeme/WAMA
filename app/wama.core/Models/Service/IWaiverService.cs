@@ -3,7 +3,7 @@ using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Models.Service
 {
-    internal interface IWaiverService
+    public interface IWaiverService
     {
         void AddWaiver(WaiverViewModel waiver);
 

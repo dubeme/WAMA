@@ -5,7 +5,7 @@ namespace WAMA.Core.ViewModel.User
 {
     public abstract class UserAccountViewModel
     {
-        public UserAccountType AccountType { get; }
+        public virtual UserAccountType AccountType { get; }
 
         [Required]
         [Display(Name = "First Name")]
