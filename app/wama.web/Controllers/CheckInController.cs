@@ -22,18 +22,24 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string id)
+        public IActionResult Index(string memberId)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
-                var loginCredential = _CheckInService.GetLogInCredential(id);
+                var loginCredential = _CheckInService.GetLogInCredential(memberId);
 
                 if (loginCredential == null)
                 {
-                    return RedirectToAction(nameof(PatronController.Create), nameof(PatronController).Replace(AppString.Controller, string.Empty));
+                    return RedirectToAction(
+                        actionName: nameof(PatronController.Create),
+                        controllerName: nameof(PatronController).Replace(AppString.Controller, string.Empty),
+                        routeValues: memberId);
                 }
                 else
                 {
+                    return RedirectToAction(
+                        actionName: nameof(Successful),
+                        routeValues: memberId);
                 }
             }
 
