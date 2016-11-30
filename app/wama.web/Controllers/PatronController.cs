@@ -14,10 +14,12 @@ namespace WAMA.Web.Controllers
     public class PatronController : Controller
     {
         private IUserAccountService _UserAccountService;
+        private ICheckInService _CheckInService;
 
-        public PatronController(IUserAccountService userAccountService)
+        public PatronController(IUserAccountService userAccountService, ICheckInService checkinService)
         {
             _UserAccountService = userAccountService;
+            _CheckInService = checkinService;
         }
 
         [HttpGet]
@@ -40,6 +42,7 @@ namespace WAMA.Web.Controllers
                 try
                 {
                     await _UserAccountService.CreateUserAsync(patron);
+                    await _CheckInService.CreateLogInCredentialAsync(patron);
 
                     return RedirectToAction(
                         actionName: nameof(CheckInController.Index),
@@ -47,6 +50,7 @@ namespace WAMA.Web.Controllers
                 }
                 catch (Exception ex)
                 {
+                    // TODO: Revert DB actions on error
                     var errMessages = new List<string>();
 
                     while (ex != null)
