@@ -5,7 +5,7 @@ using WAMA.Core.Models.Service;
 
 namespace WAMA.Web.Controllers
 {
-    public class CheckInController : Controller
+    public class CheckInController : WamaBaseController
     {
         private static ICheckInService _CheckInService;
 

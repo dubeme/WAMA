@@ -11,7 +11,7 @@ using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Web.Controllers
 {
-    public class PatronController : Controller
+    public class PatronController : WamaBaseController
     {
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
