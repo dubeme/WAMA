@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@using WAMA.Web.Model;
+
+<ul class="nav nav-sidebar">
+    <li id="@Constants.ADMIN_CONSOLE_HOME"><a href="/AdminConsole/">Home</a></li>
+    <li id="@Constants.ADMIN_CONSOLE_USERS" >
+        <a href="/AdminConsole/UserTool">Users</a>
+        <ul class="nav nav-sidebar indented-list">
+            <li id="@Constants.ADMIN_CONSOLE_USERS_PATRONS" ><a href="/AdminConsole/UserTool/Patrons">Patrons</a></li>
+            <li id="@Constants.ADMIN_CONSOLE_USERS_EMPLOYEES" ><a href="/AdminConsole/UserTool/Employees">Employees</a></li>
+            <li id="@Constants.ADMIN_CONSOLE_USERS_MANAGERS" ><a href="/AdminConsole/UserTool/Managers">Managers</a></li>
+            <li id="@Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS" ><a href="/AdminConsole/UserTool/Administrators">Administrators</a></li>
+        </ul>
+    </li>
+    <li id="@Constants.ADMIN_CONSOLE_REPORTS" >
+        <a href="/AdminConsole/ReportTool">Reports</a>
+        <ul class="nav nav-sidebar indented-list">
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS" ><a href="/AdminConsole/ReportTool/CheckIns">Check Ins</a></li>
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_USERS" ><a href="/AdminConsole/ReportTool/Users">Users</a></li>
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_LISTSERV" ><a href="/AdminConsole/ReportTool/Listserv">Listserv</a></li>
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_CLINICS" ><a href="/AdminConsole/ReportTool/Clinics">Clinics</a></li>
+        </ul>
+    </li>
+    <li id="@Constants.ADMIN_CONSOLE_INVENTORIES" ><a href="/AdminConsole/InventoryTool">Inventories</a></li>
+    <li id="@Constants.ADMIN_CONSOLE_CLINICS" ><a href="/AdminConsole/ClinicTool">Clinics</a></li>
+</ul>
