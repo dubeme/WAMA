@@ -3,7 +3,7 @@ using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
-    public class UserToolController : Controller
+    public class UserToolController : WamaBaseController
     {
         public IActionResult Index()
         {
