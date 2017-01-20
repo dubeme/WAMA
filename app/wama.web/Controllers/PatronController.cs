@@ -39,14 +39,23 @@ namespace WAMA.Web.Controllers
             }
             else
             {
+                DateTime AfterTen = DateTime.Now.AddSeconds(10);
+                bool StopTime = false;
+                
                 try
                 {
-                    await _UserAccountService.CreateUserAsync(patron);
-                    await _CheckInService.CreateLogInCredentialAsync(patron);
-
-                    return RedirectToAction(
-                        actionName: nameof(CheckInController.Index),
-                        controllerName: nameof(CheckInController).Replace(AppString.Controller, string.Empty));
+                    while(DateTime.Now <= AfterTen)
+                    {
+                        StopTime = true;
+                    }
+                    if(StopTime == true)
+                    {
+                        await _UserAccountService.CreateUserAsync(patron);
+                        await _CheckInService.CreateLogInCredentialAsync(patron);
+                        return RedirectToAction(
+                            actionName: nameof(CheckInController.Index),
+                            controllerName: nameof(CheckInController).Replace(AppString.Controller, string.Empty));
+                    }
                 }
                 catch (Exception ex)
                 {
