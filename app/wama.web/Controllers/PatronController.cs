@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WAMA.Core.Extensions;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel.User;
 
@@ -44,7 +45,6 @@ namespace WAMA.Web.Controllers
 
                 if (userAccount != null)
                 {
-                    
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace WAMA.Web.Controllers
 
                         return RedirectToAction(
                             actionName: nameof(CheckInController.Index),
-                            controllerName: nameof(CheckInController).Replace(AppString.Controller, string.Empty));
+                            controllerName: nameof(CheckInController).StripController());
                     }
                     catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
                     when (ex.InnerException is System.Data.SqlClient.SqlException)
