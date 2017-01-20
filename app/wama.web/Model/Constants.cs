@@ -25,5 +25,7 @@
 
         public const string ADMIN_CONSOLE_INVENTORIES = "admin-console-inventories";
         public const string ADMIN_CONSOLE_CLINICS = "admin-console-clinics";
+
+        public const string USER_ACCOUNT_TYPE = "user-account-type";
     }
 }
