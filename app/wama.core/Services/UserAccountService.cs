@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Extensions;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel.User;
@@ -45,6 +48,17 @@ namespace WAMA.Core.Services
         public Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.UserAccounts.
+                    Where(user => user.AccountType == type)
+                    .Select(user => user.ToViewModel())
+                    .ToListAsync();
+            }
         }
 
         public void UpdateUserAccount(UserAccountViewModel updated)

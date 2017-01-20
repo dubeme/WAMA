@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Models.DTOs;
@@ -35,6 +37,31 @@ namespace WAMA.Core.Services
             }
         }
 
+        public async Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForMemberAsync(string memberId)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.CheckInActivities
+                    .Where(ci => ci.MemberId == memberId)
+                    .ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start)
+        {
+            return await GetCheckInActivitiesForPeriodAsync(start, DateTimeOffset.MaxValue);
+        }
+
+        public async Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.CheckInActivities
+                    .Where(ci => ci.CheckInDateTime >= start && ci.CheckInDateTime <= end)
+                    .ToListAsync();
+            }
+        }
+
         public LogInCredential GetLogInCredential(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -46,6 +73,29 @@ namespace WAMA.Core.Services
         public Task<LogInCredential> GetLogInCredentialAsync(string memberId)
         {
             throw new NotImplementedException();
+        }
+
+        public CheckInActivity PerformCheckIn(string memberId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<CheckInActivity> PerformCheckInAsync(string memberId)
+        {
+            var checkinActivity = new CheckInActivity
+            {
+                MemberId = memberId,
+                CheckInDateTime = DateTimeOffset.Now,
+                IsCheckedIn = true,
+            };
+
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                dbCtx.CheckInActivities.Add(checkinActivity);
+                await dbCtx.SaveChangesAsync();
+            }
+
+            return checkinActivity;
         }
     }
 }
