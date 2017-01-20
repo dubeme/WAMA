@@ -1,33 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WAMA.Core.Models.DTOs;
+using WAMA.Core.Models.Service;
 using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
     public class UserToolController : WamaBaseController
     {
+        private IUserAccountService _UserAccountService;
+
+        public UserToolController(IUserAccountService userAccountService)
+        {
+            _UserAccountService = userAccountService;
+        }
+
         public IActionResult Index()
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
         }
 
-        public IActionResult Administrators()
+        public async Task<IActionResult> Administrators()
         {
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Administrators.cshtml");
+            var accounts =await  _UserAccountService.GetUserAccountsAsync(UserAccountType.Administrator);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Administrators.cshtml", accounts);
         }
 
-        public IActionResult Employees()
+        public async Task<IActionResult> Employees()
         {
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Employees.cshtml");
+            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Employee);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Employees.cshtml", accounts);
         }
 
-        public IActionResult Managers()
+        public async Task<IActionResult> Managers()
         {
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Managers.cshtml");
+            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Manager);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Managers.cshtml", accounts);
         }
 
-        public IActionResult Patrons()
+        public async Task<IActionResult> Patrons()
         {
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml");
+            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Patron);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml", accounts);
         }
     }
 }
