@@ -33,7 +33,7 @@ namespace WAMA.Web.Controllers
                     return RedirectToAction(
                         actionName: nameof(PatronController.Create),
                         controllerName: nameof(PatronController).Replace(AppString.Controller, string.Empty),
-                        routeValues: memberId);
+                        routeValues: new { ReceavedId = memberId });
                 }
                 else
                 {
