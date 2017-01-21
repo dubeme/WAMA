@@ -28,6 +28,14 @@ input#check-in-user-id {
 }
 
 
+td:first-letter {
+    text-transform: uppercase;
+}
+
+td {
+    text-transform: lowercase;
+}
+
 /*
  * Admin console 
  */
