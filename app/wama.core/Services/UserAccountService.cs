@@ -39,15 +39,16 @@ namespace WAMA.Core.Services
 
         public UserAccountViewModel GetUserAccount(string memberId)
         {
-            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
-            {
-                return dbCtx.UserAccounts.FirstOrDefault(user => user.MemberId == memberId).ToViewModel();
-            }
+            throw new NotImplementedException();
         }
 
-        public Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
+        public async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
-            throw new NotImplementedException();
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return (await dbCtx.UserAccounts
+                    .FirstOrDefaultAsync(user => user.MemberId == memberId)).ToViewModel();
+            }
         }
 
         public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
