@@ -23,9 +23,9 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create(string ReceavedId)
+        public IActionResult Create(string memberId)
         {
-            ViewBag.MemberId = ReceavedId;
+            ViewBag.MemberId = memberId;
             return View();
         }
 
