@@ -23,8 +23,9 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(string memberId)
         {
+            ViewBag.MemberId = memberId;
             return View();
         }
 
@@ -39,11 +40,15 @@ namespace WAMA.Web.Controllers
             }
             else
             {
+                DateTime AfterTen = DateTime.Now.AddSeconds(10);
+
                 try
                 {
                     await _UserAccountService.CreateUserAsync(patron);
                     await _CheckInService.CreateLogInCredentialAsync(patron);
-
+                    while (DateTime.Now <= AfterTen) //10seconds delay
+                    {
+                    }
                     return RedirectToAction(
                         actionName: nameof(CheckInController.Index),
                         controllerName: nameof(CheckInController).Replace(AppString.Controller, string.Empty));
