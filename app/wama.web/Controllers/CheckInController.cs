@@ -18,7 +18,6 @@ namespace WAMA.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var ttt = new WAMA.Core.Models.DTOs.Certification();
             return View();
         }
 

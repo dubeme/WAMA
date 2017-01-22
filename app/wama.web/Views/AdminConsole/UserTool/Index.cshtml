@@ -1,8 +1,10 @@
 ﻿@using WAMA.Web.Model;
 @using WAMA.Core.ViewModel.User;
 
-@{
-    ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = Constants.ADMIN_CONSOLE_USERS;
-}
+<h2>User account summaries</h2>
 
-Summary of all accounts
+<h3>Accounts pending approval</h3>
+@Html.Partial("UserAccountTableDisplay")
+
+<h3>Suspended Accounts</h3>
+@Html.Partial("UserAccountTableDisplay")
