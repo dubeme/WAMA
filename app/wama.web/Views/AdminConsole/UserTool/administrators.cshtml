@@ -1,11 +1,1 @@
-﻿@using WAMA.Web.Model;
-@using WAMA.Core.ViewModel.User;
-
-@{
-    ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS;
-    ViewData[Constants.USER_ACCOUNT_TYPE] = AppString.AdministratorLabel;
-}
-
-@model IEnumerable<UserAccountViewModel>
-
-@Html.Partial("UserAccountTableDisplay", Model)
+﻿@Html.Partial("UserAccountTableDisplay")
