@@ -6,7 +6,7 @@
 @{
     if (object.Equals(Model, null) || Model.Any() == false)
     {
-        <h1>No @ViewData[Constants.USER_ACCOUNT_TYPE] user accounts found</h1>
+        <h4 class="text-danger">No @ViewData[Constants.USER_ACCOUNT_TYPE] user accounts found</h4>
     }
     else
     {
