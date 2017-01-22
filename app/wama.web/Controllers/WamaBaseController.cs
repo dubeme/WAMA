@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
     public abstract class WamaBaseController : Controller
     {
+        protected void SetActiveConsoleTool(string tool)
+        {
+            ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = tool;
+        }
+
         public void SetErrorMessages(params string[] errors)
         {
             ViewData[AppString.ErrorMessages] = errors.AsEnumerable();
