@@ -1,0 +1,10 @@
+﻿@using WAMA.Web.Model;
+@using WAMA.Core.ViewModel.User;
+
+<h2>User account summaries</h2>
+
+<h3>Accounts pending approval</h3>
+@Html.Partial("UserAccountTableDisplay")
+
+<h3>Suspended Accounts</h3>
+@Html.Partial("UserAccountTableDisplay")

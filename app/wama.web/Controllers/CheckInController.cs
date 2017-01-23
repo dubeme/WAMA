@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WAMA.Core.Extensions;
 using WAMA.Core.Models.Service;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WAMA.Web.Controllers
 {
-    public class CheckInController : Controller
+    public class CheckInController : WamaBaseController
     {
         private static ICheckInService _CheckInService;
 
@@ -17,7 +18,6 @@ namespace WAMA.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var ttt = new WAMA.Core.Models.DTOs.Certification();
             return View();
         }
 

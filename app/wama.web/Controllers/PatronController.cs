@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WAMA.Core.Extensions;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel.User;
 
@@ -11,7 +12,7 @@ using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Web.Controllers
 {
-    public class PatronController : Controller
+    public class PatronController : WamaBaseController
     {
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
@@ -34,37 +35,57 @@ namespace WAMA.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData[AppString.ErrorMessages] = ModelState.Values
+                this.SetErrorMessages(ModelState.Values
                     .Where(val => val.ValidationState == ModelValidationState.Invalid)
-                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage);
+                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
             }
             else
             {
-                DateTime AfterTen = DateTime.Now.AddSeconds(10);
+                var userAccount = _UserAccountService.GetUserAccount(patron.MemberId);
 
-                try
+                if (userAccount != null)
                 {
-                    await _UserAccountService.CreateUserAsync(patron);
-                    await _CheckInService.CreateLogInCredentialAsync(patron);
-                    while (DateTime.Now <= AfterTen) //10seconds delay
-                    {
-                    }
-                    return RedirectToAction(
-                        actionName: nameof(CheckInController.Index),
-                        controllerName: nameof(CheckInController).Replace(AppString.Controller, string.Empty));
                 }
-                catch (Exception ex)
+                else
                 {
-                    // TODO: Revert DB actions on error
-                    var errMessages = new List<string>();
-
-                    while (ex != null)
+                    try
                     {
-                        errMessages.Add(ex.Message);
-                        ex = ex.InnerException;
-                    }
+                        DateTime AfterTen = DateTime.Now.AddSeconds(10);
 
-                    ViewData[AppString.ErrorMessages] = errMessages;
+                        await _UserAccountService.CreateUserAsync(patron);
+                        await _CheckInService.CreateLogInCredentialAsync(patron);
+
+                        while (DateTime.Now <= AfterTen) //10seconds delay
+                        {
+                        }
+
+                        return RedirectToAction(
+                            actionName: nameof(CheckInController.Index),
+                            controllerName: nameof(CheckInController).StripController());
+                    }
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+                    when (ex.InnerException is System.Data.SqlClient.SqlException)
+                    {
+                        if (ex.InnerException.Message.Contains("Cannot insert duplicate key"))
+                        {
+                            // TODO: Revert DB actions on error
+                        }
+                        else
+                        {
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var errMessages = new List<string>();
+
+                        while (ex != null)
+                        {
+                            errMessages.Add(ex.Message);
+                            ex = ex.InnerException;
+                        }
+
+                        ViewData[AppString.ErrorMessages] = errMessages;
+                    }
                 }
             }
 

@@ -60,6 +60,15 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string AdministratorLabel {
+            get {
+                return ResourceManager.GetString("AdministratorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Controller.
         /// </summary>
         public static string Controller {
@@ -69,11 +78,38 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Employee.
+        /// </summary>
+        public static string EmployeeLabel {
+            get {
+                return ResourceManager.GetString("EmployeeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to ErrorMessages.
         /// </summary>
         public static string ErrorMessages {
             get {
                 return ResourceManager.GetString("ErrorMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Manager.
+        /// </summary>
+        public static string ManagerLabel {
+            get {
+                return ResourceManager.GetString("ManagerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Patron.
+        /// </summary>
+        public static string PatronLabel {
+            get {
+                return ResourceManager.GetString("PatronLabel", resourceCulture);
             }
         }
     }

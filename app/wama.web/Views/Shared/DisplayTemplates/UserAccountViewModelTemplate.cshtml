@@ -1,0 +1,10 @@
+﻿@using WAMA.Core.ViewModel.User;
+
+@model UserAccountViewModel
+
+<tr>
+    <th scope="row"><a href="ViewAccount?memberid=@Model.MemberId">@Model.MemberId</a> </th>
+    <td>@Model.FirstName</td>
+    <td>@Model.LastName</td>
+    <td>@Model.Email</td>
+</tr>

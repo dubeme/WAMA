@@ -1,0 +1,22 @@
+﻿@using WAMA.Core.ViewModel.User;
+
+@model UserAccountViewModel
+
+<div class="row">
+    <div class="col-xs-10">
+        <p class="col-xs-12 col-sm-3">@Html.LabelFor(x => Model.MemberId)</p>
+        <p class="col-xs-12 col-sm-9">@Model.MemberId</p>
+    </div>
+    <div class="col-xs-10">
+        <p class="col-xs-12 col-sm-3">@Html.LabelFor(x => Model.FirstName)</p>
+        <p class="col-xs-12 col-sm-9">@Model.FirstName</p>
+    </div>
+    <div class="col-xs-10">
+        <p class="col-xs-12 col-sm-3">@Html.LabelFor(x => Model.LastName)</p>
+        <p class="col-xs-12 col-sm-9">@Model.LastName</p>
+    </div>
+    <div class="col-xs-10">
+        <p class="col-xs-12 col-sm-3">@Html.LabelFor(x => Model.Email)</p>
+        <p class="col-xs-12 col-sm-9">@Model.Email</p>
+    </div>
+</div>
