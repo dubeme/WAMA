@@ -52,7 +52,6 @@ namespace WAMA.Web.Controllers
                 {
                     // TODO: Revert DB actions on error
                     var errMessages = new List<string>();
-
                     while (ex != null)
                     {
                         errMessages.Add(ex.Message);
