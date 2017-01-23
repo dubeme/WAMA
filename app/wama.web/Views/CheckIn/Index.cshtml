@@ -8,7 +8,14 @@
     <div class="horizontal-align-element">
         <form method="post" class="inline-block">
             <div class="form-group col-xs-12">
-                <input type="text" class="form-control" name="memberId" id="check-in-user-id" placeholder="Please enter your ID" />
+                <input 
+					type="text" 
+					class="form-control" 
+					name="memberId" 
+					id="check-in-user-id" 
+					placeholder="Please enter your ID" 
+					pattern = "[0-9]{7}" 
+                    title="7 digit long numbers only!"/>
             </div>
             <div class="form-group col-xs-12">
                 <input type="submit" class="btn btn-lg btn-primary big-action-button" value="Check In" />
