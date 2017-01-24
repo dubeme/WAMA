@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WAMA.Core.Extensions;
 using WAMA.Core.Models.Service;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,10 +29,7 @@ namespace WAMA.Web.Controllers
 
                 if (loginCredential == null)
                 {
-                    return RedirectToAction(
-                        actionName: nameof(PatronController.Create),
-                        controllerName: nameof(PatronController).Replace(AppString.Controller, string.Empty),
-                        routeValues: new { memberId = memberId });
+                    SetErrorMessages("The ID that you entered does not exit.Please Try again or contact the manager ");
                 }
                 else
                 {
