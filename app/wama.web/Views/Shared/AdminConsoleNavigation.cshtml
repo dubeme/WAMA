@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using WAMA.Web.Model;
+
+<ul class="nav nav-sidebar">
+    <li id="@Constants.ADMIN_CONSOLE_HOME">
+        <a href="/AdminConsole/">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+        </a>
+    </li>
+    <li id="@Constants.ADMIN_CONSOLE_USERS">
+        <a href="/AdminConsole/UserTool">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users
+        </a>
+        <ul class="nav nav-sidebar indented-list">
+            <li id="@Constants.ADMIN_CONSOLE_USERS_PATRONS">
+                <a href="/AdminConsole/UserTool/Patrons">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Patrons
+                </a>
+            </li>
+            <li id="@Constants.ADMIN_CONSOLE_USERS_EMPLOYEES">
+                <a href="/AdminConsole/UserTool/Employees">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Employees
+                </a>
+            </li>
+            <li id="@Constants.ADMIN_CONSOLE_USERS_MANAGERS">
+                <a href="/AdminConsole/UserTool/Managers">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Managers
+                </a>
+            </li>
+            <li id="@Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS">
+                <a href="/AdminConsole/UserTool/Administrators">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Administrators
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li id="@Constants.ADMIN_CONSOLE_REPORTS">
+        <a href="/AdminConsole/ReportTool">
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Reports
+        </a>
+        <ul class="nav nav-sidebar indented-list">
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS">
+                <a href="/AdminConsole/ReportTool/CheckIns">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Check Ins
+                </a>
+            </li>
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_USERS">
+                <a href="/AdminConsole/ReportTool/Users">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Users
+                </a>
+            </li>
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_LISTSERV">
+                <a href="/AdminConsole/ReportTool/Listserv">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Listserv
+                </a>
+            </li>
+            <li id="@Constants.ADMIN_CONSOLE_REPORTS_CLINICS">
+                <a href="/AdminConsole/ReportTool/Clinics">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Clinics
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li id="@Constants.ADMIN_CONSOLE_INVENTORIES">
+        <a href="/AdminConsole/InventoryTool">
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Inventories
+        </a>
+    </li>
+    <li id="@Constants.ADMIN_CONSOLE_CLINICS">
+        <a href="/AdminConsole/ClinicTool">
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Clinics
+        </a>
+    </li>
+</ul>

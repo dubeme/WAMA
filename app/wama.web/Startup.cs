@@ -58,6 +58,17 @@ namespace WAMA.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "admin-console-tools",
+                    template: "AdminConsole/{controller}/{action}",
+                    defaults: new
+                    {
+                        Action = "Index"
+                    });
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new

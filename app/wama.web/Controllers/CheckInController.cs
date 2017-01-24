@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using WAMA.Core.Extensions;
 using WAMA.Core.Models.Service;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WAMA.Web.Controllers
 {
-    public class CheckInController : Controller
+    public class CheckInController : WamaBaseController
     {
         private static ICheckInService _CheckInService;
 
@@ -18,7 +18,6 @@ namespace WAMA.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var ttt = new WAMA.Core.Models.DTOs.Certification();
             return View();
         }
 
@@ -28,17 +27,13 @@ namespace WAMA.Web.Controllers
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
                 var loginCredential = _CheckInService.GetLogInCredential(memberId);
-                var errMessages = new List<string>();
+
                 if (loginCredential == null)
                 {
-                    errMessages.Add("The ID that you entered does not exit.Please Try again or contact the manager ");
-                    ViewData[AppString.ErrorMessages] = errMessages;
-
-                    //return RedirectToAction(
-                    //    actionName: nameof(CheckInController.Index),
-                    //    controllerName: nameof(CheckInController).Replace(AppString.Controller, string.Empty),
-                    //    routeValues: memberId
-                    //    );
+                    return RedirectToAction(
+                        actionName: nameof(PatronController.Create),
+                        controllerName: nameof(PatronController).Replace(AppString.Controller, string.Empty),
+                        routeValues: new { memberId = memberId });
                 }
                 else
                 {
