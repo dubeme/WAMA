@@ -60,6 +60,15 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Account with same member ID {0} already exist.
+        /// </summary>
+        public static string AccountWithSameMemberIdExist {
+            get {
+                return ResourceManager.GetString("AccountWithSameMemberIdExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Administrator.
         /// </summary>
         public static string AdministratorLabel {

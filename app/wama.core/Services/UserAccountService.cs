@@ -46,8 +46,10 @@ namespace WAMA.Core.Services
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return (await dbCtx.UserAccounts
-                    .FirstOrDefaultAsync(user => user.MemberId == memberId)).ToViewModel();
+                var userAccount = await dbCtx.UserAccounts
+                    .FirstOrDefaultAsync(user => user.MemberId == memberId);
+
+                return userAccount?.ToViewModel();
             }
         }
 

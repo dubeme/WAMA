@@ -14,6 +14,9 @@ namespace WAMA.Web.Controllers
 {
     public class PatronController : WamaBaseController
     {
+        // Used to throttle account creation rate
+        private const int ACCOUNT_CREATION_THROTTLE_RATE = 10;
+
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
 
@@ -41,23 +44,21 @@ namespace WAMA.Web.Controllers
             }
             else
             {
-                var userAccount = _UserAccountService.GetUserAccount(patron.MemberId);
+                var userAccount = await _UserAccountService.GetUserAccountAsync(patron.MemberId);
 
                 if (userAccount != null)
                 {
+                    // TODO: User account already exists
+                    SetErrorMessages(string.Format(AppString.AccountWithSameMemberIdExist, patron.MemberId));
                 }
                 else
                 {
                     try
                     {
-                        DateTime AfterTen = DateTime.Now.AddSeconds(10);
+                        await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
 
                         await _UserAccountService.CreateUserAsync(patron);
                         await _CheckInService.CreateLogInCredentialAsync(patron);
-
-                        while (DateTime.Now <= AfterTen) //10seconds delay
-                        {
-                        }
 
                         return RedirectToAction(
                             actionName: nameof(CheckInController.Index),
@@ -84,12 +85,12 @@ namespace WAMA.Web.Controllers
                             ex = ex.InnerException;
                         }
 
-                        ViewData[AppString.ErrorMessages] = errMessages;
+                        SetErrorMessages(errMessages);
                     }
                 }
             }
 
-            return View();
+            return View(patron);
         }
     }
 }
