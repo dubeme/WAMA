@@ -13,7 +13,7 @@ namespace WAMA.Core.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=wama.db;";
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=wama.db;User Id=wama.dev;Password=BAD_P455W0RD";
             optionsBuilder.UseSqlServer(connection);
         }
 
