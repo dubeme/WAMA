@@ -36,6 +36,10 @@ td {
     text-transform: lowercase;
 }
 
+.clear-both {
+    clear:both;
+}
+
 /*
  * Admin console 
  */
