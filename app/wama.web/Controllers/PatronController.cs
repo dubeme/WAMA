@@ -89,7 +89,7 @@ namespace WAMA.Web.Controllers
                 }
             }
 
-            return View();
+            return View(patron);
         }
     }
 }
