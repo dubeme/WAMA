@@ -14,6 +14,9 @@ namespace WAMA.Web.Controllers
 {
     public class PatronController : WamaBaseController
     {
+        // Used to throttle account creation rate
+        private const int ACCOUNT_CREATION_THROTTLE_RATE = 10;
+
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
 
@@ -51,14 +54,10 @@ namespace WAMA.Web.Controllers
                 {
                     try
                     {
-                        DateTime AfterTen = DateTime.Now.AddSeconds(10);
+                        await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
 
                         await _UserAccountService.CreateUserAsync(patron);
                         await _CheckInService.CreateLogInCredentialAsync(patron);
-
-                        while (DateTime.Now <= AfterTen) //10seconds delay
-                        {
-                        }
 
                         return RedirectToAction(
                             actionName: nameof(CheckInController.Index),
