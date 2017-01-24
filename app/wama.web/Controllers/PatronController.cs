@@ -49,6 +49,7 @@ namespace WAMA.Web.Controllers
                 if (userAccount != null)
                 {
                     // TODO: User account already exists
+                    SetErrorMessages(string.Format(AppString.AccountWithSameMemberIdExist, patron.MemberId));
                 }
                 else
                 {
@@ -84,7 +85,7 @@ namespace WAMA.Web.Controllers
                             ex = ex.InnerException;
                         }
 
-                        ViewData[AppString.ErrorMessages] = errMessages;
+                        SetErrorMessages(errMessages);
                     }
                 }
             }
