@@ -41,10 +41,11 @@ namespace WAMA.Web.Controllers
             }
             else
             {
-                var userAccount = _UserAccountService.GetUserAccount(patron.MemberId);
+                var userAccount = await _UserAccountService.GetUserAccountAsync(patron.MemberId);
 
                 if (userAccount != null)
                 {
+                    // TODO: User account already exists
                 }
                 else
                 {
