@@ -68,8 +68,8 @@ namespace WAMA.Core.Services
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 return await dbCtx.CheckInActivities
-                    .Where(ci => ci.MemberId == memberId)
-                    .Select(ci => ci.ToViewModel())
+                    .Where(checkInActivity => checkInActivity.MemberId == memberId)
+                    .Select(checkInActivity => checkInActivity.ToViewModel())
                     .ToListAsync();
             }
         }
@@ -84,8 +84,8 @@ namespace WAMA.Core.Services
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 return await dbCtx.CheckInActivities
-                    .Where(ci => ci.CheckInDateTime >= start && ci.CheckInDateTime <= end)
-                    .Select(ci => ci.ToViewModel())
+                    .Where(checkInActivity => checkInActivity.CheckInDateTime >= start && checkInActivity.CheckInDateTime <= end)
+                    .Select(checkInActivity => checkInActivity.ToViewModel())
                     .ToListAsync();
             }
         }

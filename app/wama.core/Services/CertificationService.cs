@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Extensions;
 using WAMA.Core.Models.Provider;
@@ -41,14 +40,15 @@ namespace WAMA.Core.Services
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                var old = dbCtx.Certifications.SingleOrDefault(cert => cert.MemberId.Equals(updated.MemberId));
+                var old = dbCtx.Certifications
+                    .FirstOrDefaultAsync(cert => cert.MemberId == updated.MemberId);
 
                 if (old == null)
                 {
                     throw new InvalidOperationException("No certification found to update");
                 }
 
-                dbCtx.Entry(old).CurrentValues.SetValues(updated);
+                dbCtx.Entry(old).CurrentValues.SetValues(updated.ToDTO());
                 await dbCtx.SaveChangesAsync();
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using WAMA.Core.Models.DTOs;
+﻿using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Extensions
@@ -8,12 +7,22 @@ namespace WAMA.Core.Extensions
     {
         public static LogInCredential ToDTO(this LogInCredentialViewModel viewModel)
         {
-            throw new NotImplementedException();
+            return new LogInCredential
+            {
+                MemberId = viewModel.MemberId,
+                Password = viewModel.Password,
+                RequiresPassword = viewModel.RequiresPassword
+            };
         }
 
         public static LogInCredentialViewModel ToViewModel(this LogInCredential dto)
         {
-            throw new NotImplementedException();
+            return new LogInCredentialViewModel
+            {
+                MemberId = dto.MemberId,
+                Password = dto.Password,
+                RequiresPassword = dto.RequiresPassword
+            };
         }
     }
 }

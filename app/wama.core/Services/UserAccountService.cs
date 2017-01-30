@@ -44,8 +44,8 @@ namespace WAMA.Core.Services
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return await dbCtx.UserAccounts.
-                    Where(user => user.AccountType == type)
+                return await dbCtx.UserAccounts
+                    .Where(user => user.AccountType == type)
                     .Select(user => user.ToViewModel())
                     .ToListAsync();
             }

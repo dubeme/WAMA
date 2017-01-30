@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WAMA.Core.Models.DTOs;
+﻿using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Extensions
@@ -11,12 +7,22 @@ namespace WAMA.Core.Extensions
     {
         public static CheckInActivity ToDTO(this CheckInActivityViewModel viewModel)
         {
-            throw new NotImplementedException();
+            return new CheckInActivity
+            {
+                CheckInDateTime = viewModel.CheckInDateTime,
+                IsCheckedIn = viewModel.IsCheckedIn,
+                MemberId = viewModel.MemberId
+            };
         }
 
         public static CheckInActivityViewModel ToViewModel(this CheckInActivity dto)
         {
-            throw new NotImplementedException();
+            return new CheckInActivityViewModel
+            {
+                CheckInDateTime = dto.CheckInDateTime,
+                IsCheckedIn = dto.IsCheckedIn,
+                MemberId = dto.MemberId
+            };
         }
     }
 }
