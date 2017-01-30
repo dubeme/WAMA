@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WAMA.Core.ViewModel;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Models.Service
 {
     public interface ICheckInService
     {
+        void CreateLogInCredential(UserAccountViewModel user);
+
         Task CreateLogInCredentialAsync(UserAccountViewModel user);
 
-        Task<LogInCredentialViewModel> GetLogInCredentialAsync(string memberId);
+        LogInCredential GetLogInCredential(string memberId);
 
-        Task<CheckInActivityViewModel> PerformCheckInAsync(string memberId);
+        Task<LogInCredential> GetLogInCredentialAsync(string memberId);
 
-        Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForMemberAsync(string memberId);
+        CheckInActivity PerformCheckIn(string memberId);
 
-        Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start);
+        Task<CheckInActivity> PerformCheckInAsync(string memberId);
 
-        Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end);
+        Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForMemberAsync(string memberId);
+
+        Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start);
+
+        Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end);
     }
 }

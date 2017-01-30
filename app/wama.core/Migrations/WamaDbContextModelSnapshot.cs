@@ -98,18 +98,12 @@ namespace WAMA.Core.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("Gender");
-
-                    b.Property<bool>("HasBeenApproved");
-
                     b.Property<bool>("IsSuspended");
 
                     b.Property<string>("LastName");
 
                     b.Property<string>("MemberId")
                         .IsRequired();
-
-                    b.Property<string>("MiddleName");
 
                     b.Property<DateTimeOffset>("__CreatedOn");
 

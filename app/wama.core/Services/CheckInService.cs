@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WAMA.Core.Extensions;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
-using WAMA.Core.ViewModel;
 using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
@@ -19,6 +17,11 @@ namespace WAMA.Core.Services
         public CheckInService(IDbContextProvider dbCtx)
         {
             _DbCtxProvider = dbCtx;
+        }
+
+        public void CreateLogInCredential(UserAccountViewModel user)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task CreateLogInCredentialAsync(UserAccountViewModel user)
@@ -34,18 +37,50 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<LogInCredentialViewModel> GetLogInCredentialAsync(string memberId)
+        public async Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForMemberAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                var loginCredential = await dbCtx.LogInCredentials
-                    .FirstOrDefaultAsync(lc => lc.MemberId == memberId);
-
-                return loginCredential?.ToViewModel();
+                return await dbCtx.CheckInActivities
+                    .Where(ci => ci.MemberId == memberId)
+                    .ToListAsync();
             }
         }
 
-        public async Task<CheckInActivityViewModel> PerformCheckInAsync(string memberId)
+        public async Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start)
+        {
+            return await GetCheckInActivitiesForPeriodAsync(start, DateTimeOffset.MaxValue);
+        }
+
+        public async Task<IEnumerable<CheckInActivity>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.CheckInActivities
+                    .Where(ci => ci.CheckInDateTime >= start && ci.CheckInDateTime <= end)
+                    .ToListAsync();
+            }
+        }
+
+        public LogInCredential GetLogInCredential(string memberId)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return dbCtx.LogInCredentials.FirstOrDefault(lc => lc.MemberId == memberId);
+            }
+        }
+
+        public Task<LogInCredential> GetLogInCredentialAsync(string memberId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CheckInActivity PerformCheckIn(string memberId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<CheckInActivity> PerformCheckInAsync(string memberId)
         {
             var checkinActivity = new CheckInActivity
             {
@@ -60,34 +95,7 @@ namespace WAMA.Core.Services
                 await dbCtx.SaveChangesAsync();
             }
 
-            return checkinActivity?.ToViewModel();
-        }
-
-        public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForMemberAsync(string memberId)
-        {
-            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
-            {
-                return await dbCtx.CheckInActivities
-                    .Where(checkInActivity => checkInActivity.MemberId == memberId)
-                    .Select(checkInActivity => checkInActivity.ToViewModel())
-                    .ToListAsync();
-            }
-        }
-
-        public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start)
-        {
-            return await GetCheckInActivitiesForPeriodAsync(start, DateTimeOffset.MaxValue);
-        }
-
-        public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end)
-        {
-            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
-            {
-                return await dbCtx.CheckInActivities
-                    .Where(checkInActivity => checkInActivity.CheckInDateTime >= start && checkInActivity.CheckInDateTime <= end)
-                    .Select(checkInActivity => checkInActivity.ToViewModel())
-                    .ToListAsync();
-            }
+            return checkinActivity;
         }
     }
 }
