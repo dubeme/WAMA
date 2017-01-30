@@ -1,6 +1,8 @@
-﻿namespace WAMA.Core.Models.DTOs
+﻿using WAMA.Core.Models.DTOs;
+
+namespace WAMA.Core.ViewModel
 {
-    public class LogInCredential : TableRow
+    public class LogInCredentialViewModel
     {
         public string MemberId { get; set; }
 

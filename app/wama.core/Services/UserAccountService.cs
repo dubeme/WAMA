@@ -20,14 +20,6 @@ namespace WAMA.Core.Services
             _DbCtxProvider = dbCtx;
         }
 
-        public void CreateUser(UserAccountViewModel userAccount)
-        {
-            Task.Run(async () =>
-            {
-                await CreateUserAsync(userAccount);
-            });
-        }
-
         public async Task CreateUserAsync(UserAccountViewModel userAccount)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -35,11 +27,6 @@ namespace WAMA.Core.Services
                 dbCtx.UserAccounts.Add(userAccount.ToDTO());
                 await dbCtx.SaveChangesAsync();
             }
-        }
-
-        public UserAccountViewModel GetUserAccount(string memberId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
@@ -57,19 +44,11 @@ namespace WAMA.Core.Services
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return await dbCtx.UserAccounts.
-                    Where(user => user.AccountType == type)
+                return await dbCtx.UserAccounts
+                    .Where(user => user.AccountType == type)
                     .Select(user => user.ToViewModel())
                     .ToListAsync();
             }
-        }
-
-        public void UpdateUserAccount(UserAccountViewModel updated)
-        {
-            Task.Run(async () =>
-            {
-                await UpdateUserAccountAsync(updated);
-            });
         }
 
         public async Task UpdateUserAccountAsync(UserAccountViewModel updated)
