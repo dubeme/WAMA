@@ -1,4 +1,5 @@
-﻿using WAMA.Core.Models.DTOs;
+﻿using System;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Extensions
@@ -7,20 +8,12 @@ namespace WAMA.Core.Extensions
     {
         public static Waiver ToDTO(this WaiverViewModel viewModel)
         {
-            return new Waiver
-            {
-                MemberId = viewModel.MemberId,
-                SignedOn = viewModel.SignedOn
-            };
+            throw new NotImplementedException();
         }
 
         public static WaiverViewModel ToViewModel(this Waiver dto)
         {
-            return new WaiverViewModel
-            {
-                MemberId = dto.MemberId,
-                SignedOn = dto.SignedOn
-            };
+            throw new NotImplementedException();
         }
     }
 }

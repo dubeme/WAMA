@@ -1,14 +1,11 @@
 ﻿using System;
-using WAMA.Core.Models.DTOs;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WAMA.Core.ViewModel
 {
     public class WaiverViewModel
     {
-        public string MemberId { get; set; }
-
-        public DateTimeOffset SignedOn { get; set; }
-
-        public virtual UserAccount Member { get; set; }
     }
 }

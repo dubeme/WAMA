@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Extensions;
 using WAMA.Core.Models.Provider;
@@ -16,6 +17,14 @@ namespace WAMA.Core.Services
             _DbCtxProvider = dbCtx;
         }
 
+        public void AddWaiver(WaiverViewModel waiver)
+        {
+            Task.Run(async () =>
+            {
+                await AddWaiverAsync(waiver);
+            });
+        }
+
         public async Task AddWaiverAsync(WaiverViewModel waiver)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -24,15 +33,17 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<WaiverViewModel> GetWaiverAsync(string memberId)
+        public WaiverViewModel GetWaiver(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                var waiver = await dbCtx.Waivers
-                    .FirstOrDefaultAsync(wv => wv.MemberId == memberId);
-
-                return waiver?.ToViewModel();
+                return dbCtx.Waivers.FirstOrDefault(wv => wv.MemberId == memberId).ToViewModel();
             }
+        }
+
+        public Task<WaiverViewModel> GetWaiverAsync(string memberId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

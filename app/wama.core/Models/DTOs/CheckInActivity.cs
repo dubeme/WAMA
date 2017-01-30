@@ -8,8 +8,8 @@ namespace WAMA.Core.Models.DTOs
 
         public DateTimeOffset CheckInDateTime { get; set; }
 
-        public bool IsCheckedIn { get; set; }
-
         public virtual UserAccount Member { get; set; }
+
+        public bool IsCheckedIn { get; set; }
     }
 }
