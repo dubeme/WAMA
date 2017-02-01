@@ -15,6 +15,8 @@ namespace WAMA.Core.Models.DTOs
 
         public string MiddleName { get; set; }
 
+        public string Email { get; set; }
+
         public string Gender { get; set; }
 
         public bool HasBeenApproved { get; set; }
