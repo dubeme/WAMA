@@ -26,10 +26,10 @@ namespace WAMA.Web.Controllers
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
                 var loginCredential = _CheckInService.GetLogInCredential(memberId);
-
                 if (loginCredential == null)
                 {
-                    SetErrorMessages("The ID that you entered does not exit.Please Try again or contact the manager ");
+                    ViewBag.IsNull = "yes";
+                    SetErrorMessages("The ID that you entered does not exit. Please check your ID");
                 }
                 else
                 {
