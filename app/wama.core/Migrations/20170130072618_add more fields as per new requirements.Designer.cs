@@ -9,9 +9,10 @@ using WAMA.Core.Models.DTOs;
 namespace WAMA.Core.Migrations
 {
     [DbContext(typeof(WamaDbContext))]
-    partial class WamaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170130072618_add more fields as per new requirements")]
+    partial class addmorefieldsaspernewrequirements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -96,8 +97,6 @@ namespace WAMA.Core.Migrations
 
                     b.Property<int>("AccountType");
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("Gender");
@@ -149,8 +148,7 @@ namespace WAMA.Core.Migrations
                     b.HasOne("WAMA.Core.Models.DTOs.UserAccount", "Member")
                         .WithMany("Certifications")
                         .HasForeignKey("MemberId")
-                        .HasPrincipalKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasPrincipalKey("MemberId");
                 });
 
             modelBuilder.Entity("WAMA.Core.Models.DTOs.CheckInActivity", b =>
@@ -158,8 +156,7 @@ namespace WAMA.Core.Migrations
                     b.HasOne("WAMA.Core.Models.DTOs.UserAccount", "Member")
                         .WithMany("CheckInActivities")
                         .HasForeignKey("MemberId")
-                        .HasPrincipalKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasPrincipalKey("MemberId");
                 });
 
             modelBuilder.Entity("WAMA.Core.Models.DTOs.LogInCredential", b =>
@@ -167,8 +164,7 @@ namespace WAMA.Core.Migrations
                     b.HasOne("WAMA.Core.Models.DTOs.UserAccount", "Member")
                         .WithOne("LogInCredential")
                         .HasForeignKey("WAMA.Core.Models.DTOs.LogInCredential", "MemberId")
-                        .HasPrincipalKey("WAMA.Core.Models.DTOs.UserAccount", "MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasPrincipalKey("WAMA.Core.Models.DTOs.UserAccount", "MemberId");
                 });
 
             modelBuilder.Entity("WAMA.Core.Models.DTOs.Waiver", b =>
@@ -176,8 +172,7 @@ namespace WAMA.Core.Migrations
                     b.HasOne("WAMA.Core.Models.DTOs.UserAccount", "Member")
                         .WithMany("Waivers")
                         .HasForeignKey("MemberId")
-                        .HasPrincipalKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasPrincipalKey("MemberId");
                 });
         }
     }

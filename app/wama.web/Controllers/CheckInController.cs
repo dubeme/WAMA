@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WAMA.Core.Models.Service;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,11 +22,10 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string memberId)
+        public async Task<IActionResult> Index(string memberId)
         {
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
-                var loginCredential = _CheckInService.GetLogInCredential(memberId);
                 if (loginCredential == null)
                 {
                     ViewBag.IsNull = "yes";

@@ -24,6 +24,6 @@ namespace WAMA.Core.Models.DTOs
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTimeOffset __LastUpdatedOn { get; set; }
+        public DateTimeOffset __LastUpdatedOn { get; set; } = DateTimeOffset.Now;
     }
 }
