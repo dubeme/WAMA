@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Threading.Tasks;
 using WAMA.Core.Models;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Provider;
@@ -27,7 +28,7 @@ namespace WAMAcut.Services
         }
 
         [Fact]
-        public void GetLoginCredentialTest()
+        public async Task GetLoginCredentialTest()
         {
             var mockLoginCredentialSet = new Mock<DbSet<LogInCredential>>();
 
@@ -38,7 +39,7 @@ namespace WAMAcut.Services
             mockDbCtxProvider.Setup(dbCtxProvider => dbCtxProvider.GetWamaDbContext()).Returns(mockDbCtx.Object);
 
             var service = new CheckInService(mockDbCtxProvider.Object);
-            service.GetLogInCredential("");
+            await service.GetLogInCredentialAsync("");
 
             mockLoginCredentialSet.Verify(m => m.Add(It.IsAny<LogInCredential>()), Times.Once());
             mockDbCtx.Verify(ctx => ctx.SaveChanges(), Times.Once());

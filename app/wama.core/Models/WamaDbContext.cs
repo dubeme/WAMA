@@ -26,25 +26,29 @@ namespace WAMA.Core.Models
                 .HasOne(cert => cert.Member)
                 .WithMany(ua => ua.Certifications)
                 .HasForeignKey(cert => cert.MemberId)
-                .HasPrincipalKey(ua => ua.MemberId);
+                .HasPrincipalKey(ua => ua.MemberId)
+                .OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CheckInActivity>()
                 .HasOne(cia => cia.Member)
                 .WithMany(ua => ua.CheckInActivities)
                 .HasForeignKey(cia => cia.MemberId)
-                .HasPrincipalKey(ua => ua.MemberId);
+                .HasPrincipalKey(ua => ua.MemberId)
+                .OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Cascade);
 
             modelBuilder.Entity<LogInCredential>()
                 .HasOne(lc => lc.Member)
                 .WithOne(ua => ua.LogInCredential)
                 .HasForeignKey<LogInCredential>(lc => lc.MemberId)
-                .HasPrincipalKey<UserAccount>(ua => ua.MemberId);;
+                .HasPrincipalKey<UserAccount>(ua => ua.MemberId)
+                .OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Waiver>()
                 .HasOne(wv => wv.Member)
                 .WithMany(ua => ua.Waivers)
                 .HasForeignKey(wv => wv.MemberId)
-                .HasPrincipalKey(ua => ua.MemberId);
+                .HasPrincipalKey(ua => ua.MemberId)
+                .OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Cascade);
         }
     }
 }
