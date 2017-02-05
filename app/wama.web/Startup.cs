@@ -32,6 +32,7 @@ namespace WAMA.Web
 
             services.AddTransient<IDbContextProvider, DbContextProvider>();
             services.AddTransient<ICheckInService, CheckInService>();
+            services.AddTransient<ICSVService, CSVService>();
             services.AddTransient<IUserAccountService, UserAccountService>();
             services.AddTransient<ICertificationService, CertificationService>();
             services.AddTransient<IWaiverService, WaiverService>();

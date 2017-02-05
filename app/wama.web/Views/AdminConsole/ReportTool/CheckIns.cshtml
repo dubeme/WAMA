@@ -1,9 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+﻿@using WAMA.Core.ViewModel;
 @using WAMA.Web.Model;
 
+@Html.Partial("DisplayError")
+
 @{
-    ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS;
+
+    if (!(Model is IEnumerable<CheckInActivityViewModel>))
+    {
+        @Html.Partial("ReportToolFilter")
+
+    }
+    else
+    {
+        @model IEnumerable<CheckInActivityViewModel>
+
+        <a href="">filter</a>
+        if (object.Equals(Model, null) || Model.Any() == false)
+        {
+            <h4 class="text-danger">No check-in activities</h4>
+        }
+        else
+        {
+            <div>
+                @foreach (var group in Model.GroupBy(checkInActivity => checkInActivity.CheckInDateTime.Date))
+                {
+                    <div>
+                        <h4>@group.Key.ToString("D")</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).MemberId)</th>
+                                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).Time)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var checkInActivity in group.OrderBy(ci => ci.CheckInDateTime))
+                                {
+                                    <tr>
+                                        @*<td>@string.Format("{0} {1} ({2})", item.Member.FirstName, item.Member.LastName, item.MemberId)</td>*@
+                                        <td class="no-wrap-text">@checkInActivity.MemberId</td>
+                                        <td class="no-wrap-text">@checkInActivity.Time</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        }
+    }
 }

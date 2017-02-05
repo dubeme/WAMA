@@ -84,6 +84,7 @@ namespace WAMA.Core.Services
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 return await dbCtx.CheckInActivities
+                    .Include(checkInActivity => checkInActivity.Member)
                     .Where(checkInActivity => checkInActivity.CheckInDateTime >= start && checkInActivity.CheckInDateTime <= end)
                     .Select(checkInActivity => checkInActivity.ToViewModel())
                     .ToListAsync();

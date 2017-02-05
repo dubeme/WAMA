@@ -40,6 +40,10 @@ td {
     clear:both;
 }
 
+.no-wrap-text {
+    white-space:nowrap;
+}
+
 /*
  * Admin console 
  */

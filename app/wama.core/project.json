@@ -8,7 +8,7 @@
         "NETStandard.Library": "1.6.1"
     },
     "tools": {
-        "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.0.0-preview3-final"
+        "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final"
     },
     "frameworks": {
         "netstandard1.6": {
