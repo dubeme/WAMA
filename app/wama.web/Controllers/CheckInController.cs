@@ -24,12 +24,12 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string memberId)
         {
-            var loginCredential = await _CheckInService.GetLogInCredentialAsync(memberId);
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
+                var loginCredential = await _CheckInService.GetLogInCredentialAsync(memberId);
                 if (loginCredential == null)
                 {
-                    ViewBag.IsNull = "true";
+                    ViewBag.AccountnotExist = "true";
                     SetErrorMessages("The ID that you entered does not exit. Please check your ID");
                 }
                 else
