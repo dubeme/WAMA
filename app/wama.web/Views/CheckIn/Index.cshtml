@@ -23,11 +23,13 @@
             <div class="form-group col-xs-12">
                 <input type="submit" class="btn btn-lg btn-primary big-action-button" value="Check In" />
             </div>
-
             <br />
             <br />
             <br />
-            <a href='@Url.Content("~/Patron/Create")'>create new account</a>
+            @if (ViewBag.AccountExists == "false")
+            {
+                 <a href='@Url.Content("~/Patron/Create")'>create new account</a>
+            }
         </form>
     </div>
 </div>
