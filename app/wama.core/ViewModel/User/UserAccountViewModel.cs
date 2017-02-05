@@ -16,6 +16,10 @@ namespace WAMA.Core.ViewModel.User
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "Middle Name")]
+        public string MiddleName { get; set; }
+
+        [Required]
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
@@ -31,5 +35,11 @@ namespace WAMA.Core.ViewModel.User
         [Required]
         [Display(Name = "Member Id")]
         public string MemberId { get; set; }
+
+        [Display(Name = "Account has been approved")]
+        public bool HasBeenApproved { get; set; }
+
+        [Display(Name = "Account is suspended")]
+        public bool IsSuspended { get; set; }
     }
 }
