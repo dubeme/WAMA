@@ -1,4 +1,5 @@
-﻿using WAMA.Core.Models.DTOs;
+﻿using System;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Extensions
@@ -7,12 +8,7 @@ namespace WAMA.Core.Extensions
     {
         public static CheckInActivity ToDTO(this CheckInActivityViewModel viewModel)
         {
-            return new CheckInActivity
-            {
-                CheckInDateTime = viewModel.CheckInDateTime,
-                IsCheckedIn = viewModel.IsCheckedIn,
-                MemberId = viewModel.MemberId
-            };
+            throw new NotImplementedException();
         }
 
         public static CheckInActivityViewModel ToViewModel(this CheckInActivity dto)
@@ -21,7 +17,8 @@ namespace WAMA.Core.Extensions
             {
                 CheckInDateTime = dto.CheckInDateTime,
                 IsCheckedIn = dto.IsCheckedIn,
-                MemberId = dto.MemberId
+                MemberId = dto.MemberId,
+                Member = dto.Member
             };
         }
     }

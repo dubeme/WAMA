@@ -11,9 +11,14 @@ namespace WAMA.Core.Extensions
             return new UserAccount
             {
                 AccountType = user.AccountType,
+                Email = user.Email,
                 FirstName = user.FirstName,
+                Gender = user.Gender,
+                HasBeenApproved = user.HasBeenApproved,
+                IsSuspended = user.IsSuspended,
                 LastName = user.LastName,
-                MemberId = user.MemberId
+                MemberId = user.MemberId,
+                MiddleName = user.MiddleName
             };
         }
 
@@ -50,9 +55,14 @@ namespace WAMA.Core.Extensions
                     throw new ArgumentException("User has an invalid account type", nameof(user));
             }
 
+            userViewModel.Email = user.Email;
             userViewModel.FirstName = user.FirstName;
+            userViewModel.Gender = user.Gender;
+            userViewModel.HasBeenApproved = user.HasBeenApproved;
+            userViewModel.IsSuspended = user.IsSuspended;
             userViewModel.LastName = user.LastName;
             userViewModel.MemberId = user.MemberId;
+            userViewModel.MiddleName = user.MiddleName;
 
             return userViewModel;
         }
