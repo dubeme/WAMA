@@ -26,17 +26,10 @@
             <br />
             <br />
             <br />
-            <script>
-                     var IsNull = '@ViewBag.IsNull';
-                     var CurrentLoc = window.location.href;
-                     var link = document.createElement('a');
-                     if (IsNull == "yes")
-                     {
-                         link.setAttribute('href', CurrentLoc + "Patron/Create");
-                         link.innerHTML = "Create New Account"
-                         document.body.appendChild(link);
-                     }
-            </script>
+            @if (ViewBag.IsNull == "true")
+            {
+                 <a href='@Url.Content("~/Patron/Create")'>create new account</a>
+            }
         </form>
     </div>
 </div>
