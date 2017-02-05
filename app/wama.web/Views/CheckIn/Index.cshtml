@@ -26,7 +26,7 @@
             <br />
             <br />
             <br />
-            @if (ViewBag.AccountnotExist == "true")
+            @if (ViewBag.AccountExists == "false")
             {
                  <a href='@Url.Content("~/Patron/Create")'>create new account</a>
             }

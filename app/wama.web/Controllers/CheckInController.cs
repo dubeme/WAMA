@@ -29,7 +29,7 @@ namespace WAMA.Web.Controllers
                 var loginCredential = await _CheckInService.GetLogInCredentialAsync(memberId);
                 if (loginCredential == null)
                 {
-                    ViewBag.AccountnotExist = "true";
+                    ViewBag.AccountExists = "false";
                     SetErrorMessages("The ID that you entered does not exit. Please check your ID");
                 }
                 else
