@@ -15,6 +15,7 @@ namespace WAMA.Core.Extensions
                 FirstName = user.FirstName,
                 Gender = user.Gender,
                 HasBeenApproved = user.HasBeenApproved,
+                InstitutionAffliation = user.InstitutionAffliation,
                 IsSuspended = user.IsSuspended,
                 LastName = user.LastName,
                 MemberId = user.MemberId,
@@ -59,6 +60,7 @@ namespace WAMA.Core.Extensions
             userViewModel.FirstName = user.FirstName;
             userViewModel.Gender = user.Gender;
             userViewModel.HasBeenApproved = user.HasBeenApproved;
+            userViewModel.InstitutionAffliation = user.InstitutionAffliation;
             userViewModel.IsSuspended = user.IsSuspended;
             userViewModel.LastName = user.LastName;
             userViewModel.MemberId = user.MemberId;
