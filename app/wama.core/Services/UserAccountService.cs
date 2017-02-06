@@ -7,6 +7,7 @@ using WAMA.Core.Extensions;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
+using WAMA.Core.ViewModel;
 using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
@@ -26,6 +27,23 @@ namespace WAMA.Core.Services
             {
                 dbCtx.UserAccounts.Add(userAccount.ToDTO());
                 await dbCtx.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.UserAccounts
+                    .Where(user => user.AccountType == type)
+                    .Select(user => new ListservViewModel
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        MiddleName = user.MiddleName,
+                        Email = user.Email
+                    })
+                    .ToListAsync();
             }
         }
 

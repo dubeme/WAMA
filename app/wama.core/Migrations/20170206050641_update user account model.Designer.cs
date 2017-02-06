@@ -9,9 +9,10 @@ using WAMA.Core.Models.DTOs;
 namespace WAMA.Core.Migrations
 {
     [DbContext(typeof(WamaDbContext))]
-    partial class WamaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170206050641_update user account model")]
+    partial class updateuseraccountmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")

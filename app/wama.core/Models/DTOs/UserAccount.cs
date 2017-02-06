@@ -4,7 +4,6 @@ namespace WAMA.Core.Models.DTOs
 {
     public class UserAccount : TableRow
     {
-
         public UserAccountType AccountType { get; set; }
 
         public string MemberId { get; set; }
@@ -17,7 +16,8 @@ namespace WAMA.Core.Models.DTOs
 
         public string Email { get; set; }
 
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
+        public InstitutionAffiliation InstitutionAffliation { get; set; }
 
         public bool HasBeenApproved { get; set; }
 

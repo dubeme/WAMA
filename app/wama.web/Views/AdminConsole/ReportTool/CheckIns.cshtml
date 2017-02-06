@@ -7,8 +7,13 @@
 
     if (!(Model is IEnumerable<CheckInActivityViewModel>))
     {
-        @Html.Partial("ReportToolFilter")
+        var dummyFilter = new ReportToolFilterViewModel
+        {
+            StartDate = new DateTimeOffset(2017, 1, 1, 0, 0, 0, TimeSpan.FromHours(0)),
+            EndDate = DateTimeOffset.Now
+        };
 
+        @Html.Partial("ReportToolFilter", dummyFilter);
     }
     else
     {

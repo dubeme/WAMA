@@ -4,6 +4,8 @@
 
 @{
 
+    @Html.Partial("DisplayError")
+
     if (object.Equals(Model, null))
     {
         <h1>No user account found</h1>
@@ -11,8 +13,6 @@
     else
     {
         <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-
-            @Html.Partial("DisplayError")
 
             <div class="form-group col-xs-12">
                 <a href="@($"{Model.AccountType}s")">
