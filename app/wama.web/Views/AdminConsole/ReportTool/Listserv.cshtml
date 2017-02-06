@@ -1,9 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+﻿@using WAMA.Core.ViewModel;
 @using WAMA.Web.Model;
 
+@Html.Partial("DisplayError")
+
 @{
-    ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = Constants.ADMIN_CONSOLE_REPORTS_LISTSERV;
+    @model IEnumerable<ListservViewModel>
+
+    if (object.Equals(Model, null) || Model.Any() == false)
+    {
+        <h4 class="text-danger">Nothing to show here</h4>
+    }
+    else
+    {
+        <div class="">
+            <form asp-antiforgery="true" method="post">
+                <input type="hidden" name="ActiveTool" value="@ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL]" />
+                <div class="form-group col-xs-12">
+                    <button type="submit" class="btn btn-lg btn-success" asp-action="DownloadCSV">Download Listserv data</button>
+                </div>
+            </form>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).FirstName)</th>
+                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).LastName)</th>
+                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).MiddleName)</th>
+                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).Email)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var listservData in Model)
+                {
+                    <tr>
+                        <td class="no-wrap-text">@listservData.FirstName</td>
+                        <td class="no-wrap-text">@listservData.LastName</td>
+                        <td class="no-wrap-text">@listservData.MiddleName</td>
+                        <td class="no-wrap-text"><a href="mailto:@listservData.Email">@listservData.Email</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
