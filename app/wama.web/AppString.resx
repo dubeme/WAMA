@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountWithIdDoesntExist" xml:space="preserve">
+    <value>No user account has the member ID {0}.</value>
+  </data>
   <data name="AccountWithSameMemberIdExist" xml:space="preserve">
     <value>Account with same member ID {0} already exist</value>
   </data>

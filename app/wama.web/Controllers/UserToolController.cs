@@ -85,11 +85,24 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> EditAccount(string memberId)
         {
-            var account = await _UserAccountService.GetUserAccountAsync(memberId);
+            UserAccountViewModel account = null;
 
-            if (Equals(account, null) && AccountTypeToolsMapping.ContainsKey(account.AccountType))
+            if (!string.IsNullOrWhiteSpace(memberId))
             {
-                SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
+                account = await _UserAccountService.GetUserAccountAsync(memberId);
+
+                if (Equals(account, null))
+                {
+                    SetErrorMessages(string.Format(AppString.AccountWithIdDoesntExist, memberId));
+                }
+                else if (AccountTypeToolsMapping.ContainsKey(account.AccountType))
+                {
+                    SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
+                }
+                else
+                {
+                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS);
+                }
             }
 
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", account);
