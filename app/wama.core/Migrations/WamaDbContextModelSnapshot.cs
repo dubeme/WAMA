@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using WAMA.Core.Models;
-using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.Migrations
 {
