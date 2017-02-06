@@ -116,7 +116,7 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAccount(UserAccountViewModel user)
+        public IActionResult DeleteAccount(UserAccountViewModel user)
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
         }
