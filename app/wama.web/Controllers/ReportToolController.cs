@@ -22,7 +22,7 @@ namespace WAMA.Web.Controllers
 
         public IActionResult Index()
         {
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Index.cshtml");
+            return RedirectToAction(nameof(CheckIns));
         }
 
         [HttpPost]
