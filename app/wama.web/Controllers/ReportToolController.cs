@@ -46,7 +46,7 @@ namespace WAMA.Web.Controllers
 
                     break;
 
-                case Constants.ADMIN_CONSOLE_REPORTS_LISTSERV:
+                case Constants.ADMIN_CONSOLE_REPORTS_USERS:
                     var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
                     extension = "text/txt";
                     fileName = "patron-emails.txt";
@@ -84,25 +84,13 @@ namespace WAMA.Web.Controllers
 
             return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/CheckIns.cshtml", checkIns);
         }
-
-        public IActionResult Users()
-        {
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml");
-        }
-
-        public async Task<IActionResult> Listserv()
+        
+        public async Task<IActionResult> Users()
         {
             var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_LISTSERV);
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
 
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Listserv.cshtml", listservData);
-        }
-
-        public IActionResult Clinics()
-        {
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_CLINICS);
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Clinics.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml", listservData);
         }
     }
 }
