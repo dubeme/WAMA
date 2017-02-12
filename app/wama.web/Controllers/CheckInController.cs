@@ -8,10 +8,14 @@ namespace WAMA.Web.Controllers
 {
     public class CheckInController : WamaBaseController
     {
+        private IUserAccountService _UserAccountService;
+        private IWaiverService _waiverService;
         private static ICheckInService _CheckInService;
 
-        public CheckInController(ICheckInService checkInService)
+        public CheckInController(IUserAccountService userAccountService, ICheckInService checkInService, IWaiverService waiverService)
         {
+            _UserAccountService = userAccountService;
+            _waiverService = waiverService;
             _CheckInService = checkInService;
         }
 
@@ -26,17 +30,22 @@ namespace WAMA.Web.Controllers
         {
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
-                var loginCredential = await _CheckInService.GetLogInCredentialAsync(memberId);
-                if (loginCredential == null)
+                var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
+
+                if(userAccount == null)
                 {
                     ViewBag.AccountExists = "false";
-                    SetErrorMessages("The ID that you entered does not exit. Please check your ID");
+                    SetErrorMessages(AppString.IDNotExists);
+                }
+                else if (!userAccount.HasBeenApproved)
+                {
+                    SetErrorMessages(AppString.AccountPendingApprovalMessage);
                 }
                 else
                 {
                     return RedirectToAction(
-                        actionName: nameof(Successful),
-                        routeValues: memberId);
+                            actionName: nameof(Successful),
+                            routeValues: memberId);
                 }
             }
 
