@@ -28,7 +28,7 @@
             <br />
             @if (ViewBag.AccountExists == "false")
             {
-                 <a href='@Url.Content("~/Patron/Create")'>create new account</a>
+                 <a href='@Url.Content("~/Patron/Create?memberid=" + @ViewBag.NonMemberId)'>create new account</a>
             }
         </form>
     </div>

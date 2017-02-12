@@ -58,7 +58,6 @@ namespace WAMA.Web.Controllers
                         await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
 
                         await _UserAccountService.CreateUserAsync(patron);
-                        await _CheckInService.CreateLogInCredentialAsync(patron);
 
                         return RedirectToAction(
                             actionName: nameof(CheckInController.Index),
