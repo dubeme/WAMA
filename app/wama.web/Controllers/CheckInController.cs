@@ -34,6 +34,7 @@ namespace WAMA.Web.Controllers
 
                 if(userAccount == null)
                 {
+                    ViewBag.NonMemberId = memberId;
                     ViewBag.AccountExists = "false";
                     SetErrorMessages(AppString.IDNotExists);
                 }
