@@ -60,6 +60,15 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Account approval pending. Please contact front desk..
+        /// </summary>
+        public static string AccountPendingApprovalMessage {
+            get {
+                return ResourceManager.GetString("AccountPendingApprovalMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to No user account has the member ID {0}..
         /// </summary>
         public static string AccountWithIdDoesntExist {
@@ -110,6 +119,15 @@ namespace WAMA.Web {
         public static string ErrorMessages {
             get {
                 return ResourceManager.GetString("ErrorMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Member ID does not exists. Create a new account..
+        /// </summary>
+        public static string IDNotExists {
+            get {
+                return ResourceManager.GetString("IDNotExists", resourceCulture);
             }
         }
         
