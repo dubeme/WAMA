@@ -58,29 +58,7 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<UserAccountViewModel> GetSuspendedUserAccountAsync()
-        {
-
-            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
-            {
-                var userAccount = await dbCtx.UserAccounts
-                    .FirstOrDefaultAsync(user => user.IsSuspended == true);
-
-                return userAccount?.ToViewModel();
-            }
-        }
-
-        public async Task<UserAccountViewModel> GetPendingUserAccountAsync()
-        {
-
-            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
-            {
-                var userAccount = await dbCtx.UserAccounts
-                    .FirstOrDefaultAsync(user => user.HasBeenApproved == false);
-
-                return userAccount?.ToViewModel();
-            }
-        }
+      
 
         public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
         {

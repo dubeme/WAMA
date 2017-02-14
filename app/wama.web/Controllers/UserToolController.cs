@@ -22,6 +22,9 @@ namespace WAMA.Web.Controllers
             { UserAccountType.Administrator, Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS}
         };
 
+        // Used to throttle account creation rate
+        private const int ACCOUNT_CREATION_THROTTLE_RATE = 10;
+
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
 
@@ -29,7 +32,6 @@ namespace WAMA.Web.Controllers
         {
             _UserAccountService = userAccountService;
             _CheckInService = checkinService;
-
         }
 
         public async Task<IActionResult> Index()
@@ -42,7 +44,6 @@ namespace WAMA.Web.Controllers
             ViewData["PendingManager"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Manager);
             ViewData["PendingEmployee"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Employee);
             ViewData["PendingPatron"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Patron);
-          
 
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
         }
@@ -99,8 +100,6 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewAccount.cshtml", account);
         }
 
-
-
         public IActionResult UserAccountAddNewUser()
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
@@ -141,7 +140,6 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UserAccountAddNewUser(PatronUserAccountViewModel user)
         {
-
             if (!ModelState.IsValid)
             {
                 this.SetErrorMessages(ModelState.Values
@@ -161,7 +159,7 @@ namespace WAMA.Web.Controllers
                 {
                     try
                     {
-                        //await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
+                        await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
 
                         await _UserAccountService.CreateUserAsync(user);
                         await _CheckInService.CreateLogInCredentialAsync(user);
@@ -196,10 +194,8 @@ namespace WAMA.Web.Controllers
                 }
             }
 
-
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml");
         }
-
 
         [HttpPost]
         public IActionResult DeleteAccount(UserAccountViewModel user)

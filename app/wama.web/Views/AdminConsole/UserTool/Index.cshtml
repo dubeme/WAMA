@@ -3,11 +3,7 @@
 
 <h2>User account summaries</h2>
 
-
-
-<center>
-    <h3>Accounts pending approval</h3>
-</center>
+<h3 class="text-center">Accounts pending approval</h3>
 <div>
     <h4>Pending Administrators</h4>
     @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["PendingAdministrator"])
@@ -19,21 +15,14 @@
     @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["PendingPatron"])
 </div>
 
-
-<center>
-<h3>Suspended Account List </h3>
-    </center>
-        <div>
-            <h4>Suspended Administrators</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedAdministrator"])
-            <h4>Suspended Managers</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedManager"])
-            <h4>Suspended Employees</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedEmployee"])
-            <h4>Suspended Patrons</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedPatron"])
-        </div>
-
-
-
-
+<h3 class="text-center">Suspended Account List </h3>
+<div>
+    <h4>Suspended Administrators</h4>
+    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedAdministrator"])
+    <h4>Suspended Managers</h4>
+    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedManager"])
+    <h4>Suspended Employees</h4>
+    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedEmployee"])
+    <h4>Suspended Patrons</h4>
+    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedPatron"])
+</div>

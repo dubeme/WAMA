@@ -11,11 +11,11 @@ namespace WAMA.Core.Models.Service
         Task CreateUserAsync(UserAccountViewModel userAccount);
 
         Task<UserAccountViewModel> GetUserAccountAsync(string memberId);
-        Task<UserAccountViewModel> GetSuspendedUserAccountAsync();
-        Task<UserAccountViewModel> GetPendingUserAccountAsync();
 
         Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type);
+
         Task<IEnumerable<UserAccountViewModel>> GetSuspendedUserAccountsAsync(UserAccountType type);
+
         Task<IEnumerable<UserAccountViewModel>> GetPendingUserAccountsAsync(UserAccountType type);
 
         Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type);
