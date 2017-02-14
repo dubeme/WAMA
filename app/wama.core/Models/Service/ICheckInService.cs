@@ -19,5 +19,10 @@ namespace WAMA.Core.Models.Service
         Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start);
 
         Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end);
+
+        Task<IEnumerable<CheckInActivityAggregateViewModel>> GetCheckInActivityAggregatesAsync(
+           DateTimeOffset start,
+           DateTimeOffset end,
+           ReportGranularity granularity);
     }
 }

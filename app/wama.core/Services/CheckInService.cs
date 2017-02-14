@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Extensions;
@@ -88,6 +90,46 @@ namespace WAMA.Core.Services
                     .Where(checkInActivity => checkInActivity.CheckInDateTime >= start && checkInActivity.CheckInDateTime <= end)
                     .Select(checkInActivity => checkInActivity.ToViewModel())
                     .ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<CheckInActivityAggregateViewModel>> GetCheckInActivityAggregatesAsync(
+            DateTimeOffset start,
+            DateTimeOffset end,
+            ReportGranularity granularity)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                using (var connection = dbCtx.Database.GetDbConnection())
+                {
+                    await connection.OpenAsync();
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "GetCheckInAggregate";
+
+                        command.Parameters.Add(new SqlParameter("@granularity", granularity));
+                        command.Parameters.Add(new SqlParameter("@startDate", start));
+                        command.Parameters.Add(new SqlParameter("@endDate", end));
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            var aggregates = new List<CheckInActivityAggregateViewModel>();
+
+                            while (reader.Read())
+                            {
+                                aggregates.Add(new CheckInActivityAggregateViewModel
+                                {
+                                    Time = Convert.ToDateTime(reader["time"]),
+                                    Count = Convert.ToInt32(reader["count"]),
+                                    ReportGranularity = granularity
+                                });
+                            }
+
+                            return aggregates;
+                        }
+                    }
+                }
             }
         }
     }
