@@ -123,20 +123,20 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to Member ID does not exists. Create a new account..
-        /// </summary>
-        public static string IDNotExists {
-            get {
-                return ResourceManager.GetString("IDNotExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///    Looks up a localized string similar to Manager.
         /// </summary>
         public static string ManagerLabel {
             get {
                 return ResourceManager.GetString("ManagerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to No account with member ID {0} exists. Create a new account..
+        /// </summary>
+        public static string NoAccountExistsWithID {
+            get {
+                return ResourceManager.GetString("NoAccountExistsWithID", resourceCulture);
             }
         }
         

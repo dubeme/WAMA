@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WAMA.Core.Models.Contracts;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel;
 using WAMA.Web.Model;
@@ -22,7 +25,7 @@ namespace WAMA.Web.Controllers
 
         public IActionResult Index()
         {
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Index.cshtml");
+            return RedirectToAction(nameof(CheckInReports));
         }
 
         [HttpPost]
@@ -35,18 +38,31 @@ namespace WAMA.Web.Controllers
             switch (filter.ActiveTool)
             {
                 case Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS:
-                    var checkIns = await _CheckInService.GetCheckInActivitiesForPeriodAsync(filter.StartDate, filter.EndDate);
+
+                    IEnumerable<ISerializableToCSV> reports;
+
+                    if (filter.ReportGranularity == ReportGranularity.Individual)
+                    {
+                        reports = await _CheckInService
+                            .GetCheckInActivitiesForPeriodAsync(filter.StartDate, filter.EndDate);
+                    }
+                    else
+                    {
+                        reports = await _CheckInService
+                            .GetCheckInActivityAggregatesAsync(filter.StartDate, filter.EndDate, filter.ReportGranularity);
+                    }
+
                     extension = "text/csv";
                     fileName = "check-ins.csv";
 
-                    if (Equals(checkIns, null) == false)
+                    if (Equals(reports, null) == false)
                     {
-                        csvBytes = System.Text.Encoding.ASCII.GetBytes(_CSVService.ToCSV(checkIns));
+                        csvBytes = System.Text.Encoding.ASCII.GetBytes(_CSVService.ToCSV(reports));
                     }
 
                     break;
 
-                case Constants.ADMIN_CONSOLE_REPORTS_LISTSERV:
+                case Constants.ADMIN_CONSOLE_REPORTS_USERS:
                     var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
                     extension = "text/txt";
                     fileName = "patron-emails.txt";
@@ -70,39 +86,66 @@ namespace WAMA.Web.Controllers
             return File(csvBytes, extension, fileName);
         }
 
-        public IActionResult CheckIns()
+        public IActionResult CheckInReports()
         {
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS);
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/CheckIns.cshtml");
+
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/CheckInReports.cshtml", new ReportToolFilterViewModel
+            {
+                StartDate = new DateTimeOffset(2017, 1, 1, 0, 0, 0, TimeSpan.FromHours(0)),
+                EndDate = DateTimeOffset.Now,
+                ActiveTool = Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS
+            });
         }
 
         [HttpPost]
+        public IActionResult CheckInReports(ReportToolFilterViewModel filter)
+        {
+            var queryParams = new Dictionary<string, object>
+            {
+                { nameof(filter.StartDate), $"{filter.StartDate:MM-dd-yyyy}" },
+                { nameof(filter.EndDate), $"{filter.EndDate:MM-dd-yyyy}"},
+                { nameof(filter.ReportGranularity), filter.ReportGranularity },
+                { nameof(filter.ActiveTool), filter.ActiveTool },
+            };
+
+            return RedirectToAction(nameof(CheckIns), queryParams);
+        }
+
         public async Task<IActionResult> CheckIns(ReportToolFilterViewModel filter)
         {
-            var checkIns = await _CheckInService.GetCheckInActivitiesForPeriodAsync(filter.StartDate, filter.EndDate);
+            if (string.IsNullOrWhiteSpace(filter.ActiveTool))
+            {
+                return RedirectToAction(nameof(CheckInReports));
+            }
+
+            var result = new CheckInReportResultViewModel
+            {
+                ReportFilter = filter
+            };
+
+            if (filter.ReportGranularity == ReportGranularity.Individual)
+            {
+                result.IndividualCheckInActivities = await _CheckInService
+                    .GetCheckInActivitiesForPeriodAsync(filter.StartDate, filter.EndDate);
+            }
+            else
+            {
+                result.CheckInActivityAggregates = await _CheckInService
+                    .GetCheckInActivityAggregatesAsync(filter.StartDate, filter.EndDate, filter.ReportGranularity);
+            }
+
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS);
 
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/CheckIns.cshtml", checkIns);
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/CheckIns.cshtml", result);
         }
 
-        public IActionResult Users()
-        {
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml");
-        }
-
-        public async Task<IActionResult> Listserv()
+        public async Task<IActionResult> Users()
         {
             var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_LISTSERV);
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
 
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Listserv.cshtml", listservData);
-        }
-
-        public IActionResult Clinics()
-        {
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_CLINICS);
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Clinics.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml", listservData);
         }
     }
 }
