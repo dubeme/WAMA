@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WAMA.Core.Models.Attributes;
+using WAMA.Core.Models.Contracts;
 using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.ViewModel
 {
-    public class CheckInActivityViewModel
+    public class CheckInActivityViewModel : ISerializableToCSV
     {
         [Display(Name = "Member ID")]
         public string MemberId { get; set; }
 
         [Display(Name = "Check In Date/Time")]
-        [CSVIgnore]
         public DateTimeOffset CheckInDateTime { get; set; }
 
         [Display(Name = "Is checked in")]
@@ -24,7 +24,32 @@ namespace WAMA.Core.ViewModel
         public string Time => $"{CheckInDateTime:T}";
 
         [Display(Name = "Member")]
-        [CSVIgnore]
         public virtual UserAccount Member { get; set; }
+
+        public IEnumerable<string> Headers
+        {
+            get
+            {
+                return new string[] {
+                    nameof(MemberId),
+                    nameof(IsCheckedIn),
+                    nameof(Date),
+                    nameof(Time)
+                };
+            }
+        }
+
+        public IEnumerable<string> CSVString
+        {
+            get
+            {
+                return new string[] {
+                    MemberId,
+                    IsCheckedIn.ToString(),
+                    Date,
+                    Time
+                };
+            }
+        }
     }
 }

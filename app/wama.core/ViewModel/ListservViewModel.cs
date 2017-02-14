@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using WAMA.Core.Models.Contracts;
 using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.ViewModel
 {
-    public class ListservViewModel
+    public class ListservViewModel : ISerializableToCSV
     {
         public virtual UserAccountType AccountType { get; }
 
@@ -18,5 +20,31 @@ namespace WAMA.Core.ViewModel
 
         [Display(Name = "Email Address")]
         public string Email { get; set; }
+
+        public IEnumerable<string> Headers
+        {
+            get
+            {
+                return new string[] {
+                    nameof(FirstName),
+                    nameof(LastName),
+                    nameof(MiddleName),
+                    nameof(Email)
+                };
+            }
+        }
+
+        public IEnumerable<string> CSVString
+        {
+            get
+            {
+                return new string[] {
+                    FirstName,
+                    LastName,
+                    MiddleName,
+                    Email
+                };
+            }
+        }
     }
 }
