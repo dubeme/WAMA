@@ -13,13 +13,7 @@
     {
         var controller = nameof(WAMA.Web.Controllers.UserToolController).StripController();
         var action = nameof(WAMA.Web.Controllers.UserToolController.ViewAccount);
-
-        <a href='@Url.Content("~/AdminConsole/UserTool/UserAccountAddNewUser")'>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New User
-        </a>
-
-        <br>
-        <br>
+        
         <table class="table table-bordered" id="@Constants.DATA_TABLE">
             <thead>
                 <tr>
