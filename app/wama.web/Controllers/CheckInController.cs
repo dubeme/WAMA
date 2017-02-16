@@ -32,7 +32,7 @@ namespace WAMA.Web.Controllers
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
 
-                if(userAccount == null)
+                if (userAccount == null)
                 {
                     ViewBag.AccountExists = "false";
                     ViewBag.MemberId = memberId;
