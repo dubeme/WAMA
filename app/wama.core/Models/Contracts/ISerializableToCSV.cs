@@ -6,6 +6,6 @@ namespace WAMA.Core.Models.Contracts
     {
         IEnumerable<string> Headers { get; }
 
-        IEnumerable<string> CSVString { get;  }
+        IEnumerable<string> CSVString { get; }
     }
 }

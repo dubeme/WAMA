@@ -1,5 +1,4 @@
-﻿using System;
-using WAMA.Core.Models;
+﻿using WAMA.Core.Models;
 using WAMA.Core.Models.Provider;
 
 namespace WAMA.Core.Providers

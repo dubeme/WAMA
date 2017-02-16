@@ -58,8 +58,6 @@ namespace WAMA.Core.Services
             }
         }
 
-      
-
         public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -71,13 +69,12 @@ namespace WAMA.Core.Services
             }
         }
 
-
         public async Task<IEnumerable<UserAccountViewModel>> GetSuspendedUserAccountsAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 return await dbCtx.UserAccounts
-                    .Where(user => user.AccountType == type && user.IsSuspended ==true)
+                    .Where(user => user.AccountType == type && user.IsSuspended == true)
                     .Select(user => user.ToViewModel())
                     .ToListAsync();
             }
