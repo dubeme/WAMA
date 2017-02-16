@@ -1,19 +1,26 @@
 ﻿@using WAMA.Core.ViewModel.User;
 @using WAMA.Web.Model;
+@using WAMA.Core.Extensions;
 
 @model IEnumerable<UserAccountViewModel>
 
 @{
-    if (object.Equals(Model, null) || Model.Any() == false)
+    if (Equals(Model, null) || Model.Any() == false)
     {
         <h4 class="text-danger">No @ViewData[Constants.USER_ACCOUNT_TYPE] user accounts found</h4>
     }
     else
     {
-        <a href='@Url.Content("~/AdminConsole/UserTool/UserAccountAddNewUser")'>+Add New User</a>
+        var controller = nameof(WAMA.Web.Controllers.UserToolController).StripController();
+        var action = nameof(WAMA.Web.Controllers.UserToolController.ViewAccount);
+
+        <a href='@Url.Content("~/AdminConsole/UserTool/UserAccountAddNewUser")'>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New User
+        </a>
+
         <br>
         <br>
-        <table class="table table-bordered" id="@WAMA.Web.Model.Constants.DATA_TABLE">
+        <table class="table table-bordered" id="@Constants.DATA_TABLE">
             <thead>
                 <tr>
                     <th>@Html.LabelFor(x => x.ElementAt(0).MemberId)</th>
@@ -25,7 +32,16 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    @Html.DisplayFor(model => item, "UserAccountViewModelTemplate")
+                    <tr>
+                        <th scope="row">
+                            <a asp-controller="@controller"
+                               asp-action="@action"
+                               asp-route-memberid="@item.MemberId">@item.MemberId</a>
+                        </th>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Email</td>
+                    </tr>
                 }
             </tbody>
         </table>
