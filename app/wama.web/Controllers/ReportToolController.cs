@@ -34,6 +34,7 @@ namespace WAMA.Web.Controllers
             byte[] csvBytes = null;
             var extension = "";
             var fileName = "";
+            var reportDate = $"{filter.StartDate:yyyyMMdd}_{filter.EndDate:yyyyMMdd}";
 
             switch (filter.ActiveTool)
             {
@@ -53,7 +54,7 @@ namespace WAMA.Web.Controllers
                     }
 
                     extension = "text/csv";
-                    fileName = "check-ins.csv";
+                    fileName = $"check-in_{reportDate}.csv";
 
                     if (Equals(reports, null) == false)
                     {
@@ -65,7 +66,7 @@ namespace WAMA.Web.Controllers
                 case Constants.ADMIN_CONSOLE_REPORTS_USERS:
                     var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
                     extension = "text/txt";
-                    fileName = "patron-emails.txt";
+                    fileName = $"listserv_{reportDate}.txt";
 
                     if (Equals(listservData, null) == false)
                     {
