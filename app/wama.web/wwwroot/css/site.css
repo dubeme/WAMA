@@ -8,6 +8,9 @@ input#check-in-user-id {
     text-align: center;
 }
 
+.large{
+    font-size:28px;
+}
 .big-action-button {
     padding: 1rem 4rem;
 }
@@ -78,9 +81,9 @@ td {
 
 /* Sidebar navigation */
 .nav-sidebar {
-    /*margin-right: -21px;
+  margin-right: -21px;
   margin-bottom: 20px;
-  margin-left: -20px;*/
+  margin-left: -20px;
 }
 
     .nav-sidebar > li > a {
