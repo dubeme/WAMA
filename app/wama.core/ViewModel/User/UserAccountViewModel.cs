@@ -32,7 +32,7 @@ namespace WAMA.Core.ViewModel.User
 
         [Required]
         [Display(Name = "Affiliation with the school")]
-        public InstitutionAffiliation InstitutionAffliation { get; set; }
+        public InstitutionAffiliation InstitutionAffiliation { get; set; }
 
         [Display(Name = "Account has been approved")]
         public bool HasBeenApproved { get; set; }
