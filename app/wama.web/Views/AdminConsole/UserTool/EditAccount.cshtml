@@ -1,4 +1,5 @@
 ﻿@using WAMA.Core.ViewModel.User;
+@using WAMA.Core.Models.DTOs;
 
 @model UserAccountViewModel
 
@@ -14,32 +15,58 @@
     {
         <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
 
-            <div class="form-group col-xs-12">
-                <a href="@($"{Model.AccountType}s")">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
-                </a>
-            </div>
-
             <form asp-action="@nameof(WAMA.Web.Controllers.UserToolController.EditAccount)" asp-antiforgery="true" method="post">
                 <div class="form-group col-xs-12">
-                    <label asp-for="FirstName"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                </div>
-                <div class="form-group col-xs-12">
-                    <label asp-for="LastName"></label>
-                    <input asp-for="LastName" class="form-control" />
-                </div>
-                <div class="form-group col-xs-12">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                </div>
-                <div class="form-group col-xs-12">
-                    <label asp-for="MemberId"></label>
+                    <label asp-for="MemberId"> </label>
                     <input asp-for="MemberId" class="form-control" />
+                    <span asp-validation-for="MemberId" class="text-danger"></span>
                 </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="FirstName"> </label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="LastName"> </label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="MiddleName"> </label>
+                    <input asp-for="MiddleName" class="form-control" />
+                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="Email"> </label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="AccountType"> </label>
+                    <select asp-for="AccountType" asp-items="@Html.GetEnumSelectList<UserAccountType>()" class="form-control"></select>
+                    <span asp-validation-for="AccountType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="Gender"> </label>
+                    <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control"></select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label asp-for="InstitutionAffiliation"> </label>
+                    <select asp-for="InstitutionAffiliation" asp-items="@Html.GetEnumSelectList<InstitutionAffiliation>()" class="form-control"></select>
+                    <span asp-validation-for="InstitutionAffiliation" class="text-danger"></span>
+                </div>
+
                 <div class="form-group col-xs-12">
                     <button type="submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> save changes
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update Account
                     </button>
                 </div>
             </form>
