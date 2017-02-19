@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using WAMA.Core.Extensions;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel.User;
@@ -18,16 +22,29 @@ namespace WAMA.Web.Controllers
             { UserAccountType.Administrator, Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS}
         };
 
-        private IUserAccountService _UserAccountService;
+        // Used to throttle account creation rate
+        private const int ACCOUNT_CREATION_THROTTLE_RATE = 10;
 
-        public UserToolController(IUserAccountService userAccountService)
+        private IUserAccountService _UserAccountService;
+        private ICheckInService _CheckInService;
+
+        public UserToolController(IUserAccountService userAccountService, ICheckInService checkinService)
         {
             _UserAccountService = userAccountService;
+            _CheckInService = checkinService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS);
+            ViewData["SuspendedAdministrator"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Administrator);
+            ViewData["SuspendedManager"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Manager);
+            ViewData["SuspendedEmployee"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Employee);
+            ViewData["SuspendedPatron"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Patron);
+            ViewData["PendingAdministrator"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Administrator);
+            ViewData["PendingManager"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Manager);
+            ViewData["PendingEmployee"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Employee);
+            ViewData["PendingPatron"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Patron);
+
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
         }
 
@@ -83,13 +100,31 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewAccount.cshtml", account);
         }
 
+        public IActionResult UserAccountAddNewUser()
+        {
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
+        }
+
         public async Task<IActionResult> EditAccount(string memberId)
         {
-            var account = await _UserAccountService.GetUserAccountAsync(memberId);
+            UserAccountViewModel account = null;
 
-            if (Equals(account, null) && AccountTypeToolsMapping.ContainsKey(account.AccountType))
+            if (!string.IsNullOrWhiteSpace(memberId))
             {
-                SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
+                account = await _UserAccountService.GetUserAccountAsync(memberId);
+
+                if (Equals(account, null))
+                {
+                    SetErrorMessages(string.Format(AppString.AccountWithIdDoesntExist, memberId));
+                }
+                else if (AccountTypeToolsMapping.ContainsKey(account.AccountType))
+                {
+                    SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
+                }
+                else
+                {
+                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS);
+                }
             }
 
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", account);
@@ -103,7 +138,67 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAccount(UserAccountViewModel user)
+        public async Task<IActionResult> UserAccountAddNewUser(PatronUserAccountViewModel user)
+        {
+            if (!ModelState.IsValid)
+            {
+                this.SetErrorMessages(ModelState.Values
+                    .Where(val => val.ValidationState == ModelValidationState.Invalid)
+                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
+            }
+            else
+            {
+                var userAccount = await _UserAccountService.GetUserAccountAsync(user.MemberId);
+
+                if (userAccount != null)
+                {
+                    // TODO: User account already exists
+                    SetErrorMessages(string.Format(AppString.AccountWithSameMemberIdExist, user.MemberId));
+                }
+                else
+                {
+                    try
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
+
+                        await _UserAccountService.CreateUserAsync(user);
+                        await _CheckInService.CreateLogInCredentialAsync(user);
+
+                        return RedirectToAction(
+                            actionName: nameof(UserToolController.Patrons),
+                            controllerName: nameof(UserToolController).StripController());
+                    }
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+                    when (ex.InnerException is System.Data.SqlClient.SqlException)
+                    {
+                        if (ex.InnerException.Message.Contains("Cannot insert duplicate key"))
+                        {
+                            // TODO: Revert DB actions on error
+                        }
+                        else
+                        {
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var errMessages = new List<string>();
+
+                        while (ex != null)
+                        {
+                            errMessages.Add(ex.Message);
+                            ex = ex.InnerException;
+                        }
+
+                        SetErrorMessages(errMessages);
+                    }
+                }
+            }
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAccount(UserAccountViewModel user)
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
         }

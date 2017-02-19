@@ -7,6 +7,9 @@ namespace WAMA.Core.ViewModel.User
     {
         public virtual UserAccountType AccountType { get; }
 
+        [Display(Name = "ID (7 digit SDSU ID)")]
+        public string MemberId { get; set; }
+
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -15,13 +18,8 @@ namespace WAMA.Core.ViewModel.User
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        [Display(Name = "Gender")]
-        public string Gender { get; set; }
-
-        [Required]
-        [Display(Name = "Certification")]
-        public string Certification { get; set; }
+        [Display(Name = "Middle Name")]
+        public string MiddleName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -29,7 +27,17 @@ namespace WAMA.Core.ViewModel.User
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Member Id")]
-        public string MemberId { get; set; }
+        [Display(Name = "Gender")]
+        public Gender Gender { get; set; }
+
+        [Required]
+        [Display(Name = "Affiliation with the school")]
+        public InstitutionAffiliation InstitutionAffliation { get; set; }
+
+        [Display(Name = "Account has been approved")]
+        public bool HasBeenApproved { get; set; }
+
+        [Display(Name = "Account is suspended")]
+        public bool IsSuspended { get; set; }
     }
 }

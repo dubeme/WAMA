@@ -7,6 +7,7 @@ using WAMA.Core.Extensions;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
+using WAMA.Core.ViewModel;
 using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
@@ -29,6 +30,23 @@ namespace WAMA.Core.Services
             }
         }
 
+        public async Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.UserAccounts
+                    .Where(user => user.AccountType == type)
+                    .Select(user => new ListservViewModel
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        MiddleName = user.MiddleName,
+                        Email = user.Email
+                    })
+                    .ToListAsync();
+            }
+        }
+
         public async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -40,12 +58,37 @@ namespace WAMA.Core.Services
             }
         }
 
+      
+
         public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 return await dbCtx.UserAccounts
                     .Where(user => user.AccountType == type)
+                    .Select(user => user.ToViewModel())
+                    .ToListAsync();
+            }
+        }
+
+
+        public async Task<IEnumerable<UserAccountViewModel>> GetSuspendedUserAccountsAsync(UserAccountType type)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.UserAccounts
+                    .Where(user => user.AccountType == type && user.IsSuspended ==true)
+                    .Select(user => user.ToViewModel())
+                    .ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<UserAccountViewModel>> GetPendingUserAccountsAsync(UserAccountType type)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.UserAccounts
+                    .Where(user => user.AccountType == type && user.HasBeenApproved == false)
                     .Select(user => user.ToViewModel())
                     .ToListAsync();
             }
