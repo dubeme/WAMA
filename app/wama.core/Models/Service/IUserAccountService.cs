@@ -14,6 +14,10 @@ namespace WAMA.Core.Models.Service
 
         Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type);
 
+        Task<IEnumerable<UserAccountViewModel>> GetSuspendedUserAccountsAsync(UserAccountType type);
+
+        Task<IEnumerable<UserAccountViewModel>> GetPendingUserAccountsAsync(UserAccountType type);
+
         Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type);
 
         Task UpdateUserAccountAsync(UserAccountViewModel updated);

@@ -6,6 +6,10 @@ namespace WAMA.Core.ViewModel
     public class ReportToolFilterViewModel
     {
         [Required]
+        [Display(Name = "Report Granularity")]
+        public ReportGranularity ReportGranularity { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Start Date")]
         public DateTimeOffset StartDate { get; set; } = DateTimeOffset.MinValue;

@@ -1,0 +1,56 @@
+﻿@using WAMA.Core.ViewModel;
+
+@{
+    @model CheckInReportResultViewModel
+    var aggregates = Model.CheckInActivityAggregates;
+
+    if (Equals(aggregates, null) || aggregates.Any() == false)
+    {
+        <h4 class="text-danger">No check-in activities</h4>
+    }
+    else
+    {
+        var groupedAggregates = new Func<CheckInActivityAggregateViewModel, object>(x => string.Empty);
+
+        switch (Model.ReportFilter.ReportGranularity)
+        {
+            case ReportGranularity.Hourly:
+                groupedAggregates = aggregate => $"{aggregate.Time:D}";
+                break;
+            case ReportGranularity.Daily:
+            case ReportGranularity.Weekly:
+                groupedAggregates = aggregate => $"{aggregate.Time:Y}";
+                break;
+            case ReportGranularity.Monthly:
+                groupedAggregates = aggregate => $"{aggregate.Time:yyyy}";
+                break;
+        }
+
+        <div>
+            @foreach (var group in aggregates.GroupBy(groupedAggregates))
+            {
+                <div>
+                    <h4>@group.Key</h4>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="no-wrap-text">@Html.LabelFor(x => aggregates.First().FormatedTime)</th>
+                                <th class="no-wrap-text">@Html.LabelFor(x => aggregates.First().Count)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var aggregate in group.OrderBy(cia => cia.Time))
+                            {
+                                <tr>
+                                    <td class="no-wrap-text">@aggregate.FormatedTime</td>
+                                    <td class="no-wrap-text">@aggregate.Count</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    }
+}
