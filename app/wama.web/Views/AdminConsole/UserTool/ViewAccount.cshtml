@@ -1,5 +1,6 @@
 ﻿@using WAMA.Core.ViewModel.User;
 @using WAMA.Core.Models.DTOs;
+@using WAMA.Web.Controllers;
 
 @model UserAccountViewModel
 
@@ -36,7 +37,7 @@
             {
                 <h4 class="display-inline-with-right-padding">
                     <span class="label label-danger">
-                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Suspended
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Suspended
                     </span>
                 </h4>
             }
@@ -47,8 +48,10 @@
 
             @Html.DisplayFor(model => Model, "UserAccountViewModelDetailsTemplate")
 
-            <form asp-action="@nameof(WAMA.Web.Controllers.UserToolController.DeleteAccount)" asp-antiforgery="true" method="post">
-                <input type="hidden" name="memberid" value="@Model.MemberId" />
+            <form asp-action="@nameof(UserToolController.DeleteAccount)" asp-antiforgery="true" method="post">
+                <input type="hidden" asp-for="@Model.MemberId" />
+                <input type="hidden" asp-for="@Model.AccountType" />
+                <input type="hidden" asp-for="@Model.RequestToken" />
 
                 <div class="form-group">
                     <a href="EditAccount?memberid=@Model.MemberId" class="btn btn-primary">
@@ -62,17 +65,25 @@
                     @if (Model.HasBeenApproved == false)
                     {
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success" formaction="@nameof(UserToolController.ApproveAccount)">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Approve Account
                             </button>
                         </div>
                     }
 
-                    @if (Model.IsSuspended == false)
+                    @if (Model.IsSuspended)
                     {
                         <div class="form-group">
-                            <button type="submit" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Suspend Account
+                            <button type="submit" class="btn btn-warning" formaction="@nameof(UserToolController.ReactivateAccount)">
+                                <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span> Reactivate Account
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger" formaction="@nameof(UserToolController.SuspendAccount)">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Suspend Account
                             </button>
                         </div>
                     }

@@ -97,6 +97,8 @@ namespace WAMA.Web.Controllers
                 SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
             }
 
+            account.RequestToken = HashString(account.MemberId);
+
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewAccount.cshtml", account);
         }
 
@@ -175,21 +177,7 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAccount(UserAccountViewModel user)
         {
-            if (!ModelState.IsValid)
-            {
-                this.SetErrorMessages(ModelState.Values
-                    .Where(val => val.ValidationState == ModelValidationState.Invalid)
-                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
-            }
-            else if (Equals(user, null))
-            {
-                this.SetErrorMessages(AppString.GenericErrorMessage);
-            }
-            else if (Equals(HashString(user.MemberId), user.RequestToken) == false)
-            {
-                this.SetErrorMessages(AppString.GenericErrorMessage);
-            }
-            else
+            if (MeetsBasicRequirements(user, false))
             {
                 if (string.IsNullOrWhiteSpace(user.UpdatedMemberId) == false)
                 {
@@ -201,6 +189,39 @@ namespace WAMA.Web.Controllers
             }
 
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user))
+            {
+                await _UserAccountService.ApproveAccountAsync(user.MemberId);
+            }
+
+            return RedirectToAction(nameof(ViewAccount), new { MemberId = user?.MemberId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SuspendAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user))
+            {
+                await _UserAccountService.SuspendUserAccountAsync(user.MemberId);
+            }
+
+            return RedirectToAction(nameof(ViewAccount), new { MemberId = user?.MemberId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReactivateAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user))
+            {
+                await _UserAccountService.ReactivateUserAccountAsync(user.MemberId);
+            }
+
+            return RedirectToAction(nameof(ViewAccount), new { MemberId = user?.MemberId });
         }
 
         [HttpPost]
@@ -237,6 +258,32 @@ namespace WAMA.Web.Controllers
             }
 
             return null;
+        }
+
+        private bool MeetsBasicRequirements(UserAccountViewModel user, bool ignoreModelState = true)
+        {
+            if (!ignoreModelState && !ModelState.IsValid)
+            {
+                this.SetErrorMessages(ModelState.Values
+                    .Where(val => val.ValidationState == ModelValidationState.Invalid)
+                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
+
+                return false;
+            }
+            else if (Equals(user, null))
+            {
+                this.SetErrorMessages(AppString.GenericErrorMessage);
+
+                return false;
+            }
+            else if (Equals(HashString(user.MemberId), user.RequestToken) == false)
+            {
+                this.SetErrorMessages(AppString.GenericErrorMessage);
+
+                return false;
+            }
+
+            return true;
         }
     }
 }
