@@ -1,69 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
 @using WAMA.Web.Model;
 
 @{
     ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = Constants.ADMIN_CONSOLE_HOME;
 }
 
-
-<h1 class="panel"> Today's Activities</h1>
-<h2 class="panel" id="utc1"></h2>
-<head>
-
-    <title>Admin template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div id="container">
-        <div id="box">
-            <div class="panel panel-primary">
-                <h4 class="panel panel-heading">Patron check-ins</h4>
-
-                <div class="panel-footer">
-                    Currently checked-in:
-                    <div class="large">45 </div>
-                </div>
-                <a href="#">
-                    <div class="panel-footer"> View Details</div>
-                </a>
-            </div>
+<div id="box">
+    <div class="panel panel-primary">
+        <h4 class="panel panel-heading">Patron check-ins</h4>
+        <div class="panel-footer">
+            Currently checked-in: <h4>45</h4>
         </div>
-        <div id="box">
-            <div class="panel panel-primary">
-                <h4 class="panel panel-heading">Employee Check-ins</h4>
-                <div class="panel-footer">
-                    Currently checked-in: <div class="large">46</div>
-                </div>
-                <a href="#">
-                    <div class="panel-footer"> View Details</div>
-                </a>
-            </div>
-        </div>
-        <div id="box">
-            <div class="panel panel-primary">
-                <h4 class="panel panel-heading">Other Account Info</h4>
-                <div class="panel-footer">
-                    Accounts Pending Approval: <div class="large">47</div>
-                </div>
-                <a href="#">
-                    <div class="panel-footer"> View Details</div>
-                </a>
-                <div class="panel-footer">
-                    Accounts Expecting Certification: <div class="large">48</div>
-                </div>
-                <a href="#">
-                    <div class="panel-footer"> View Details</div>
-                </a>
-                <div class="panel-footer">
-                    Accounts Temporary Suspended: <div class="large">4</div>
-                </div>
-                <a href="#">
-                    <div class="panel-footer"> View Details</div>
-                </a>
-            </div>
-        </div>
+        <a href="#">
+            <div class="panel-footer"> View Details</div>
+        </a>
     </div>
-</body>
+</div>
+<div id="box">
+    <div class="panel panel-primary">
+        <h4 class="panel panel-heading">Employee Check-ins</h4>
+        <div class="panel-footer">
+            Currently checked-in: <h4>46</h4>
+        </div>
+        <a href="#">
+            <div class="panel-footer"> View Details</div>
+        </a>
+    </div>
+</div>
+<div id="box">
+    <div class="panel panel-primary">
+        <h4 class="panel panel-heading">Other Account Info</h4>
+        <div class="panel-footer">
+            Accounts Pending Approval: <h4>47</h4>
+        </div>
+        <a href="#">
+            <div class="panel-footer"> View Details</div>
+        </a>
+        <div class="panel-footer">
+            Accounts Expecting Certification: <h4>48</h4>
+        </div>
+        <a href="#">
+            <div class="panel-footer"> View Details</div>
+        </a>
+        <div class="panel-footer">
+            Accounts Temporary Suspended: <h4>4</h4>
+        </div>
+        <a href="#">
+            <div class="panel-footer"> View Details</div>
+        </a>
+    </div>
+</div>
