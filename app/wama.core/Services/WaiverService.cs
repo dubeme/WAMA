@@ -21,6 +21,7 @@ namespace WAMA.Core.Services
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 await dbCtx.Waivers.AddAsync(waiver.ToDTO());
+                await dbCtx.SaveChangesAsync();
             }
         }
 

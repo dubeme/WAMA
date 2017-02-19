@@ -7,6 +7,7 @@ using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
 using WAMA.Core.Providers;
 using WAMA.Core.Services;
+using WAMA.Web.Model;
 
 namespace WAMA.Web
 {
@@ -28,7 +29,10 @@ namespace WAMA.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new WamaModelBinderProvider());
+            });
 
             services.AddTransient<IDbContextProvider, DbContextProvider>();
             services.AddTransient<ICheckInService, CheckInService>();
@@ -51,6 +55,7 @@ namespace WAMA.Web
             }
             else
             {
+                // TODO: Update link to custom error page
                 app.UseExceptionHandler("/Home/Error");
             }
 

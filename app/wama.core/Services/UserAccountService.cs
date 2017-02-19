@@ -106,5 +106,53 @@ namespace WAMA.Core.Services
                 await dbCtx.SaveChangesAsync();
             }
         }
+
+        public async Task SuspendUserAccountAsync(string memberId)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                var old = dbCtx.UserAccounts.SingleOrDefault(user => user.MemberId.Equals(memberId));
+
+                if (old == null)
+                {
+                    throw new InvalidOperationException("No user account updated");
+                }
+
+                old.IsSuspended = true;
+                await dbCtx.SaveChangesAsync();
+            }
+        }
+
+        public async Task ReactivateUserAccountAsync(string memberId)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                var old = dbCtx.UserAccounts.SingleOrDefault(user => user.MemberId.Equals(memberId));
+
+                if (old == null)
+                {
+                    throw new InvalidOperationException("No user account updated");
+                }
+
+                old.IsSuspended = false;
+                await dbCtx.SaveChangesAsync();
+            }
+        }
+
+        public async Task ApproveAccountAsync(string memberId)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                var old = dbCtx.UserAccounts.SingleOrDefault(user => user.MemberId.Equals(memberId));
+
+                if (old == null)
+                {
+                    throw new InvalidOperationException("No user account updated");
+                }
+
+                old.HasBeenApproved = true;
+                await dbCtx.SaveChangesAsync();
+            }
+        }
     }
 }

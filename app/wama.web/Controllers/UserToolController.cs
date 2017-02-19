@@ -97,44 +97,14 @@ namespace WAMA.Web.Controllers
                 SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
             }
 
+            account.RequestToken = HashString(account.MemberId);
+
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewAccount.cshtml", account);
         }
 
         public IActionResult UserAccountAddNewUser()
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
-        }
-
-        public async Task<IActionResult> EditAccount(string memberId)
-        {
-            UserAccountViewModel account = null;
-
-            if (!string.IsNullOrWhiteSpace(memberId))
-            {
-                account = await _UserAccountService.GetUserAccountAsync(memberId);
-
-                if (Equals(account, null))
-                {
-                    SetErrorMessages(string.Format(AppString.AccountWithIdDoesntExist, memberId));
-                }
-                else if (AccountTypeToolsMapping.ContainsKey(account.AccountType))
-                {
-                    SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
-                }
-                else
-                {
-                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS);
-                }
-            }
-
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", account);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditAccount(UserAccountViewModel user)
-        {
-            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Patron);
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", accounts);
         }
 
         [HttpPost]
@@ -197,10 +167,123 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml");
         }
 
+        public async Task<IActionResult> EditAccount(string memberId)
+        {
+            var account = await GetUserAccountAsync(memberId);
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", account);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user, false))
+            {
+                if (string.IsNullOrWhiteSpace(user.UpdatedMemberId) == false)
+                {
+                    user.MemberId = user.UpdatedMemberId.Trim();
+                }
+
+                await _UserAccountService.UpdateUserAccountAsync(user);
+                return RedirectToAction(nameof(ViewAccount), new { MemberId = user.MemberId });
+            }
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/EditAccount.cshtml", user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user))
+            {
+                await _UserAccountService.ApproveAccountAsync(user.MemberId);
+            }
+
+            return RedirectToAction(nameof(ViewAccount), new { MemberId = user?.MemberId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SuspendAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user))
+            {
+                await _UserAccountService.SuspendUserAccountAsync(user.MemberId);
+            }
+
+            return RedirectToAction(nameof(ViewAccount), new { MemberId = user?.MemberId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReactivateAccount(UserAccountViewModel user)
+        {
+            if (MeetsBasicRequirements(user))
+            {
+                await _UserAccountService.ReactivateUserAccountAsync(user.MemberId);
+            }
+
+            return RedirectToAction(nameof(ViewAccount), new { MemberId = user?.MemberId });
+        }
+
         [HttpPost]
         public IActionResult DeleteAccount(UserAccountViewModel user)
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
+        }
+
+        private async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
+        {
+            if (!string.IsNullOrWhiteSpace(memberId))
+            {
+                var account = await _UserAccountService.GetUserAccountAsync(memberId);
+
+                if (Equals(account, null))
+                {
+                    SetErrorMessages(string.Format(AppString.AccountWithIdDoesntExist, memberId));
+                }
+                else
+                {
+                    account.RequestToken = HashString(account.MemberId);
+
+                    if (AccountTypeToolsMapping.ContainsKey(account.AccountType))
+                    {
+                        SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
+                    }
+                    else
+                    {
+                        SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS);
+                    }
+                }
+
+                return account;
+            }
+
+            return null;
+        }
+
+        private bool MeetsBasicRequirements(UserAccountViewModel user, bool ignoreModelState = true)
+        {
+            if (!ignoreModelState && !ModelState.IsValid)
+            {
+                this.SetErrorMessages(ModelState.Values
+                    .Where(val => val.ValidationState == ModelValidationState.Invalid)
+                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
+
+                return false;
+            }
+            else if (Equals(user, null))
+            {
+                this.SetErrorMessages(AppString.GenericErrorMessage);
+
+                return false;
+            }
+            else if (Equals(HashString(user.MemberId), user.RequestToken) == false)
+            {
+                this.SetErrorMessages(AppString.GenericErrorMessage);
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

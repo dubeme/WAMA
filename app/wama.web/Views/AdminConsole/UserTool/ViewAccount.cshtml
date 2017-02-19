@@ -1,4 +1,6 @@
 ﻿@using WAMA.Core.ViewModel.User;
+@using WAMA.Core.Models.DTOs;
+@using WAMA.Web.Controllers;
 
 @model UserAccountViewModel
 
@@ -14,28 +16,86 @@
 
             @Html.Partial("DisplayError")
 
-            <div class="form-group col-xs-12">
-                <a href="@($"{Model.AccountType}s")">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
-                </a>
-            </div>
+            @if (Model.HasBeenApproved)
+            {
+                <h4 class="display-inline-with-right-padding">
+                    <span class="label label-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Approved
+                    </span>
+                </h4>
+            }
+            else
+            {
+                <h4 class="display-inline-with-right-padding">
+                    <span class="label label-warning">
+                        <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span> Pending Approval
+                    </span>
+                </h4>
+            }
 
-            <div class="form-group col-xs-12">
-                <a href="EditAccount?memberid=@Model.MemberId">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Account
-                </a>
-            </div>
+            @if (Model.IsSuspended)
+            {
+                <h4 class="display-inline-with-right-padding">
+                    <span class="label label-danger">
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Suspended
+                    </span>
+                </h4>
+            }
+
+            <br />
+            <br />
+
 
             @Html.DisplayFor(model => Model, "UserAccountViewModelDetailsTemplate")
 
-            <form asp-action="@nameof(WAMA.Web.Controllers.UserToolController.DeleteAccount)" asp-antiforgery="true" method="post">
-                <input type="hidden" name="memberid" value="@Model.MemberId" />
-                <div class="form-group col-xs-12 row">
+            <form asp-action="@nameof(UserToolController.DeleteAccount)" asp-antiforgery="true" method="post">
+                <input type="hidden" asp-for="@Model.MemberId" />
+                <input type="hidden" asp-for="@Model.AccountType" />
+                <input type="hidden" asp-for="@Model.RequestToken" />
+
+                <div class="form-group">
+                    <a href="EditAccount?memberid=@Model.MemberId" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Account
+                    </a>
+                </div>
+
+                @if (Model.AccountType == UserAccountType.Patron)
+                {
+
+                    @if (Model.HasBeenApproved == false)
+                    {
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success" formaction="@nameof(UserToolController.ApproveAccount)">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Approve Account
+                            </button>
+                        </div>
+                    }
+
+                    @if (Model.IsSuspended)
+                    {
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning" formaction="@nameof(UserToolController.ReactivateAccount)">
+                                <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span> Reactivate Account
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger" formaction="@nameof(UserToolController.SuspendAccount)">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Suspend Account
+                            </button>
+                        </div>
+                    }
+                }
+
+                <div class="form-group">
                     <button type="submit" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> delete account
                     </button>
                 </div>
             </form>
+
         </div>
     }
 }
