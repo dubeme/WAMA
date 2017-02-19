@@ -55,7 +55,6 @@ namespace WAMA.Web.Controllers
                 {
                     try
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
 
                         await _UserAccountService.CreateUserAsync(patron);
 
