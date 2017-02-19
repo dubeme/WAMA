@@ -31,6 +31,7 @@ namespace WAMA.Web.Controllers
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
+                var waiverInfo = await _waiverService.GetWaiverAsync(memberId);
 
                 if (userAccount == null)
                 {
@@ -41,6 +42,10 @@ namespace WAMA.Web.Controllers
                 else if (!userAccount.HasBeenApproved)
                 {
                     SetErrorMessages(AppString.AccountPendingApprovalMessage);
+                }
+                else if (waiverInfo == null || System.DateTimeOffset.Now.Subtract(waiverInfo.SignedOn).TotalDays >= 90)
+                {
+                    return RedirectToAction(actionName: nameof(Waiver));
                 }
                 else
                 {
@@ -68,6 +73,12 @@ namespace WAMA.Web.Controllers
 
         [HttpGet]
         public IActionResult Successful()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Waiver()
         {
             return View();
         }
