@@ -20,12 +20,11 @@
         public const string ADMIN_CONSOLE_REPORTS = "admin-console-reports";
         public const string ADMIN_CONSOLE_REPORTS_CHECK_INS = "admin-console-reports-check-ins";
         public const string ADMIN_CONSOLE_REPORTS_USERS = "admin-console-reports-users";
-        public const string ADMIN_CONSOLE_REPORTS_LISTSERV = "admin-console-reports-listserv";
-        public const string ADMIN_CONSOLE_REPORTS_CLINICS = "admin-console-reports-clinics";
 
         public const string ADMIN_CONSOLE_INVENTORIES = "admin-console-inventories";
         public const string ADMIN_CONSOLE_CLINICS = "admin-console-clinics";
 
+        public const string DATA_TABLE = "data-table";
         public const string USER_ACCOUNT_TYPE = "user-account-type";
     }
 }

@@ -32,10 +32,11 @@ namespace WAMA.Web.Controllers
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
 
-                if(userAccount == null)
+                if (userAccount == null)
                 {
                     ViewBag.AccountExists = "false";
-                    SetErrorMessages(AppString.IDNotExists);
+                    ViewBag.MemberId = memberId;
+                    SetErrorMessages(string.Format(AppString.NoAccountExistsWithID, memberId));
                 }
                 else if (!userAccount.HasBeenApproved)
                 {
