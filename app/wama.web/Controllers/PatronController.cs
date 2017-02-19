@@ -55,6 +55,7 @@ namespace WAMA.Web.Controllers
                 {
                     try
                     {
+
                         await _UserAccountService.CreateUserAsync(patron);
 
                         return RedirectToAction(
