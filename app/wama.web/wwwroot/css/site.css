@@ -47,6 +47,11 @@ td {
     content: " *";
 }
 
+.display-inline-with-right-padding {
+    display:inline;
+    padding-right: 1.25rem;
+}
+
 /*
  * Admin console
  */

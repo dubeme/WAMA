@@ -17,7 +17,7 @@ namespace WAMA.Core.Models.DTOs
         public string Email { get; set; }
 
         public Gender Gender { get; set; }
-        public InstitutionAffiliation InstitutionAffliation { get; set; }
+        public InstitutionAffiliation InstitutionAffiliation { get; set; }
 
         public bool HasBeenApproved { get; set; }
 

@@ -21,5 +21,11 @@ namespace WAMA.Core.Models.Service
         Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type);
 
         Task UpdateUserAccountAsync(UserAccountViewModel updated);
+
+        Task SuspendUserAccountAsync(string memberId);
+
+        Task ReactivateUserAccountAsync(string memberId);
+
+        Task ApproveAccountAsync(string memberId);
     }
 }

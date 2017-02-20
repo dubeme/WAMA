@@ -123,6 +123,15 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Hmm! Seems like something weird happened, please try again in a few..
+        /// </summary>
+        public static string GenericErrorMessage {
+            get {
+                return ResourceManager.GetString("GenericErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Manager.
         /// </summary>
         public static string ManagerLabel {

@@ -9,9 +9,10 @@ using WAMA.Core.Models.DTOs;
 namespace WAMA.Core.Migrations
 {
     [DbContext(typeof(WamaDbContext))]
-    partial class WamaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170220045410_remove lastupdatedon")]
+    partial class removelastupdatedon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -31,9 +32,6 @@ namespace WAMA.Core.Migrations
                     b.Property<int>("Type");
 
                     b.Property<DateTimeOffset>("__CreatedOn");
-
-                    b.Property<DateTimeOffset>("__LastUpdatedOn")
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("__ID");
 
@@ -55,9 +53,6 @@ namespace WAMA.Core.Migrations
 
                     b.Property<DateTimeOffset>("__CreatedOn");
 
-                    b.Property<DateTimeOffset>("__LastUpdatedOn")
-                        .ValueGeneratedOnAddOrUpdate();
-
                     b.HasKey("__ID");
 
                     b.HasIndex("MemberId");
@@ -77,9 +72,6 @@ namespace WAMA.Core.Migrations
                     b.Property<bool>("RequiresPassword");
 
                     b.Property<DateTimeOffset>("__CreatedOn");
-
-                    b.Property<DateTimeOffset>("__LastUpdatedOn")
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("__ID");
 
@@ -117,9 +109,6 @@ namespace WAMA.Core.Migrations
 
                     b.Property<DateTimeOffset>("__CreatedOn");
 
-                    b.Property<DateTimeOffset>("__LastUpdatedOn")
-                        .ValueGeneratedOnAddOrUpdate();
-
                     b.HasKey("__ID");
 
                     b.ToTable("UserAccounts");
@@ -135,9 +124,6 @@ namespace WAMA.Core.Migrations
                     b.Property<DateTimeOffset>("SignedOn");
 
                     b.Property<DateTimeOffset>("__CreatedOn");
-
-                    b.Property<DateTimeOffset>("__LastUpdatedOn")
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("__ID");
 

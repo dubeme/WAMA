@@ -10,6 +10,9 @@ namespace WAMA.Core.ViewModel.User
         [Display(Name = "ID (7 digit SDSU ID)")]
         public string MemberId { get; set; }
 
+        [Display(Name = "Updated ID (7 digit SDSU ID)")]
+        public string UpdatedMemberId { get; set; }
+
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -32,12 +35,14 @@ namespace WAMA.Core.ViewModel.User
 
         [Required]
         [Display(Name = "Affiliation with the school")]
-        public InstitutionAffiliation InstitutionAffliation { get; set; }
+        public InstitutionAffiliation InstitutionAffiliation { get; set; }
 
         [Display(Name = "Account has been approved")]
         public bool HasBeenApproved { get; set; }
 
         [Display(Name = "Account is suspended")]
         public bool IsSuspended { get; set; }
+
+        public string RequestToken { get; set; }
     }
 }

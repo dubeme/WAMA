@@ -139,6 +139,9 @@
     <value>ErrorMessages</value>
     <comment>A key that will be used for passing a collection of error messages to be sent to the user</comment>
   </data>
+  <data name="GenericErrorMessage" xml:space="preserve">
+    <value>Hmm! Seems like something weird happened, please try again in a few.</value>
+  </data>
   <data name="ManagerLabel" xml:space="preserve">
     <value>Manager</value>
   </data>
