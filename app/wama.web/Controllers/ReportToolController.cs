@@ -120,6 +120,8 @@ namespace WAMA.Web.Controllers
                 return RedirectToAction(nameof(CheckInReports));
             }
 
+            filter.EndDate = filter.EndDate.AddDays(1);
+
             var result = new CheckInReportResultViewModel
             {
                 ReportFilter = filter
