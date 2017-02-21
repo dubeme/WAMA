@@ -159,7 +159,7 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to Signature does not match with the name of the Patron..
+        ///    Looks up a localized string similar to Signature does not match with the name of the Patron. Please sign using the following format: FirstName LastName.
         /// </summary>
         public static string SignatureMismatch {
             get {
