@@ -6,7 +6,7 @@ namespace WAMA.Core.ViewModel.User
     public abstract class UserAccountViewModel
     {
         public virtual UserAccountType AccountType { get; }
-        [Required]
+
         [Display(Name = "ID (7 digit SDSU ID)")]
         public string MemberId { get; set; }
 
