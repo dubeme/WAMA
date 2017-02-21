@@ -22,8 +22,6 @@ namespace WAMA.Web.Controllers
             { UserAccountType.Administrator, Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS}
         };
 
-        // Used to throttle account creation rate
-        private const int ACCOUNT_CREATION_THROTTLE_RATE = 10;
 
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
@@ -129,7 +127,6 @@ namespace WAMA.Web.Controllers
                 {
                     try
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(ACCOUNT_CREATION_THROTTLE_RATE));
 
                         await _UserAccountService.CreateUserAsync(user);
                         await _CheckInService.CreateLogInCredentialAsync(user);
