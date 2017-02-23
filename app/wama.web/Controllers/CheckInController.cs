@@ -44,6 +44,7 @@ namespace WAMA.Web.Controllers
                 }
                 else
                 {
+                    await _CheckInService.PerformCheckInAsync(memberId);
                     return RedirectToAction(
                             actionName: nameof(Successful),
                             routeValues: memberId);

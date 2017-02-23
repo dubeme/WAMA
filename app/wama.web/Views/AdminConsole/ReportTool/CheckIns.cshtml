@@ -9,15 +9,7 @@
     @{
         @model CheckInReportResultViewModel
 
-        <div class="row">
-            <a href=".">
-                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> return to filter
-            </a>
-            <br />
-            <br />
-
-            @Html.Partial("DownloadCSVButton.cshtml", Model.ReportFilter)
-        </div>
+        @Html.Partial("DownloadCSVButton.cshtml", Model.ReportFilter)
 
         if (Model.ReportFilter.ReportGranularity == ReportGranularity.Individual)
         {
