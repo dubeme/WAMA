@@ -161,7 +161,7 @@ namespace WAMA.Web.Controllers
                 }
             }
 
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
         }
 
         public async Task<IActionResult> EditAccount(string memberId)
