@@ -22,6 +22,7 @@ namespace WAMA.Core.Services
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 await dbCtx.Certifications.AddAsync(certification.ToDTO());
+                await dbCtx.SaveChangesAsync();
             }
         }
 
