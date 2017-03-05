@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Extensions;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel;
+using System.Collections.Generic;
 
 namespace WAMA.Core.Services
 {
@@ -22,7 +24,13 @@ namespace WAMA.Core.Services
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
                 await dbCtx.Certifications.AddAsync(certification.ToDTO());
+                await dbCtx.SaveChangesAsync();
             }
+        }
+
+        public Task DeleteCertificationAsync(string memberId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<CertificationViewModel> GetCertificationAsync(string memberId)
@@ -33,6 +41,17 @@ namespace WAMA.Core.Services
                     .FirstOrDefaultAsync(cert => cert.MemberId == memberId);
 
                 return certification?.ToViewModel();
+            }
+        }
+
+        public async Task<IEnumerable<CertificationViewModel>> GetCertificationsAsync(string memberId)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                return await dbCtx.Certifications
+                    .Where(certification => certification.MemberId == memberId)
+                    .Select(certification => certification.ToViewModel())
+                    .ToListAsync();
             }
         }
 

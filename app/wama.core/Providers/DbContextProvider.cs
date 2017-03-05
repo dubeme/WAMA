@@ -1,4 +1,5 @@
-﻿using WAMA.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WAMA.Core.Models;
 using WAMA.Core.Models.Provider;
 
 namespace WAMA.Core.Providers
@@ -8,6 +9,11 @@ namespace WAMA.Core.Providers
         public WamaDbContext GetWamaDbContext()
         {
             return new WamaDbContext();
+        }
+
+        public WamaDbContext GetWamaDbContext(DbContextOptions dbOption)
+        {
+            return new WamaDbContext(dbOption);
         }
     }
 }

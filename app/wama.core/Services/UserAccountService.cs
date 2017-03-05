@@ -58,14 +58,13 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
+        public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserSearchFilterViewModel filter)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return await dbCtx.UserAccounts
-                    .Where(user => user.AccountType == type)
-                    .Select(user => user.ToViewModel())
-                    .ToListAsync();
+                var users = await dbCtx.UserAccounts.AppendFilterQuery(filter).ToListAsync();
+
+                return users?.Select(user => user.ToViewModel());
             }
         }
 

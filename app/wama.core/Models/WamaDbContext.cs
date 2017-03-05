@@ -11,10 +11,21 @@ namespace WAMA.Core.Models
         public DbSet<Waiver> Waivers { get; set; }
         public DbSet<CheckInActivity> CheckInActivities { get; set; }
 
+        public WamaDbContext()
+        {
+        }
+
+        public WamaDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=wama.db;User Id=wama.dev;Password=BAD_P455W0RD;";
-            optionsBuilder.UseSqlServer(connection);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connection = @"Server=(localdb)\mssqllocaldb;Database=wama.db;User Id=wama.dev;Password=BAD_P455W0RD;";
+                optionsBuilder.UseSqlServer(connection);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Models.Service
@@ -10,5 +11,9 @@ namespace WAMA.Core.Models.Service
         Task UpdateCertificationAsync(CertificationViewModel updated);
 
         Task<CertificationViewModel> GetCertificationAsync(string memberId);
+
+        Task<IEnumerable<CertificationViewModel>> GetCertificationsAsync(string memberId);
+
+        Task DeleteCertificationAsync(string memberId);
     }
 }

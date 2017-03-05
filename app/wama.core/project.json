@@ -2,6 +2,7 @@
     "version": "1.0.0-*",
 
     "dependencies": {
+        "LinqKit.Microsoft.EntityFrameworkCore": "1.1.9",
         "Microsoft.EntityFrameworkCore.Design": "1.1.0",
         "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
         "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
