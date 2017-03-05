@@ -12,8 +12,6 @@ namespace WAMA.Core.Models.Service
 
         Task<UserAccountViewModel> GetUserAccountAsync(string memberId);
 
-        Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type);
-
         Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserSearchFilterViewModel filter);
 
         Task<IEnumerable<UserAccountViewModel>> GetSuspendedUserAccountsAsync(UserAccountType type);

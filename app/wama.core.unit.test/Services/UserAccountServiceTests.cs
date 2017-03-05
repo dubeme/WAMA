@@ -70,24 +70,13 @@ namespace WAMAcut.Services
             Assert.Equal(expectedFirstName, user.FirstName);
         }
 
-        [Theory(DisplayName = "Get UserAccounts")]
+        [Theory(DisplayName = "Get UserAccounts by account-type")]
         [InlineData(UserAccountType.Administrator, 10)]
         [InlineData(UserAccountType.Employee, 10)]
         [InlineData(UserAccountType.Manager, 10)]
         [InlineData(UserAccountType.Patron, 10)]
         [InlineData(UserAccountType.Mantainance, 2)]
         public async Task GetUserAccountsAsyncTest(UserAccountType accountType, int expectedCount)
-        {
-            var users = await _UserAccountService.GetUserAccountsAsync(accountType);
-            Assert.Equal(expectedCount, users.Count());
-        }
-
-        [Theory(DisplayName = "Get UserAccounts with filter")]
-        [InlineData(UserAccountType.Administrator, 10)]
-        [InlineData(UserAccountType.Employee, 10)]
-        [InlineData(UserAccountType.Manager, 10)]
-        [InlineData(UserAccountType.Patron, 10)]
-        public async Task GetUserAccountsAsyncFTest(UserAccountType accountType, int expectedCount)
         {
             var filter = new UserSearchFilterViewModel
             {
