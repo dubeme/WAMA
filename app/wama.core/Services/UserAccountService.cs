@@ -154,5 +154,15 @@ namespace WAMA.Core.Services
                 await dbCtx.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserSearchFilterViewModel filter)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                var users = await dbCtx.UserAccounts.AppendFilterQuery(filter).ToListAsync();
+
+                return users?.Select(user => user.ToViewModel());
+            }
+        }
     }
 }
