@@ -14,15 +14,31 @@ using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
 {
+    /// <summary>
+    /// Represents CheckInService
+    /// </summary>
+    /// <seealso cref="WAMA.Core.Models.Service.ICheckInService" />
     public class CheckInService : ICheckInService
     {
+        /// <summary>
+        /// The database context provider
+        /// </summary>
         private IDbContextProvider _DbCtxProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CheckInService"/> class.
+        /// </summary>
+        /// <param name="dbCtx">The database CTX.</param>
         public CheckInService(IDbContextProvider dbCtx)
         {
             _DbCtxProvider = dbCtx;
         }
 
+        /// <summary>
+        /// Creates the log in credential asynchronous.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         public async Task CreateLogInCredentialAsync(UserAccountViewModel user)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -36,6 +52,11 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the log in credential asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
         public async Task<LogInCredentialViewModel> GetLogInCredentialAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -47,6 +68,11 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Performs the check in asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
         public async Task<CheckInActivityViewModel> PerformCheckInAsync(string memberId)
         {
             var checkinActivity = new CheckInActivity
@@ -65,6 +91,11 @@ namespace WAMA.Core.Services
             return checkinActivity?.ToViewModel();
         }
 
+        /// <summary>
+        /// Gets the check in activities for member asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForMemberAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -76,11 +107,22 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the check in activities for period asynchronous.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start)
         {
             return await GetCheckInActivitiesForPeriodAsync(start, DateTimeOffset.MaxValue);
         }
 
+        /// <summary>
+        /// Gets the check in activities for period asynchronous.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForPeriodAsync(DateTimeOffset start, DateTimeOffset end)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -93,6 +135,13 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the check in activity aggregates asynchronous.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <param name="granularity">The granularity.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<CheckInActivityAggregateViewModel>> GetCheckInActivityAggregatesAsync(
             DateTimeOffset start,
             DateTimeOffset end,
