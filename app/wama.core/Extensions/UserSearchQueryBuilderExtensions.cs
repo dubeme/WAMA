@@ -6,8 +6,17 @@ using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Extensions
 {
+    /// <summary>
+    /// Represents UserSearchQueryBuilderExtensions
+    /// </summary>
     public static class UserSearchQueryBuilderExtensions
     {
+        /// <summary>
+        /// Appends the filter query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         public static IQueryable<UserAccount> AppendFilterQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter, null))
@@ -24,6 +33,12 @@ namespace WAMA.Core.Extensions
                 .AppendWaiverSignedDateQuery(filter);
         }
 
+        /// <summary>
+        /// Appends the name query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendNameQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             var name = filter.Name;
@@ -36,6 +51,12 @@ namespace WAMA.Core.Extensions
             return userAccounts.Where(account => account.FirstName.Contains(name) || account.LastName.Contains(name) || account.MiddleName.Contains(name));
         }
 
+        /// <summary>
+        /// Appends the member ids query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendMemberIdsQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter.MemberIDs, null) || filter.MemberIDs.Any() == false)
@@ -54,6 +75,12 @@ namespace WAMA.Core.Extensions
             return userAccounts.Where(predicate);
         }
 
+        /// <summary>
+        /// Appends the account types query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendAccountTypesQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter.AccountTypes, null) || filter.AccountTypes.Any() == false)
@@ -72,6 +99,12 @@ namespace WAMA.Core.Extensions
             return userAccounts.Where(predicate);
         }
 
+        /// <summary>
+        /// Appends the suspension status query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendSuspensionStatusQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter.AccountIsSuspended, null))
@@ -82,6 +115,12 @@ namespace WAMA.Core.Extensions
             return userAccounts.Where(account => account.IsSuspended == filter.AccountIsSuspended);
         }
 
+        /// <summary>
+        /// Appends the approval status query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendApprovalStatusQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter.AccountIsApproved, null))
@@ -92,6 +131,12 @@ namespace WAMA.Core.Extensions
             return userAccounts.Where(account => account.HasBeenApproved == filter.AccountIsApproved);
         }
 
+        /// <summary>
+        /// Appends the certification date query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendCertificationDateQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter.CertifiedOn, null) && Equals(filter.CertifiedAfter, null) && Equals(filter.CertifiedBefore, null))
@@ -123,6 +168,12 @@ namespace WAMA.Core.Extensions
                     certification.CertifiedOn == filter.CertifiedOn));
         }
 
+        /// <summary>
+        /// Appends the waiver signed date query.
+        /// </summary>
+        /// <param name="userAccounts">The user accounts.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         private static IQueryable<UserAccount> AppendWaiverSignedDateQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
             if (Equals(filter.SignedWaiverOn, null) && Equals(filter.SignedWaiverAfter, null) && Equals(filter.SignedWaiverBefore, null))
