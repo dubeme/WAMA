@@ -6,9 +6,9 @@
     public enum CertificationType
     {
         /// <summary>
-        /// The unkown
+        /// The unknown
         /// </summary>
-        Unkown,
+        Unknown,
         /// <summary>
         /// The belay
         /// </summary>
