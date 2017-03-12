@@ -12,15 +12,31 @@ using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Services
 {
+    /// <summary>
+    /// Represents UserAccountService
+    /// </summary>
+    /// <seealso cref="WAMA.Core.Models.Service.IUserAccountService" />
     public class UserAccountService : IUserAccountService
     {
+        /// <summary>
+        /// The database context provider
+        /// </summary>
         private IDbContextProvider _DbCtxProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAccountService" /> class.
+        /// </summary>
+        /// <param name="dbCtx">The database CTX.</param>
         public UserAccountService(IDbContextProvider dbCtx)
         {
             _DbCtxProvider = dbCtx;
         }
 
+        /// <summary>
+        /// Creates the user asynchronous.
+        /// </summary>
+        /// <param name="userAccount">The user account.</param>
+        /// <returns></returns>
         public async Task CreateUserAsync(UserAccountViewModel userAccount)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -30,6 +46,11 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the listserv data asynchronous.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -47,6 +68,11 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the user account asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
         public async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -58,17 +84,26 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserAccountType type)
+        /// <summary>
+        /// Gets the user accounts asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<UserAccountViewModel>> GetUserAccountsAsync(UserSearchFilterViewModel filter)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                return await dbCtx.UserAccounts
-                    .Where(user => user.AccountType == type)
-                    .Select(user => user.ToViewModel())
-                    .ToListAsync();
+                var users = await dbCtx.UserAccounts.AppendFilterQuery(filter).ToListAsync();
+
+                return users?.Select(user => user.ToViewModel());
             }
         }
 
+        /// <summary>
+        /// Gets the suspended user accounts asynchronous.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<UserAccountViewModel>> GetSuspendedUserAccountsAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -80,6 +115,11 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the pending user accounts asynchronous.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         public async Task<IEnumerable<UserAccountViewModel>> GetPendingUserAccountsAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -91,6 +131,12 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Updates the user account asynchronous.
+        /// </summary>
+        /// <param name="updated">The updated.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">No user account updated</exception>
         public async Task UpdateUserAccountAsync(UserAccountViewModel updated)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -107,6 +153,12 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Suspends the user account asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">No user account updated</exception>
         public async Task SuspendUserAccountAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -123,6 +175,12 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Reactivates the user account asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">No user account updated</exception>
         public async Task ReactivateUserAccountAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -139,6 +197,12 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Approves the account asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">No user account updated</exception>
         public async Task ApproveAccountAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())

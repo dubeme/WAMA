@@ -157,5 +157,14 @@ namespace WAMA.Web {
                 return ResourceManager.GetString("PatronLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Signature does not match with the name of the Patron. Please sign using the following format: First Name Last Name.
+        /// </summary>
+        public static string SignatureMismatch {
+            get {
+                return ResourceManager.GetString("SignatureMismatch", resourceCulture);
+            }
+        }
     }
 }

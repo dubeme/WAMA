@@ -5,15 +5,31 @@ using WAMA.Core.Models.Contracts;
 
 namespace WAMA.Core.ViewModel
 {
+    /// <summary>
+    /// Represents CheckInActivityAggregateViewModel
+    /// </summary>
+    /// <seealso cref="WAMA.Core.Models.Contracts.ISerializableToCSV" />
     public class CheckInActivityAggregateViewModel : ISerializableToCSV
     {
+        /// <summary>
+        /// Gets or sets the report granularity of this CheckInActivityAggregateViewModel.
+        /// </summary>
         public ReportGranularity ReportGranularity { get; set; }
 
+        /// <summary>
+        /// Gets or sets the count of this CheckInActivityAggregateViewModel.
+        /// </summary>
         [Display(Name = "Count")]
         public int Count { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time of this CheckInActivityAggregateViewModel.
+        /// </summary>
         public DateTimeOffset Time { get; set; }
 
+        /// <summary>
+        /// Gets the formated time.
+        /// </summary>
         [Display(Name = "Time")]
         public string FormatedTime
         {
@@ -41,6 +57,9 @@ namespace WAMA.Core.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets the headers.
+        /// </summary>
         public IEnumerable<string> Headers
         {
             get
@@ -76,6 +95,9 @@ namespace WAMA.Core.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets the CSV string.
+        /// </summary>
         public IEnumerable<string> CSVString
         {
             get
