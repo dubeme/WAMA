@@ -1,0 +1,11 @@
+﻿@model WAMA.Core.ViewModel.ReportToolFilterViewModel
+
+<form asp-antiforgery="true" method="post">
+    <input type="hidden" asp-for="ActiveTool" />
+    <input type="hidden" asp-for="StartDate" />
+    <input type="hidden" asp-for="EndDate" />
+    <input type="hidden" asp-for="ReportGranularity" />
+    <div class="form-group col-xs-12">
+        <button type="submit" class="btn btn-lg btn-success" asp-action="DownloadCSV">Download .csv</button>
+    </div>
+</form>

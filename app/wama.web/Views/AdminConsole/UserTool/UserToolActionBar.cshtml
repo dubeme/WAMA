@@ -1,0 +1,36 @@
+﻿
+
+<div>
+    <a href='@Url.Content("~/AdminConsole/UserTool/UserAccountAddNewUser")'>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New User
+    </a>
+</div>
+
+<br>
+<br>
+
+@if (Model is WAMA.Core.ViewModel.User.UserAccountViewModel)
+{
+    <div class="form-group col-xs-12">
+        <a href="@($"{Model.AccountType}s")">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+        </a>
+    </div>
+
+    <div class="form-group col-xs-12">
+        <a href="EditAccount?memberid=@Model.MemberId">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Account
+        </a>
+    </div>
+}
+
+
+
+<div>
+    <ul>
+        <li><a href="#">Clickable link</a></li>
+        <li><a href="#">Clickable link</a></li>
+        <li class="disabled"><a href="#">Disabled link</a></li>
+    </ul>
+</div>
+

@@ -3,37 +3,26 @@
 
 <h2>User account summaries</h2>
 
-
-
-<center>
-    <h3>Accounts pending approval</h3>
-</center>
+<h3 class="text-center">Accounts pending approval</h3>
 <div>
     <h4>Pending Administrators</h4>
-    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["PendingAdministrator"])
+    @Html.Partial("UserAccountTableDisplay", ViewData["PendingAdministrator"])
     <h4>Pending Managers</h4>
-    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["PendingManager"])
+    @Html.Partial("UserAccountTableDisplay", ViewData["PendingManager"])
     <h4>Pending Employees</h4>
-    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["PendingEmployee"])
+    @Html.Partial("UserAccountTableDisplay", ViewData["PendingEmployee"])
     <h4>Pending Patrons</h4>
-    @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["PendingPatron"])
+    @Html.Partial("UserAccountTableDisplay", ViewData["PendingPatron"])
 </div>
 
-
-<center>
-<h3>Suspended Account List </h3>
-    </center>
-        <div>
-            <h4>Suspended Administrators</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedAdministrator"])
-            <h4>Suspended Managers</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedManager"])
-            <h4>Suspended Employees</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedEmployee"])
-            <h4>Suspended Patrons</h4>
-            @Html.Partial("UserAccountSuspendedTableDisplay", ViewData["SuspendedPatron"])
-        </div>
-
-
-
-
+<h3 class="text-center">Suspended Account List </h3>
+<div>
+    <h4>Suspended Administrators</h4>
+    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedAdministrator"])
+    <h4>Suspended Managers</h4>
+    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedManager"])
+    <h4>Suspended Employees</h4>
+    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedEmployee"])
+    <h4>Suspended Patrons</h4>
+    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedPatron"])
+</div>

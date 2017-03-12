@@ -104,7 +104,7 @@ namespace WAMA.Core.Migrations
 
                     b.Property<bool>("HasBeenApproved");
 
-                    b.Property<int>("InstitutionAffliation");
+                    b.Property<int>("InstitutionAffiliation");
 
                     b.Property<bool>("IsSuspended");
 

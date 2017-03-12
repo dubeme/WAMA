@@ -123,11 +123,11 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to Member ID does not exists. Create a new account..
+        ///    Looks up a localized string similar to Hmm! Seems like something weird happened, please try again in a few..
         /// </summary>
-        public static string IDNotExists {
+        public static string GenericErrorMessage {
             get {
-                return ResourceManager.GetString("IDNotExists", resourceCulture);
+                return ResourceManager.GetString("GenericErrorMessage", resourceCulture);
             }
         }
         
@@ -141,11 +141,29 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to No account with member ID {0} exists. Create a new account..
+        /// </summary>
+        public static string NoAccountExistsWithID {
+            get {
+                return ResourceManager.GetString("NoAccountExistsWithID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Patron.
         /// </summary>
         public static string PatronLabel {
             get {
                 return ResourceManager.GetString("PatronLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Signature does not match with the name of the Patron. Please sign using the following format: First Name Last Name.
+        /// </summary>
+        public static string SignatureMismatch {
+            get {
+                return ResourceManager.GetString("SignatureMismatch", resourceCulture);
             }
         }
     }

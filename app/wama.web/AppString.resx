@@ -139,13 +139,19 @@
     <value>ErrorMessages</value>
     <comment>A key that will be used for passing a collection of error messages to be sent to the user</comment>
   </data>
-  <data name="IDNotExists" xml:space="preserve">
-    <value>Member ID does not exists. Create a new account.</value>
+  <data name="GenericErrorMessage" xml:space="preserve">
+    <value>Hmm! Seems like something weird happened, please try again in a few.</value>
   </data>
   <data name="ManagerLabel" xml:space="preserve">
     <value>Manager</value>
   </data>
+  <data name="NoAccountExistsWithID" xml:space="preserve">
+    <value>No account with member ID {0} exists. Create a new account.</value>
+  </data>
   <data name="PatronLabel" xml:space="preserve">
     <value>Patron</value>
+  </data>
+  <data name="SignatureMismatch" xml:space="preserve">
+    <value>Signature does not match with the name of the Patron. Please sign using the following format: First Name Last Name</value>
   </data>
 </root>

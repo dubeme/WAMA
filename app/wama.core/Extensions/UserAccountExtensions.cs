@@ -4,8 +4,16 @@ using WAMA.Core.ViewModel.User;
 
 namespace WAMA.Core.Extensions
 {
+    /// <summary>
+    /// Represents UserAccountExtensions
+    /// </summary>
     public static class UserAccountExtensions
     {
+        /// <summary>
+        /// Converts the ViewModel to DTO.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         public static UserAccount ToDTO(this UserAccountViewModel user)
         {
             return new UserAccount
@@ -15,7 +23,7 @@ namespace WAMA.Core.Extensions
                 FirstName = user.FirstName,
                 Gender = user.Gender,
                 HasBeenApproved = user.HasBeenApproved,
-                InstitutionAffliation = user.InstitutionAffliation,
+                InstitutionAffiliation = user.InstitutionAffiliation,
                 IsSuspended = user.IsSuspended,
                 LastName = user.LastName,
                 MemberId = user.MemberId,
@@ -23,6 +31,16 @@ namespace WAMA.Core.Extensions
             };
         }
 
+        /// <summary>
+        /// Converts the DTO to ViewModel.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">
+        /// User has an Unknown account type - user
+        /// or
+        /// User has an invalid account type - user
+        /// </exception>
         public static UserAccountViewModel ToViewModel(this UserAccount user)
         {
             UserAccountViewModel userViewModel;
@@ -60,7 +78,7 @@ namespace WAMA.Core.Extensions
             userViewModel.FirstName = user.FirstName;
             userViewModel.Gender = user.Gender;
             userViewModel.HasBeenApproved = user.HasBeenApproved;
-            userViewModel.InstitutionAffliation = user.InstitutionAffliation;
+            userViewModel.InstitutionAffiliation = user.InstitutionAffiliation;
             userViewModel.IsSuspended = user.IsSuspended;
             userViewModel.LastName = user.LastName;
             userViewModel.MemberId = user.MemberId;
