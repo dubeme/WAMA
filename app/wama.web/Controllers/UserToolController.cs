@@ -176,7 +176,22 @@ namespace WAMA.Web.Controllers
 
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
         }
-
+        public async Task<IActionResult> AddCertification(string memberId)
+        {
+            var account = await GetUserAccountAsync(memberId);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/AddCertification.cshtml", account);
+        }
+        public async Task<IActionResult> EditCertification(string memberId)
+        {
+            var account = await GetUserAccountAsync(memberId);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UpdateCertification.cshtml", account);
+        }
+        public async Task<IActionResult> DeleteCertification(string memberId)
+        {
+            //delete certification
+            var account = await GetUserAccountAsync(memberId);
+            return View($"{Constants.ADMIN_CONSOLE_CLINIC_TOOL_DIRECTORY}/DeleteCertification.cshtml");
+        }
         public async Task<IActionResult> EditAccount(string memberId)
         {
             var account = await GetUserAccountAsync(memberId);
