@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WAMA.Core.Extensions;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Service;
+using WAMA.Core.ViewModel;
 using WAMA.Core.ViewModel.User;
 using WAMA.Web.Model;
 
@@ -48,7 +49,10 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> Administrators()
         {
-            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Administrator);
+            var accounts = await _UserAccountService.GetUserAccountsAsync(new UserSearchFilterViewModel
+            {
+                AccountTypes = new UserAccountType[] { UserAccountType.Administrator }
+            });
 
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS);
             ViewData[Constants.USER_ACCOUNT_TYPE] = AppString.AdministratorLabel;
@@ -58,7 +62,10 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> Employees()
         {
-            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Employee);
+            var accounts = await _UserAccountService.GetUserAccountsAsync(new UserSearchFilterViewModel
+            {
+                AccountTypes = new UserAccountType[] { UserAccountType.Employee }
+            });
 
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_EMPLOYEES);
             ViewData[Constants.USER_ACCOUNT_TYPE] = AppString.EmployeeLabel;
@@ -68,7 +75,10 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> Managers()
         {
-            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Manager);
+            var accounts = await _UserAccountService.GetUserAccountsAsync(new UserSearchFilterViewModel
+            {
+                AccountTypes = new UserAccountType[] { UserAccountType.Manager }
+            });
 
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_MANAGERS);
             ViewData[Constants.USER_ACCOUNT_TYPE] = AppString.ManagerLabel;
@@ -78,7 +88,10 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> Patrons()
         {
-            var accounts = await _UserAccountService.GetUserAccountsAsync(UserAccountType.Patron);
+            var accounts = await _UserAccountService.GetUserAccountsAsync(new UserSearchFilterViewModel
+            {
+                AccountTypes = new UserAccountType[] { UserAccountType.Patron }
+            });
 
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
             ViewData[Constants.USER_ACCOUNT_TYPE] = AppString.PatronLabel;
@@ -161,7 +174,7 @@ namespace WAMA.Web.Controllers
                 }
             }
 
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
         }
         public async Task<IActionResult> AddCertification(string memberId)
         {

@@ -7,15 +7,31 @@ using WAMA.Core.ViewModel;
 
 namespace WAMA.Core.Services
 {
+    /// <summary>
+    /// Represents WaiverService
+    /// </summary>
+    /// <seealso cref="WAMA.Core.Models.Service.IWaiverService" />
     public class WaiverService : IWaiverService
     {
+        /// <summary>
+        /// The database context provider
+        /// </summary>
         private IDbContextProvider _DbCtxProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WaiverService"/> class.
+        /// </summary>
+        /// <param name="dbCtx">The database CTX.</param>
         public WaiverService(IDbContextProvider dbCtx)
         {
             _DbCtxProvider = dbCtx;
         }
 
+        /// <summary>
+        /// Adds the waiver asynchronous.
+        /// </summary>
+        /// <param name="waiver">The waiver.</param>
+        /// <returns></returns>
         public async Task AddWaiverAsync(WaiverViewModel waiver)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -25,6 +41,11 @@ namespace WAMA.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets the waiver asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns></returns>
         public async Task<WaiverViewModel> GetWaiverAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
