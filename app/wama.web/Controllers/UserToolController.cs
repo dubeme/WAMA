@@ -23,14 +23,15 @@ namespace WAMA.Web.Controllers
             { UserAccountType.Administrator, Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS}
         };
 
-
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
+        private ICertificationService _CertificationService;
 
-        public UserToolController(IUserAccountService userAccountService, ICheckInService checkinService)
+        public UserToolController(IUserAccountService userAccountService, ICheckInService checkinService, ICertificationService certificationService)
         {
             _UserAccountService = userAccountService;
             _CheckInService = checkinService;
+            _CertificationService = certificationService;
         }
 
         public async Task<IActionResult> Index()
@@ -140,7 +141,6 @@ namespace WAMA.Web.Controllers
                 {
                     try
                     {
-
                         await _UserAccountService.CreateUserAsync(user);
                         await _CheckInService.CreateLogInCredentialAsync(user);
 
@@ -173,25 +173,79 @@ namespace WAMA.Web.Controllers
                     }
                 }
             }
-
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
         }
-        public async Task<IActionResult> AddCertification(string memberId)
+
+        public IActionResult AddCertification(string memberId)
         {
-            var account = await GetUserAccountAsync(memberId);
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/AddCertification.cshtml", account);
+            ViewBag.MemberId = memberId;
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/AddCertification.cshtml");
         }
-        public async Task<IActionResult> EditCertification(string memberId)
+
+        [HttpPost]
+        public async Task<IActionResult> AddCertification(CertificationViewModel Certification)
         {
-            var account = await GetUserAccountAsync(memberId);
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UpdateCertification.cshtml", account);
+            if (!ModelState.IsValid)
+            {
+                this.SetErrorMessages(ModelState.Values
+                    .Where(val => val.ValidationState == ModelValidationState.Invalid)
+                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
+            }
+            else
+            {
+                //if certification type already exist then if not expired error if expired update
+                try
+                {
+                    await _CertificationService.AddCertificationAsync(Certification);
+                    return RedirectToAction(
+                        actionName: nameof(ViewCertification),
+                        routeValues: new
+                        {
+                            MemberId = Certification.MemberId
+                        });
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+                when (ex.InnerException is System.Data.SqlClient.SqlException)
+                {
+                    if (ex.InnerException.Message.Contains("Cannot insert duplicate key"))
+                    {
+                    }
+                    else
+                    {
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var errMessages = new List<string>();
+                    while (ex != null)
+                    {
+                        errMessages.Add(ex.Message);
+                        ex = ex.InnerException;
+                    }
+
+                    SetErrorMessages(errMessages);
+                }
+            }
+
+            ViewBag.MemberId = Certification.MemberId;
+            return View(Certification);
         }
+
+        public async Task<IActionResult> ViewCertification(string memberId)
+        {
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
+            var Certifications = await _CertificationService.GetCertificationsAsync(memberId);
+            ViewBag.MemberId = memberId;
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertification.cshtml", Certifications);
+        }
+
         public async Task<IActionResult> DeleteCertification(string memberId)
         {
-            //delete certification
             var account = await GetUserAccountAsync(memberId);
             return View($"{Constants.ADMIN_CONSOLE_CLINIC_TOOL_DIRECTORY}/DeleteCertification.cshtml");
         }
+
         public async Task<IActionResult> EditAccount(string memberId)
         {
             var account = await GetUserAccountAsync(memberId);
