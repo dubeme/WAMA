@@ -243,6 +243,7 @@ namespace WAMA.Web.Controllers
         public async Task<IActionResult> DeleteCertification(string memberId)
         {
             var account = await GetUserAccountAsync(memberId);
+            throw new NotImplementedException();
             return View($"{Constants.ADMIN_CONSOLE_CLINIC_TOOL_DIRECTORY}/DeleteCertification.cshtml");
         }
 

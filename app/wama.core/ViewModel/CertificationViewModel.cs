@@ -23,7 +23,7 @@ namespace WAMA.Core.ViewModel
         /// Gets or sets the certified on of this CertificationViewModel.
         /// </summary>
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date)]   
         [Display(Name = "Certificated Date")]
         public DateTimeOffset CertifiedOn { get; set; }
         /// <summary>
