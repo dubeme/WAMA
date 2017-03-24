@@ -19,7 +19,8 @@ namespace WAMA.Core.Extensions
             {
                 CertifiedOn = viewModel.CertifiedOn,
                 ExpiresOn = viewModel.ExpiresOn,
-                MemberId = viewModel.MemberId
+                MemberId = viewModel.MemberId,
+                Type = viewModel.Type
             };
         }
 
@@ -34,7 +35,8 @@ namespace WAMA.Core.Extensions
             {
                 CertifiedOn = dto.CertifiedOn,
                 ExpiresOn = dto.ExpiresOn,
-                MemberId = dto.MemberId
+                MemberId = dto.MemberId,
+                Type = dto.Type
             };
         }
     }
