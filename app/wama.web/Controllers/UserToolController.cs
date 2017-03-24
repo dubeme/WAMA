@@ -240,11 +240,9 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertification.cshtml", Certifications);
         }
 
-        public async Task<IActionResult> DeleteCertification(string memberId)
+        public IActionResult DeleteCertification(string memberId)
         {
-            var account = await GetUserAccountAsync(memberId);
             throw new NotImplementedException();
-            return View($"{Constants.ADMIN_CONSOLE_CLINIC_TOOL_DIRECTORY}/DeleteCertification.cshtml");
         }
 
         public async Task<IActionResult> EditAccount(string memberId)
