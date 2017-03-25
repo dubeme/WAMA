@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Models.Contracts;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel;
 using WAMA.Web.Model;
@@ -15,6 +16,7 @@ namespace WAMA.Web.Controllers
         private ICheckInService _CheckInService;
         private IUserAccountService _UserAccountService;
         private ICSVService _CSVService;
+        private IQueryable<UserAccount> userAccounts;
 
         public ReportToolController(ICheckInService checkInService, IUserAccountService userAccountService, ICSVService csvService)
         {
@@ -64,7 +66,7 @@ namespace WAMA.Web.Controllers
                     break;
 
                 case Constants.ADMIN_CONSOLE_REPORTS_USERS:
-                    var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
+                    var listservData = await _UserAccountService.GetUserAccountsAsync(filter.UserSearchFilter);
                     extension = "text/txt";
                     fileName = $"listserv_{reportDate}.txt";
 
@@ -143,12 +145,25 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/CheckIns.cshtml", result);
         }
 
-        public async Task<IActionResult> Users()
+        [HttpGet]
+        public IActionResult Users()
         {
-            var listservData = await _UserAccountService.GetListservDataAsync(Core.Models.DTOs.UserAccountType.Patron);
-            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml");
+        }
 
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml", listservData);
+        [HttpPost]
+        public async Task<IActionResult> Users(UserSearchFilterViewModel filter)
+        {
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
+            var users = await _UserAccountService.GetUserAccountsAsync(filter);
+
+            ViewData["filter"] = new ReportToolFilterViewModel
+            {
+                ActiveTool = Constants.ADMIN_CONSOLE_REPORTS_USERS,
+                UserSearchFilter = filter
+            };
+
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/FilteredResult.cshtml", users);
         }
     }
 }
