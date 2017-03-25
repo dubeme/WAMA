@@ -51,7 +51,7 @@ namespace WAMA.Web.Controllers
                 {
                     SetErrorMessages(AppString.AccountSuspended);
                 }
-                else if (System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificateInfo.ExpiresOn) > 0)
+                else if (certificateInfo != null && System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificateInfo.ExpiresOn) > 0)
                 {
                     SetErrorMessages(AppString.CertificateExpired);
                 }
