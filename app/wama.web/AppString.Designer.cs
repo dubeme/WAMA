@@ -69,6 +69,15 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Your account has been suspecded! Please contact the front desk..
+        /// </summary>
+        public static string AccountSuspended {
+            get {
+                return ResourceManager.GetString("AccountSuspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to No user account has the member ID {0}..
         /// </summary>
         public static string AccountWithIdDoesntExist {
@@ -92,6 +101,15 @@ namespace WAMA.Web {
         public static string AdministratorLabel {
             get {
                 return ResourceManager.GetString("AdministratorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Your cerficate has been expired..
+        /// </summary>
+        public static string CertificateExpired {
+            get {
+                return ResourceManager.GetString("CertificateExpired", resourceCulture);
             }
         }
         

@@ -11,13 +11,15 @@ namespace WAMA.Web.Controllers
     {
         private IUserAccountService _UserAccountService;
         private IWaiverService _waiverService;
+        private ICertificationService _CertificationService;
         private static ICheckInService _CheckInService;
 
-        public CheckInController(IUserAccountService userAccountService, ICheckInService checkInService, IWaiverService waiverService)
+        public CheckInController(IUserAccountService userAccountService, ICheckInService checkInService, IWaiverService waiverService, ICertificationService certificationService)
         {
             _UserAccountService = userAccountService;
             _waiverService = waiverService;
             _CheckInService = checkInService;
+            _CertificationService = certificationService;
         }
 
         [HttpGet]
@@ -33,6 +35,7 @@ namespace WAMA.Web.Controllers
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
                 var waiverInfo = await _waiverService.GetWaiverAsync(memberId);
+                var certificateInfo = await _CertificationService.GetCertificationAsync(memberId);
 
                 if (userAccount == null)
                 {
@@ -43,6 +46,14 @@ namespace WAMA.Web.Controllers
                 else if (!userAccount.HasBeenApproved)
                 {
                     SetErrorMessages(AppString.AccountPendingApprovalMessage);
+                }
+                else if (userAccount.IsSuspended)
+                {
+                    SetErrorMessages(AppString.AccountSuspended);
+                }
+                else if (System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificateInfo.ExpiresOn) > 0)
+                {
+                    SetErrorMessages(AppString.CertificateExpired);
                 }
                 else if (waiverInfo == null || System.DateTimeOffset.Now.Subtract(waiverInfo.SignedOn).TotalDays >= 90)
                 {
@@ -76,9 +87,9 @@ namespace WAMA.Web.Controllers
         {
             var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
 
-            string userName = userAccount.FirstName + " " + userAccount.LastName;
+            string userName = userAccount.FirstName + " " + userAccount.LastName;            
 
-            if (signerName == null || !signerName.Equals(userName))
+            if (signerName == null || !signerName.ToLower().Equals(userName.ToLower()))
             {
                 SetErrorMessages(AppString.SignatureMismatch);
             }
