@@ -156,7 +156,7 @@ namespace WAMAcut.Controllers
 
             Assert.Equal(1, errors.Count());
             Assert.Equal(errMessage, errors.First());
-            Assert.Equal($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Patrons.cshtml",
+            Assert.Equal($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml",
                 viewResult.ViewName);
         }
 
@@ -230,8 +230,9 @@ namespace WAMAcut.Controllers
         {
             var mockCheckinService = new Mock<ICheckInService>();
             var mockUserAccountService = MockUserAccountService();
+            var mockCertificationService = new Mock<ICertificationService>();
 
-            var userToolController = new UserToolController(mockUserAccountService, mockCheckinService.Object);
+            var userToolController = new UserToolController(mockUserAccountService, mockCheckinService.Object, mockCertificationService.Object);
             return userToolController;
         }
 
