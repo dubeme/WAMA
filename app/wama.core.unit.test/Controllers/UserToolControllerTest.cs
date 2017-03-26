@@ -231,7 +231,7 @@ namespace WAMAcut.Controllers
             var mockCheckinService = new Mock<ICheckInService>();
             var mockUserAccountService = MockUserAccountService();
 
-            var userToolController = new UserToolController(mockUserAccountService, mockCheckinService.Object);
+            var userToolController = new UserToolController(mockUserAccountService, mockCheckinService.Object, null);
             return userToolController;
         }
 
