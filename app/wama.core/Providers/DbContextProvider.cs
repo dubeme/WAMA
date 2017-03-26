@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using WAMA.Core.Models;
 using WAMA.Core.Models.Provider;
 
@@ -10,13 +11,20 @@ namespace WAMA.Core.Providers
     /// <seealso cref="WAMA.Core.Models.Provider.IDbContextProvider" />
     public class DbContextProvider : IDbContextProvider
     {
+        private DbContextOptions dbContextOptions;
+
+        public DbContextProvider(DbContextOptions _dbContextOptions)
+        {
+            dbContextOptions = _dbContextOptions;
+        }
+
         /// <summary>
         /// Gets a <see cref="WamaDbContext" />.
         /// </summary>
         /// <returns></returns>
         public WamaDbContext GetWamaDbContext()
         {
-            return new WamaDbContext();
+            return new WamaDbContext(dbContextOptions);
         }
 
         /// <summary>
@@ -26,7 +34,7 @@ namespace WAMA.Core.Providers
         /// <returns></returns>
         public WamaDbContext GetWamaDbContext(DbContextOptions dbOption)
         {
-            return new WamaDbContext(dbOption);
+            throw new NotImplementedException();
         }
     }
 }
