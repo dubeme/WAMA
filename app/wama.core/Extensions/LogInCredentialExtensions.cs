@@ -18,7 +18,7 @@ namespace WAMA.Core.Extensions
             return new LogInCredential
             {
                 MemberId = viewModel.MemberId,
-                Password = viewModel.Password,
+                HashedPassword = viewModel.HashedPassword,
                 RequiresPassword = viewModel.RequiresPassword
             };
         }
@@ -33,7 +33,7 @@ namespace WAMA.Core.Extensions
             return new LogInCredentialViewModel
             {
                 MemberId = dto.MemberId,
-                Password = dto.Password,
+                HashedPassword = dto.HashedPassword,
                 RequiresPassword = dto.RequiresPassword
             };
         }

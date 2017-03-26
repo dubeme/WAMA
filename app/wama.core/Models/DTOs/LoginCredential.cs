@@ -12,9 +12,9 @@
         public string MemberId { get; set; }
 
         /// <summary>
-        /// Gets or sets the password of this LogInCredential.
+        /// Gets or sets the hashed password of this LogInCredential.
         /// </summary>
-        public string Password { get; set; }
+        public string HashedPassword { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [requires password].

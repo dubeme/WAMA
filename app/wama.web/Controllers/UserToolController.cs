@@ -120,7 +120,7 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UserAccountAddNewUser(PatronUserAccountViewModel user)
+        public async Task<IActionResult> UserAccountAddNewUser(UserAccountViewModel user)
         {
             if (!ModelState.IsValid)
             {
