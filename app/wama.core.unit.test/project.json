@@ -7,7 +7,10 @@
         "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
         "Newtonsoft.Json": "10.0.1-beta1",
         "Moq": "4.7.1",
-        "xunit": "2.2.0"
+        "xunit": "2.2.0",
+        "wama.web": "1.0.0-*",
+        "Microsoft.DotNet.InternalAbstractions": "1.0.500-preview2-1-003177",
+        "Microsoft.AspNetCore.TestHost": "1.1.0"
     },
     "frameworks": {
         "netcoreapp1.0": {
