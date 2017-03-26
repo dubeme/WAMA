@@ -121,7 +121,7 @@
     <value>Account approval pending. Please contact front desk.</value>
   </data>
   <data name="AccountSuspended" xml:space="preserve">
-    <value>Your account has been suspecded! Please contact the front desk.</value>
+    <value>Your account has been suspended! Please contact the front desk.</value>
   </data>
   <data name="AccountWithIdDoesntExist" xml:space="preserve">
     <value>No user account has the member ID {0}.</value>
