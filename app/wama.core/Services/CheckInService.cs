@@ -26,7 +26,7 @@ namespace WAMA.Core.Services
         private IDbContextProvider _DbCtxProvider;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CheckInService"/> class.
+        /// Initializes a new instance of the <see cref="CheckInService" /> class.
         /// </summary>
         /// <param name="dbCtx">The database CTX.</param>
         public CheckInService(IDbContextProvider dbCtx)
@@ -84,6 +84,34 @@ namespace WAMA.Core.Services
 
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
+                dbCtx.CheckInActivities.Add(checkinActivity);
+                await dbCtx.SaveChangesAsync();
+            }
+
+            return checkinActivity?.ToViewModel();
+        }
+
+        /// <summary>
+        /// Performs the check in asynchronous.
+        /// </summary>
+        /// <param name="loginCredential"></param>
+        /// <returns></returns>
+        public async Task<CheckInActivityViewModel> PerformCheckInAsync(LogInCredentialViewModel loginCredential)
+        {
+            var checkinActivity = new CheckInActivity
+            {
+                MemberId = loginCredential.MemberId,
+                CheckInDateTime = DateTimeOffset.Now,
+                IsCheckedIn = false,
+            };
+
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                checkinActivity.IsCheckedIn = await dbCtx.LogInCredentials.AnyAsync(_loginCredntial => 
+                    _loginCredntial.MemberId == loginCredential.MemberId && 
+                     _loginCredntial.HashedPassword == loginCredential.HashedPassword
+                );
+
                 dbCtx.CheckInActivities.Add(checkinActivity);
                 await dbCtx.SaveChangesAsync();
             }

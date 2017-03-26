@@ -33,6 +33,13 @@ namespace WAMA.Core.Models.Service
         Task<CheckInActivityViewModel> PerformCheckInAsync(string memberId);
 
         /// <summary>
+        /// Performs the check in asynchronous.
+        /// </summary>
+        /// <param name="memberId">The login credential.</param>
+        /// <returns></returns>
+        Task<CheckInActivityViewModel> PerformCheckInAsync(LogInCredentialViewModel loginCredential);
+
+        /// <summary>
         /// Gets the check in activities for member asynchronous.
         /// </summary>
         /// <param name="memberId">The member identifier.</param>
