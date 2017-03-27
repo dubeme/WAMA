@@ -1,4 +1,5 @@
-﻿using WAMA.Core.Models.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+using WAMA.Core.Models.DTOs;
 
 namespace WAMA.Core.ViewModel
 {
@@ -10,11 +11,16 @@ namespace WAMA.Core.ViewModel
         /// <summary>
         /// Gets or sets the member identifier of this LogInCredentialViewModel.
         /// </summary>
+        [Required]
+        [Display(Name = "Member ID")]
         public string MemberId { get; set; }
 
         /// <summary>
         /// Gets or sets the password of this LogInCredentialViewModel.
         /// </summary>
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string HashedPassword { get; set; }
 
         /// <summary>
