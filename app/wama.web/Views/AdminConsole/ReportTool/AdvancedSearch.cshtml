@@ -6,14 +6,6 @@
 
 @{
     @model UserSearchFilterViewModel
-//@model IEnumerable<ListservViewModel>
-
-    @*if (object.Equals(Model, null) )
-        {
-            <h4 class="text-danger">Nothing to show here</h4>
-        }
-        else
-        {*@
     <div class="container">
         <h2 class="col-sm-offset-4">Advanced search</h2><br><br>
         <form asp-action="@nameof(WAMA.Web.Controllers.ReportToolController.Users)" method="post" class="form-horizontal">
@@ -99,5 +91,4 @@
             </div>
         </form>
     </div>
-
 }

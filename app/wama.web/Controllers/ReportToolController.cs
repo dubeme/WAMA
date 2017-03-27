@@ -16,8 +16,6 @@ namespace WAMA.Web.Controllers
         private ICheckInService _CheckInService;
         private IUserAccountService _UserAccountService;
         private ICSVService _CSVService;
-        private IQueryable<UserAccount> userAccounts;
-
         public ReportToolController(ICheckInService checkInService, IUserAccountService userAccountService, ICSVService csvService)
         {
             _CheckInService = checkInService;
@@ -148,7 +146,7 @@ namespace WAMA.Web.Controllers
         [HttpGet]
         public IActionResult Users()
         {
-            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/Users.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/AdvancedSearch.cshtml");
         }
 
         [HttpPost]
