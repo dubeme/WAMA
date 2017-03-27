@@ -48,7 +48,7 @@ td {
 }
 
 .display-inline-with-right-padding {
-    display:inline;
+    display: inline;
     padding-right: 1.25rem;
 }
 
@@ -106,4 +106,18 @@ td {
 
 .indented-list {
     padding-left: 2rem;
+}
+
+label {
+    display: block;
+}
+
+.hint {
+    display: none;
+    color: gray;
+    font-style: italic;
+}
+
+input:focus + .hint {
+    display: table-row;
 }

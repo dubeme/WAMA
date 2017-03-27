@@ -35,5 +35,7 @@ namespace WAMA.Core.ViewModel
         /// Gets or sets the active tool of this ReportToolFilterViewModel.
         /// </summary>
         public string ActiveTool { get; set; }
+
+        public UserSearchFilterViewModel UserSearchFilter { get; set; }
     }
 }
