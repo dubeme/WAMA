@@ -7,12 +7,12 @@ using WAMA.Core.ViewModel;
 
 namespace WAMA.Web.Controllers
 {
-    public class AdminConsoleLoginController : WamaBaseController
+    public class AdminController : WamaBaseController
     {
         private static ICheckInService _CheckInService;
         private IUserAccountService _UserAccountService;
 
-        public AdminConsoleLoginController(ICheckInService checkInService, IUserAccountService userAccountService)
+        public AdminController(ICheckInService checkInService, IUserAccountService userAccountService)
         {
             _UserAccountService = userAccountService;
             _CheckInService = checkInService;
