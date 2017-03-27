@@ -35,7 +35,7 @@ namespace WAMA.Web.Controllers
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
                 var waiverInfo = await _waiverService.GetWaiverAsync(memberId);
-                var certificateInfo = await _CertificationService.GetCertificationAsync(memberId);
+                var certificate = await _CertificationService.GetCertificationAsync(memberId);
 
                 if (userAccount == null)
                 {
@@ -51,7 +51,7 @@ namespace WAMA.Web.Controllers
                 {
                     SetErrorMessages(AppString.AccountSuspended);
                 }
-                else if (certificateInfo != null && System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificateInfo.ExpiresOn) > 0)
+                else if (certificate != null && System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificate.ExpiresOn) > 0)
                 {
                     SetErrorMessages(AppString.CertificateExpired);
                 }
@@ -87,10 +87,15 @@ namespace WAMA.Web.Controllers
         {
             var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
 
-            string userName = userAccount.FirstName + " " + userAccount.LastName;            
-
-            if (signerName == null || !signerName.ToLower().Equals(userName.ToLower()))
+            string userName = null;
+            if (userAccount != null)
             {
+                userName = userAccount.FirstName + " " + userAccount.LastName;
+            }
+            
+
+            if (signerName == null || (userName != null && !signerName.ToLower().Equals(userName.ToLower())))
+            {                
                 SetErrorMessages(AppString.SignatureMismatch);
             }
             else
