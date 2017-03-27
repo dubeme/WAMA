@@ -1,0 +1,37 @@
+﻿@using WAMA.Core.ViewModel;
+@using WAMA.Core.Models.DTOs;
+
+@model CertificationViewModel
+
+@{
+
+    <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        @Html.Partial("DisplayError")
+        <form asp-action="AddCertification" asp-antiforgery="true" method="post">
+            <div class="form-group col-xs-12">
+                <label asp-for="Type"> </label>
+                <select asp-for="Type" asp-items="@Html.GetEnumSelectList<CertificationType>()" class="form-control"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group col-xs-12">
+                <label asp-for="CertifiedOn"> </label>
+                <input asp-for="CertifiedOn" class="form-control" />
+                <span asp-validation-for="CertifiedOn" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <label asp-for="ExpiresOn"> </label>
+                <input asp-for="ExpiresOn" class="form-control" />
+                <span asp-validation-for="ExpiresOn" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="MemberId" value="@ViewBag.MemberId" />
+
+            <div class="form-group col-xs-12" asp>
+                <div class="form-group col-xs-12" asp>
+                    <button type="submit" class="btn btn-lg btn-success">Create patron account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+}

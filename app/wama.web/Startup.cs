@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WAMA.Core.Models;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Models.Service;
 using WAMA.Core.Providers;
@@ -32,6 +34,15 @@ namespace WAMA.Web
             services.AddMvc().AddMvcOptions(options =>
             {
                 options.ModelBinderProviders.Insert(0, new WamaModelBinderProvider());
+            });
+
+            services.AddTransient<DbContextOptions>(serviceProvider =>
+            {
+                var connection = @"Server=(localdb)\mssqllocaldb;Database=wama.db;User Id=wama.dev;Password=BAD_P455W0RD;";
+
+                return (new DbContextOptionsBuilder<WamaDbContext>())
+                    .UseSqlServer(connection)
+                    .Options;
             });
 
             services.AddTransient<IDbContextProvider, DbContextProvider>();
