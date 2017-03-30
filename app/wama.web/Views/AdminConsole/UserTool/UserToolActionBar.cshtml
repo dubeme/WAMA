@@ -1,27 +1,44 @@
-﻿
+﻿@using WAMA.Core.Extensions;
+@using WAMA.Core.Models.DTOs;
+@using WAMA.Web.Controllers;
 
-<div>
-    <a href='@Url.Content("~/AdminConsole/UserTool/UserAccountAddNewUser")'>
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New User
-    </a>
-</div>
-
-<br>
-<br>
-
-@if (Model is WAMA.Core.ViewModel.User.UserAccountViewModel)
+@if (Model is UserAccountType)
 {
-    <div class="form-group col-xs-12">
-        <a href="@($"{Model.AccountType}s")">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+    <div>
+        @{
+            var label = "Add New User";
+            var accountType = (UserAccountType)Model;
+            var addNewUserAccountController = nameof(UserToolController).StripController();
+            var addNewUserAccountAction = nameof(UserToolController.UserAccountAddNewUser);
+            var addNewUserUrl = Url.Action(addNewUserAccountAction,
+                addNewUserAccountController,
+                new
+                {
+                    type = accountType
+                });
+
+            switch (accountType)
+            {
+                case UserAccountType.Patron:
+                    label = AppString.AddNewPatronLabel;
+                    break;
+                case UserAccountType.Employee:
+                    label = AppString.AddNewEmployeeLabel;
+                    break;
+                case UserAccountType.Manager:
+                    label = AppString.AddNewManagerLabel;
+                    break;
+                case UserAccountType.Administrator:
+                    label = AppString.AddNewAdministratorLabel;
+                    break;
+            }
+        }
+
+        <a href='@addNewUserUrl'>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @label
         </a>
     </div>
 
-    <div class="form-group col-xs-12">
-        <a href="EditAccount?memberid=@Model.MemberId">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Account
-        </a>
-    </div>
+    <br />
+    <br />
 }
-
-
