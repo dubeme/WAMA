@@ -80,5 +80,11 @@ namespace WAMA.Core.Models.Service
         /// <param name="memberId">The member identifier.</param>
         /// <returns></returns>
         Task ApproveAccountAsync(string memberId);
+
+        /// <summary>
+        /// Gets the aggregates asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        Task<AdminConsoleHomeViewModel> GetAggregatesAsync();
     }
 }

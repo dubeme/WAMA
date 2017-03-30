@@ -34,24 +34,23 @@ namespace WAMA.Web.Controllers
         {
             try
             {
-                //An exception will be caught if member ID entered DOESN'T EXIST 
+                if (ModelState.IsValid)
+                {
+                    var result = await _CheckInService.PerformCheckInAsync(loginCredential);
 
-                var result = await _CheckInService.PerformCheckInAsync(loginCredential.MemberId);
-                if (result.IsCheckedIn)
-                {
-                    return RedirectToAction(actionName: nameof(AdminConsoleController.Index),
-                                            controllerName: nameof(AdminConsoleController).StripController());
-                }
-                else
-                {
-                    return RedirectToAction(nameof(AccessDenied));
+                    if (result.IsCheckedIn)
+                    {
+                        return RedirectToAction(actionName: nameof(AdminConsoleController.Index),
+                            controllerName: nameof(AdminConsoleController).StripController());
+                    }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("{0} Exception caught.", e);
-                return RedirectToAction(nameof(AccessDenied));
+                Console.WriteLine("{0} Exception caught.", ex);
             }
+
+            return RedirectToAction(nameof(AccessDenied));
         }
 
         [HttpGet]
