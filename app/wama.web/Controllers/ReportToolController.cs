@@ -11,7 +11,7 @@ using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
-    public class ReportToolController : WamaBaseController
+    public class ReportToolController : AdminConsoleBaseController
     {
         private ICheckInService _CheckInService;
         private IUserAccountService _UserAccountService;

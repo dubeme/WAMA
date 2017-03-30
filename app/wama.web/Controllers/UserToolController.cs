@@ -13,7 +13,7 @@ using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
-    public class UserToolController : WamaBaseController
+    public class UserToolController : AdminConsoleBaseController
     {
         private static Dictionary<UserAccountType, string> AccountTypeToolsMapping = new Dictionary<UserAccountType, string>
         {
