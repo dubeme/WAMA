@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WAMA.Core.Extensions;
@@ -51,6 +52,7 @@ namespace WAMA.Core.Services
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
+        [Obsolete("Not used")]
         public async Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -217,6 +219,39 @@ namespace WAMA.Core.Services
                 old.HasBeenApproved = true;
                 await dbCtx.SaveChangesAsync();
             }
+        }
+
+        public async Task<AdminConsoleHomeViewModel> GetAggregatesAsync()
+        {
+            var aggregate = new AdminConsoleHomeViewModel();
+
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                using (var connection = dbCtx.Database.GetDbConnection())
+                {
+                    await connection.OpenAsync();
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "GetGeneralAggregate";
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (reader.Read())
+                            {
+                                aggregate.NumberOfExpiredCertifications = Convert.ToInt32(reader["expiredcerts"]);
+                                aggregate.NumberOfCertificationsExpiringInTheNextWeek = Convert.ToInt32(reader["expiringcerts"]);
+                                aggregate.NumberOfNonPatronCheckinsToday = Convert.ToInt32(reader["nonpatroncheckins"]);
+                                aggregate.NumberOfPatronCheckinsToday = Convert.ToInt32(reader["patroncheckins"]);
+                                aggregate.NumberOfPatronsPendingApprobal = Convert.ToInt32(reader["pendingapproval"]);
+                                aggregate.NumberOfSuspendedPatrons = Convert.ToInt32(reader["suspended"]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return aggregate;
         }
     }
 }
