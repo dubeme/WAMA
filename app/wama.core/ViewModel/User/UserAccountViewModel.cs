@@ -16,7 +16,7 @@ namespace WAMA.Core.ViewModel.User
         /// <summary>
         /// Gets or sets the member identifier of this UserAccountViewModel.
         /// </summary>
-        [Display(Name = "ID (7 digit SDSU ID)")]
+        [Display(Name = "ID (6 or 7 digit SDSU ID)")]
         public string MemberId { get; set; }
 
         /// <summary>
