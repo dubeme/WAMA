@@ -1,10 +1,12 @@
 ﻿@using WAMA.Core.ViewModel;
 @using WAMA.Web.Model;
+@using WAMA.Core.Models.DTOs;
+@using WAMA.Core.ViewModel.User;
 
 @Html.Partial("DisplayError")
 
 @{
-    @model IEnumerable<ListservViewModel>
+    @model IEnumerable<UserAccountViewModel>
 
     if (object.Equals(Model, null) || Model.Any() == false)
     {
@@ -12,14 +14,7 @@
     }
     else
     {
-        <div class="">
-            <form asp-antiforgery="true" method="post">
-                <input type="hidden" name="ActiveTool" value="@ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL]" />
-                <div class="form-group col-xs-12">
-                    <button type="submit" class="btn btn-lg btn-success" asp-action="DownloadCSV">Download Listserv data</button>
-                </div>
-            </form>
-        </div>
+        @Html.Partial("DownloadCSVButton.cshtml", ViewData["filter"])
 
         <table class="table table-bordered">
             <thead>
@@ -31,13 +26,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var listservData in Model)
+                @foreach (var UserAccountViewModel in Model)
                 {
                     <tr>
-                        <td class="no-wrap-text">@listservData.FirstName</td>
-                        <td class="no-wrap-text">@listservData.LastName</td>
-                        <td class="no-wrap-text">@listservData.MiddleName</td>
-                        <td class="no-wrap-text"><a href="mailto:@listservData.Email">@listservData.Email</a></td>
+                        <td class="no-wrap-text">@UserAccountViewModel.FirstName</td>
+                        <td class="no-wrap-text">@UserAccountViewModel.LastName</td>
+                        <td class="no-wrap-text">@UserAccountViewModel.MiddleName</td>
+                        <td class="no-wrap-text"><a href="mailto:@UserAccountViewModel.Email">@UserAccountViewModel.Email</a></td>
                     </tr>
                 }
             </tbody>

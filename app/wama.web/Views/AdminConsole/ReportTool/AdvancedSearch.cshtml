@@ -1,0 +1,94 @@
+﻿@using WAMA.Core.ViewModel;
+@using WAMA.Web.Model;
+@using WAMA.Core.Models.DTOs;
+
+@Html.Partial("DisplayError")
+
+@{
+    @model UserSearchFilterViewModel
+    <div class="container">
+        <h2 class="col-sm-offset-4">Advanced search</h2><br><br>
+        <form asp-action="@nameof(WAMA.Web.Controllers.ReportToolController.Users)" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label asp-for="CommaSeparatedMemberIDs" class="control-label col-sm-2 col-sm-offset-2 "></label>
+                <div class="col-sm-3 ">
+                    <input asp-for="CommaSeparatedMemberIDs" class="form-control" id="ID" placeholder="Enter the ID You are Looking for">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="Name" class="form-control" id="Name" placeholder="Enter the Name You are Looking for">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountTypes" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="AccountTypes" class="form-control" id="Account Type" placeholder="Enter The Account Type">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountIsSuspended" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="AccountIsSuspended" name="AccountIsSuspended" value="" id="Suspension Status">
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountIsApproved" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="AccountIsApproved" id="Approval Status">
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertifiedOn" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="CertifiedOn" class="form-control" id="Certification Certified On" placeholder="Enter The Certification Certified On">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertifiedBefore" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="CertifiedBefore" class="form-control" id="Certification Certified Before" placeholder="Enter The Certification Certified Before">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertifiedAfter" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="CertifiedAfter" class="form-control" id="Certification Certified After" placeholder="Enter The Certification Certified After">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignedWaiverOn" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="SignedWaiverOn" class="form-control" id="Waiver Signed Date On" placeholder="Enter The Waiver Signed Date On">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignedWaiverBefore" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="SignedWaiverBefore" class="form-control" id="Waiver Signed Date Before" placeholder="Enter The Waiver Signed Date Before">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignedWaiverAfter" class="control-label col-sm-2 col-sm-offset-2"></label>
+                <div class="col-sm-3">
+                    <input asp-for="SignedWaiverAfter" class="form-control" id="Waiver Signed Date After" placeholder="Enter The Waiver Signed Date After">
+                    <span class="hint">here's a hint</span>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="form-group col-xs-12 ">
+                    <button type="submit" class="btn btn-lg btn-primary col-sm-2 col-sm-offset-3">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+}

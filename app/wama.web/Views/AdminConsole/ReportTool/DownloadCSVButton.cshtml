@@ -5,6 +5,18 @@
     <input type="hidden" asp-for="StartDate" />
     <input type="hidden" asp-for="EndDate" />
     <input type="hidden" asp-for="ReportGranularity" />
+    <input type="hidden" asp-for="UserSearchFilter.Name" />
+    <input type="hidden" asp-for="UserSearchFilter.MemberIDs" />
+    <input type="hidden" asp-for="UserSearchFilter.AccountTypes" />
+    <input type="hidden" asp-for="UserSearchFilter.AccountIsSuspended" />
+    <input type="hidden" asp-for="UserSearchFilter.AccountIsApproved" />
+    <input type="hidden" asp-for="UserSearchFilter.CertifiedOn" />
+    <input type="hidden" asp-for="UserSearchFilter.CertifiedAfter" />
+    <input type="hidden" asp-for="UserSearchFilter.CertifiedBefore" />
+    <input type="hidden" asp-for="UserSearchFilter.SignedWaiverOn" />
+    <input type="hidden" asp-for="UserSearchFilter.SignedWaiverAfter" />
+    <input type="hidden" asp-for="UserSearchFilter.SignedWaiverBefore" />
+
     <div class="form-group col-xs-12">
         <button type="submit" class="btn btn-lg btn-success" asp-action="DownloadCSV">Download .csv</button>
     </div>
