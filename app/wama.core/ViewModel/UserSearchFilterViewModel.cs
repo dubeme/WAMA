@@ -15,13 +15,12 @@ namespace WAMA.Core.ViewModel
         /// <summary>
         /// Gets or sets the name of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Name:")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the member i ds of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "MemberIDs")]
         public IEnumerable<string> MemberIDs
         {
             get
@@ -38,66 +37,66 @@ namespace WAMA.Core.ViewModel
         /// <summary>
         /// Gets or sets the member i ds of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Comma Separated MemberIDs")]
+        [Display(Name = "Comma separated member IDs")]
         public string CommaSeparatedMemberIDs { get; set; }
 
         /// <summary>
         /// Gets or sets the account types of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Account Type:")]
+        [Display(Name = "Account types")]
         public IEnumerable<UserAccountType> AccountTypes { get; set; }
 
         /// <summary>
         /// Gets or sets the account is suspended of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Suspension Status:")]
+        [Display(Name = "Account is suspended")]
         public bool AccountIsSuspended { get; set; }
 
         /// <summary>
         /// Gets or sets the account is approved of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Approval Status:")]
+        [Display(Name = "Account is approved")]
         public bool AccountIsApproved { get; set; }
 
         /// <summary>
         /// Gets or sets the certified on of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Certification Certified On:")]
+        [Display(Name = "Certified on")]
         [DataType(DataType.Date)]
         public DateTime? CertifiedOn { get; set; }
 
         /// <summary>
         /// Gets or sets the certified after of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Certification Certified After:")]
+        [Display(Name = "Certified after")]
         [DataType(DataType.Date)]
         public DateTime? CertifiedAfter { get; set; }
 
         /// <summary>
         /// Gets or sets the certified before of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Certification Certified Before:")]
+        [Display(Name = "Certified before")]
         [DataType(DataType.Date)]
         public DateTime? CertifiedBefore { get; set; }
 
         /// <summary>
         /// Gets or sets the signed waiver on of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Waiver Signed Date On:")]
+        [Display(Name = "Signed waiver on")]
         [DataType(DataType.Date)]
         public DateTime? SignedWaiverOn { get; set; }
 
         /// <summary>
         /// Gets or sets the signed waiver after of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Waiver Signed Date After:")]
+        [Display(Name = "Signed waiver after")]
         [DataType(DataType.Date)]
         public DateTime? SignedWaiverAfter { get; set; }
 
         /// <summary>
         /// Gets or sets the signed waiver before of this UserSearchFilterViewModel.
         /// </summary>
-        [Display(Name = "Waiver Signed Date Before:")]
+        [Display(Name = "Signed waiver before")]
         [DataType(DataType.Date)]
         public DateTime? SignedWaiverBefore { get; set; }
     }
