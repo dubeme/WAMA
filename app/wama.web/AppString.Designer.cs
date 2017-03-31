@@ -105,6 +105,42 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Add new administrator.
+        /// </summary>
+        public static string CreateNewAdministratorLabel {
+            get {
+                return ResourceManager.GetString("CreateNewAdministratorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new employee.
+        /// </summary>
+        public static string CreateNewEmployeeLabel {
+            get {
+                return ResourceManager.GetString("CreateNewEmployeeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new manager.
+        /// </summary>
+        public static string CreateNewManagerLabel {
+            get {
+                return ResourceManager.GetString("CreateNewManagerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new patron.
+        /// </summary>
+        public static string CreateNewPatronLabel {
+            get {
+                return ResourceManager.GetString("CreateNewPatronLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Employee.
         /// </summary>
         public static string EmployeeLabel {

@@ -13,7 +13,7 @@ using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
-    public class UserToolController : WamaBaseController
+    public class UserToolController : AdminConsoleBaseController
     {
         private static Dictionary<UserAccountType, string> AccountTypeToolsMapping = new Dictionary<UserAccountType, string>
         {
@@ -114,13 +114,13 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewAccount.cshtml", account);
         }
 
-        public IActionResult UserAccountAddNewUser()
+        public IActionResult CreateNewUserAccount(UserAccountType type)
         {
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
         }
 
         [HttpPost]
-        public async Task<IActionResult> UserAccountAddNewUser(UserAccountViewModel user)
+        public async Task<IActionResult> CreateNewUserAccount(UserAccountViewModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -173,7 +173,7 @@ namespace WAMA.Web.Controllers
                     }
                 }
             }
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
         }
 
         public IActionResult AddCertification(string memberId)
