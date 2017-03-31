@@ -128,19 +128,19 @@ namespace WAMAcut.Controllers
         }
 
         [Fact]
-        public void UserAccountAddNewUser()
+        public void CreateNewUserAccount()
         {
             var userToolController = MockUserToolController();
-            var result = userToolController.UserAccountAddNewUser();
+            var result = userToolController.CreateNewUserAccount();
 
             var viewResult = Assert.IsType<ViewResult>(result);
 
-            Assert.Equal($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml",
+            Assert.Equal($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml",
                 viewResult.ViewName);
         }
 
         [Fact]
-        public async Task UserAccountAddNewUser_POST()
+        public async Task CreateNewUserAccount_POST()
         {
             // TODO: Test existing memberid
             // TODO: Test new memberId
@@ -148,7 +148,7 @@ namespace WAMAcut.Controllers
             var errMessage = "err message 1";
             var userToolController = MockUserToolController();
             userToolController.ModelState.AddModelError("err1", errMessage);
-            var result = await userToolController.UserAccountAddNewUser(_PatronUserAccountViewModel);
+            var result = await userToolController.CreateNewUserAccount(_PatronUserAccountViewModel);
 
             var viewResult = Assert.IsType<ViewResult>(result);
 
@@ -156,7 +156,7 @@ namespace WAMAcut.Controllers
 
             Assert.Equal(1, errors.Count());
             Assert.Equal(errMessage, errors.First());
-            Assert.Equal($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/UserAccountAddNewUser.cshtml",
+            Assert.Equal($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml",
                 viewResult.ViewName);
         }
 

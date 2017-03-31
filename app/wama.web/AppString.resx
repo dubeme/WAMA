@@ -126,23 +126,23 @@
   <data name="AccountWithSameMemberIdExist" xml:space="preserve">
     <value>Account with same member ID {0} already exist</value>
   </data>
-  <data name="AddNewAdministratorLabel" xml:space="preserve">
-    <value>Add new administrator</value>
-  </data>
-  <data name="AddNewEmployeeLabel" xml:space="preserve">
-    <value>Add new employee</value>
-  </data>
-  <data name="AddNewManagerLabel" xml:space="preserve">
-    <value>Add new manager</value>
-  </data>
-  <data name="AddNewPatronLabel" xml:space="preserve">
-    <value>Add new patron</value>
-  </data>
   <data name="AdministratorLabel" xml:space="preserve">
     <value>Administrator</value>
   </data>
   <data name="Controller" xml:space="preserve">
     <value>Controller</value>
+  </data>
+  <data name="CreateNewAdministratorLabel" xml:space="preserve">
+    <value>Add new administrator</value>
+  </data>
+  <data name="CreateNewEmployeeLabel" xml:space="preserve">
+    <value>Add new employee</value>
+  </data>
+  <data name="CreateNewManagerLabel" xml:space="preserve">
+    <value>Add new manager</value>
+  </data>
+  <data name="CreateNewPatronLabel" xml:space="preserve">
+    <value>Add new patron</value>
   </data>
   <data name="EmployeeLabel" xml:space="preserve">
     <value>Employee</value>

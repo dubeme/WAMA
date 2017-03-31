@@ -8,10 +8,10 @@
         @{
             var label = "Add New User";
             var accountType = (UserAccountType)Model;
-            var addNewUserAccountController = nameof(UserToolController).StripController();
-            var addNewUserAccountAction = nameof(UserToolController.UserAccountAddNewUser);
-            var addNewUserUrl = Url.Action(addNewUserAccountAction,
-                addNewUserAccountController,
+            var createNewUserAccountController = nameof(UserToolController).StripController();
+            var createNewUserAccountAction = nameof(UserToolController.CreateNewUserAccount);
+            var addNewUserUrl = Url.Action(createNewUserAccountAction,
+                createNewUserAccountController,
                 new
                 {
                     type = accountType
@@ -20,16 +20,16 @@
             switch (accountType)
             {
                 case UserAccountType.Patron:
-                    label = AppString.AddNewPatronLabel;
+                    label = AppString.CreateNewPatronLabel;
                     break;
                 case UserAccountType.Employee:
-                    label = AppString.AddNewEmployeeLabel;
+                    label = AppString.CreateNewEmployeeLabel;
                     break;
                 case UserAccountType.Manager:
-                    label = AppString.AddNewManagerLabel;
+                    label = AppString.CreateNewManagerLabel;
                     break;
                 case UserAccountType.Administrator:
-                    label = AppString.AddNewAdministratorLabel;
+                    label = AppString.CreateNewAdministratorLabel;
                     break;
             }
         }

@@ -87,42 +87,6 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to Add new administrator.
-        /// </summary>
-        public static string AddNewAdministratorLabel {
-            get {
-                return ResourceManager.GetString("AddNewAdministratorLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///    Looks up a localized string similar to Add new employee.
-        /// </summary>
-        public static string AddNewEmployeeLabel {
-            get {
-                return ResourceManager.GetString("AddNewEmployeeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///    Looks up a localized string similar to Add new manager.
-        /// </summary>
-        public static string AddNewManagerLabel {
-            get {
-                return ResourceManager.GetString("AddNewManagerLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///    Looks up a localized string similar to Add new patron.
-        /// </summary>
-        public static string AddNewPatronLabel {
-            get {
-                return ResourceManager.GetString("AddNewPatronLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///    Looks up a localized string similar to Administrator.
         /// </summary>
         public static string AdministratorLabel {
@@ -137,6 +101,42 @@ namespace WAMA.Web {
         public static string Controller {
             get {
                 return ResourceManager.GetString("Controller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new administrator.
+        /// </summary>
+        public static string CreateNewAdministratorLabel {
+            get {
+                return ResourceManager.GetString("CreateNewAdministratorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new employee.
+        /// </summary>
+        public static string CreateNewEmployeeLabel {
+            get {
+                return ResourceManager.GetString("CreateNewEmployeeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new manager.
+        /// </summary>
+        public static string CreateNewManagerLabel {
+            get {
+                return ResourceManager.GetString("CreateNewManagerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Add new patron.
+        /// </summary>
+        public static string CreateNewPatronLabel {
+            get {
+                return ResourceManager.GetString("CreateNewPatronLabel", resourceCulture);
             }
         }
         
