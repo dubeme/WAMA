@@ -114,7 +114,7 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewAccount.cshtml", account);
         }
 
-        public IActionResult CreateNewUserAccount()
+        public IActionResult CreateNewUserAccount(UserAccountType type)
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
         }
