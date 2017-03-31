@@ -15,6 +15,8 @@ namespace WAMA.Web.Model
 
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
+            await Task.Delay(0);
+
             if (bindingContext == null)
                 throw new ArgumentNullException(nameof(bindingContext));
 

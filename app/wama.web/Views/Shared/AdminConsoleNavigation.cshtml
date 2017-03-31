@@ -1,66 +1,84 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@using WAMA.Web.Model;
+﻿@using WAMA.Web.Model;
+@using WAMA.Web.Controllers;
+@using WAMA.Core.Extensions;
 
 <ul class="nav nav-sidebar">
     <li id="@Constants.ADMIN_CONSOLE_HOME">
-        <a href="/AdminConsole/">
+        <a href="@Url.Action(nameof(AdminConsoleController.Index))">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
         </a>
     </li>
+
+    @{ 
+        var controllerName = nameof(UserToolController).StripController();
+    }
+
     <li id="@Constants.ADMIN_CONSOLE_USERS">
-        <a href="/AdminConsole/UserTool">
+        <a href="@Url.Action(controller: controllerName, action: nameof(UserToolController.Index))">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users
         </a>
         <ul class="nav nav-sidebar indented-list">
             <li id="@Constants.ADMIN_CONSOLE_USERS_PATRONS">
-                <a href="/AdminConsole/UserTool/Patrons">
+                <a href="@Url.Action(controller: controllerName, action: nameof(UserToolController.Patrons))">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Patrons
                 </a>
             </li>
             <li id="@Constants.ADMIN_CONSOLE_USERS_EMPLOYEES">
-                <a href="/AdminConsole/UserTool/Employees">
+                <a href="@Url.Action(controller: controllerName, action: nameof(UserToolController.Employees))">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Employees
                 </a>
             </li>
             <li id="@Constants.ADMIN_CONSOLE_USERS_MANAGERS">
-                <a href="/AdminConsole/UserTool/Managers">
+                <a href="@Url.Action(controller: controllerName, action: nameof(UserToolController.Managers))">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Managers
                 </a>
             </li>
             <li id="@Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS">
-                <a href="/AdminConsole/UserTool/Administrators">
+                <a href="@Url.Action(controller: controllerName, action: nameof(UserToolController.Administrators))">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Administrators
                 </a>
             </li>
         </ul>
     </li>
+
+    @{
+        controllerName = nameof(ReportToolController).StripController();
+    }
+
     <li id="@Constants.ADMIN_CONSOLE_REPORTS">
-        <a href="/AdminConsole/ReportTool">
+        <a href="@Url.Action(controller: controllerName, action: nameof(ReportToolController.Index))">
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Reports
         </a>
         <ul class="nav nav-sidebar indented-list">
             <li id="@Constants.ADMIN_CONSOLE_REPORTS_CHECK_INS">
-                <a href="/AdminConsole/ReportTool/CheckInReports">
+                <a href="@Url.Action(controller: controllerName, action: nameof(ReportToolController.CheckInReports))">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Check Ins
                 </a>
             </li>
             <li id="@Constants.ADMIN_CONSOLE_REPORTS_USERS">
-                <a href="/AdminConsole/ReportTool/Users">
+                <a href="@Url.Action(controller: controllerName, action: nameof(ReportToolController.Users))">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Users
                 </a>
             </li>
         </ul>
     </li>
+
+    @{
+        controllerName = nameof(InventoryToolController).StripController();
+    }
+
     <li id="@Constants.ADMIN_CONSOLE_INVENTORIES">
-        <a href="/AdminConsole/InventoryTool">
+        <a href="@Url.Action(controller: controllerName, action: nameof(InventoryToolController.Index))">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Inventories
         </a>
     </li>
+
+    @{
+        controllerName = nameof(ClinicToolController).StripController();
+    }
+
     <li id="@Constants.ADMIN_CONSOLE_CLINICS">
-        <a href="/AdminConsole/ClinicTool">
+        <a href="@Url.Action(controller: controllerName, action: nameof(ClinicToolController.Index))">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Clinics
         </a>
     </li>

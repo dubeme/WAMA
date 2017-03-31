@@ -3,7 +3,7 @@ using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
-    public class InventoryToolController : WamaBaseController
+    public class InventoryToolController : AdminConsoleBaseController
     {
         public IActionResult Index()
         {

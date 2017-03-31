@@ -3,7 +3,7 @@ using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
-    public class ClinicToolController : WamaBaseController
+    public class ClinicToolController : AdminConsoleBaseController
     {
         public IActionResult Index()
         {

@@ -107,13 +107,16 @@ namespace WAMA.Core.Services
 
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                checkinActivity.IsCheckedIn = await dbCtx.LogInCredentials.AnyAsync(_loginCredntial => 
-                    _loginCredntial.MemberId == loginCredential.MemberId && 
+                checkinActivity.IsCheckedIn = await dbCtx.LogInCredentials.AnyAsync(_loginCredntial =>
+                    _loginCredntial.MemberId == loginCredential.MemberId &&
                      _loginCredntial.HashedPassword == loginCredential.HashedPassword
                 );
 
-                dbCtx.CheckInActivities.Add(checkinActivity);
-                await dbCtx.SaveChangesAsync();
+                if (checkinActivity.IsCheckedIn)
+                {
+                    await dbCtx.CheckInActivities.AddAsync(checkinActivity);
+                    await dbCtx.SaveChangesAsync();
+                }
             }
 
             return checkinActivity?.ToViewModel();
