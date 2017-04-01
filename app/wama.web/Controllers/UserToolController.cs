@@ -174,7 +174,7 @@ namespace WAMA.Web.Controllers
                     }
                 }
             }
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml", user);
         }
 
         public IActionResult AddCertification(string memberId)
