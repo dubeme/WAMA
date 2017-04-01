@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-namespace WAMA.Core.Models.DTOs
+﻿namespace WAMA.Core.Models.DTOs
 {
     /// <summary>
     /// Represents different account types
     /// </summary>
-    
     public enum UserAccountType
     {
         /// <summary>
