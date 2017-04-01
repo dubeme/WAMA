@@ -34,7 +34,7 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PatronUserAccountViewModel patron)
+        public async Task<IActionResult> Create(UserAccountViewModel patron)
         {
             if (!ModelState.IsValid)
             {

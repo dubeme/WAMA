@@ -1,13 +1,17 @@
-﻿namespace WAMA.Core.Models.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+namespace WAMA.Core.Models.DTOs
 {
     /// <summary>
     /// Represents different account types
     /// </summary>
+    
     public enum UserAccountType
     {
         /// <summary>
         /// The unknown
         /// </summary>
+        ///
+        [Display(Name = " --- ")]
         Unknown,
         /// <summary>
         /// The patron
