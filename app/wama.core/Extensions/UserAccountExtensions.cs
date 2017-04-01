@@ -47,8 +47,8 @@ namespace WAMA.Core.Extensions
 
             switch (user.AccountType)
             {
-                case UserAccountType.Unknown:
-                    throw new ArgumentException("User has an Unknown account type", nameof(user));
+                /*case UserAccountType.Unknown:
+                    throw new ArgumentException("User has an Unknown account type", nameof(user));*/
 
                 case UserAccountType.Patron:
                     userViewModel = new PatronUserAccountViewModel();

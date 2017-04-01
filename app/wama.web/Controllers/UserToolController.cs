@@ -116,6 +116,7 @@ namespace WAMA.Web.Controllers
 
         public IActionResult CreateNewUserAccount(UserAccountType type)
         {
+            ViewBag.AccountType = type;
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
         }
 

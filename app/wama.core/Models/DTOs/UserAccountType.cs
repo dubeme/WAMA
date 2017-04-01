@@ -10,12 +10,7 @@ namespace WAMA.Core.Models.DTOs
         /// <summary>
         /// The unknown
         /// </summary>
-        ///
         [Display(Name = " --- ")]
-        Unknown,
-        /// <summary>
-        /// The patron
-        /// </summary>
         Patron = 1,
         /// <summary>
         /// The employee
