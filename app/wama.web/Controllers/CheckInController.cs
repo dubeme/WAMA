@@ -31,7 +31,7 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string memberId)
         {
-            if (ModelState.IsValid && !string.IsNullOrWhiteSpace(memberId))
+            if (ModelState.IsValid &&  !string.IsNullOrWhiteSpace(memberId) && (memberId.Length == 6 || memberId.Length == 7))
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
                 var waiverInfo = await _waiverService.GetWaiverAsync(memberId);
