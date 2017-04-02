@@ -103,7 +103,7 @@ namespace WAMA.Web.Controllers
         public async Task<IActionResult> ViewAccount(string memberId)
         {
             var account = await _UserAccountService.GetUserAccountAsync(memberId);
-
+            ViewBag.MemberId = memberId;
             if (!Equals(account, null) && AccountTypeToolsMapping.ContainsKey(account.AccountType))
             {
                 SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
