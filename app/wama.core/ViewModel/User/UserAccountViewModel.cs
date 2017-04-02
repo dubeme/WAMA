@@ -17,6 +17,7 @@ namespace WAMA.Core.ViewModel.User
         /// Gets or sets the member identifier of this UserAccountViewModel.
         /// </summary>
         [Display(Name = "ID (6 or 7 digit SDSU ID)")]
+        [MaxLength(7, ErrorMessage = "Member ID length should be either 6 or 7 digits long."), MinLength(6)]
         public string MemberId { get; set; }
 
         /// <summary>
