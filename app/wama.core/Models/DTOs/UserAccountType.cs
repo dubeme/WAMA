@@ -1,4 +1,5 @@
-﻿namespace WAMA.Core.Models.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+namespace WAMA.Core.Models.DTOs
 {
     /// <summary>
     /// Represents different account types
