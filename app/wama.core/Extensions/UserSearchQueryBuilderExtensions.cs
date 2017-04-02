@@ -107,12 +107,12 @@ namespace WAMA.Core.Extensions
         /// <returns></returns>
         private static IQueryable<UserAccount> AppendSuspensionStatusQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
-            if (Equals(filter.AccountIsSuspended, null))
+            if (filter.AccountIsSuspended)
             {
-                return userAccounts;
+                return userAccounts.Where(account => account.IsSuspended);
             }
 
-            return userAccounts.Where(account => account.IsSuspended == filter.AccountIsSuspended);
+            return userAccounts;
         }
 
         /// <summary>
@@ -123,12 +123,12 @@ namespace WAMA.Core.Extensions
         /// <returns></returns>
         private static IQueryable<UserAccount> AppendApprovalStatusQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
-            if (Equals(filter.AccountIsApproved, null))
+            if (filter.AccountIsApproved)
             {
-                return userAccounts;
+                return userAccounts.Where(account => account.HasBeenApproved);
             }
 
-            return userAccounts.Where(account => account.HasBeenApproved == filter.AccountIsApproved);
+            return userAccounts;
         }
 
         /// <summary>
