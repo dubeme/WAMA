@@ -240,6 +240,7 @@ namespace WAMA.Web.Controllers
             ViewBag.MemberId = memberId;
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertifications.cshtml", Certifications);
         }
+
         public async Task<IActionResult> ViewCertification(string memberId) //need to straight idea first
         {
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
@@ -247,6 +248,7 @@ namespace WAMA.Web.Controllers
             ViewBag.MemberId = memberId;
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertification.cshtml", Certification);
         }
+
         public IActionResult DeleteCertification(string memberId)
         {
             throw new NotImplementedException();
