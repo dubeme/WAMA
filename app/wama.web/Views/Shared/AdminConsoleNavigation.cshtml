@@ -3,14 +3,18 @@
 @using WAMA.Core.Extensions;
 
 <ul class="nav nav-sidebar">
+    @{
+        var controllerName = nameof(AdminConsoleController).StripController();
+    }
+
     <li id="@Constants.ADMIN_CONSOLE_HOME">
-        <a href="@Url.Action(nameof(AdminConsoleController.Index))">
+        <a href="@Url.Action(controller: controllerName, action: nameof(AdminConsoleController.Index))">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
         </a>
     </li>
 
     @{ 
-        var controllerName = nameof(UserToolController).StripController();
+        controllerName = nameof(UserToolController).StripController();
     }
 
     <li id="@Constants.ADMIN_CONSOLE_USERS">

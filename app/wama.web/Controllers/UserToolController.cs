@@ -103,7 +103,7 @@ namespace WAMA.Web.Controllers
         public async Task<IActionResult> ViewAccount(string memberId)
         {
             var account = await _UserAccountService.GetUserAccountAsync(memberId);
-
+            ViewBag.MemberId = memberId;
             if (!Equals(account, null) && AccountTypeToolsMapping.ContainsKey(account.AccountType))
             {
                 SetActiveConsoleTool(AccountTypeToolsMapping[account.AccountType]);
@@ -116,6 +116,7 @@ namespace WAMA.Web.Controllers
 
         public IActionResult CreateNewUserAccount(UserAccountType type)
         {
+            ViewBag.AccountType = type;
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
         }
 
@@ -173,7 +174,7 @@ namespace WAMA.Web.Controllers
                     }
                 }
             }
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml", user);
         }
 
         public IActionResult AddCertification(string memberId)
@@ -199,7 +200,7 @@ namespace WAMA.Web.Controllers
                 {
                     await _CertificationService.AddCertificationAsync(Certification);
                     return RedirectToAction(
-                        actionName: nameof(ViewCertification),
+                        actionName: nameof(ViewCertifications),
                         routeValues: new
                         {
                             MemberId = Certification.MemberId
@@ -232,14 +233,20 @@ namespace WAMA.Web.Controllers
             return View(Certification);
         }
 
-        public async Task<IActionResult> ViewCertification(string memberId)
+        public async Task<IActionResult> ViewCertifications(string memberId)
         {
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
             var Certifications = await _CertificationService.GetCertificationsAsync(memberId);
             ViewBag.MemberId = memberId;
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertification.cshtml", Certifications);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertifications.cshtml", Certifications);
         }
-
+        public async Task<IActionResult> ViewCertification(string memberId) //need to straight idea first
+        {
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
+            var Certification = await _CertificationService.GetCertificationAsync(memberId);
+            ViewBag.MemberId = memberId;
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertification.cshtml", Certification);
+        }
         public IActionResult DeleteCertification(string memberId)
         {
             throw new NotImplementedException();

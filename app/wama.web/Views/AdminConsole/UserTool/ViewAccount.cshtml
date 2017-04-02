@@ -1,10 +1,11 @@
 ﻿@using WAMA.Core.ViewModel.User;
 @using WAMA.Core.Models.DTOs;
 @using WAMA.Web.Controllers;
-
+@using WAMA.Core.Extensions;
 @model UserAccountViewModel
 
 @{
+    var controllerName = nameof(UserToolController).StripController();
 
     if (object.Equals(Model, null))
     {
@@ -12,12 +13,19 @@
     }
     else
     {
+        string MemberID = ViewBag.MemberId;
         <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-
             @Html.Partial("DisplayError")
             <div style="font-size:x-large">
-                <a href="ViewAccount?memberid=@Model.MemberId"><u>Info</u></a>
-                 | <a href="ViewCertification?memberid=@Model.MemberId">  Certification
+                <a href="@Url.Action(controller: controllerName,
+                            action: nameof(UserToolController.ViewAccount),
+                            values: new { MemberId = MemberID })">
+                    <u>Info</u>
+                </a>
+                | <a href="@Url.Action(controller: controllerName,
+                                action: nameof(UserToolController.ViewCertifications),
+                                values: new { MemberId = MemberID })">
+                    Certification
                 </a>
                 <br />
                 <br />
@@ -100,7 +108,6 @@
                     </button>
                 </div>
             </form>
-
         </div>
     }
 }
