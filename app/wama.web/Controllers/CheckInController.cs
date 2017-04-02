@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel;
@@ -92,10 +93,11 @@ namespace WAMA.Web.Controllers
             {
                 userName = userAccount.FirstName + " " + userAccount.LastName;
             }
-            
 
-            if (signerName == null || (userName != null && !signerName.ToLower().Equals(userName.ToLower())))
-            {                
+            if (string.IsNullOrWhiteSpace(signerName) || 
+                string.IsNullOrWhiteSpace(userName) || 
+                !userName.Equals(signerName, StringComparison.OrdinalIgnoreCase))
+            {
                 SetErrorMessages(AppString.SignatureMismatch);
             }
             else
