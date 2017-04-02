@@ -147,25 +147,25 @@ namespace WAMA.Core.Extensions
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn >= filter.CertifiedAfter &&
-                        cert.CertifiedOn <= filter.CertifiedBefore));
+                        cert.CertifiedOn.DateTime >= filter.CertifiedAfter &&
+                        cert.CertifiedOn.DateTime <= filter.CertifiedBefore));
             }
             else if (Equals(filter.CertifiedAfter, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn >= filter.CertifiedAfter));
+                        cert.CertifiedOn.DateTime >= filter.CertifiedAfter));
             }
             else if (Equals(filter.CertifiedBefore, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn <= filter.CertifiedBefore));
+                        cert.CertifiedOn.DateTime <= filter.CertifiedBefore));
             }
 
             return userAccounts.Where(account =>
                 account.Certifications.Any(certification =>
-                    certification.CertifiedOn == filter.CertifiedOn));
+                    certification.CertifiedOn.DateTime == filter.CertifiedOn));
         }
 
         /// <summary>
@@ -184,25 +184,25 @@ namespace WAMA.Core.Extensions
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn >= filter.SignedWaiverAfter &&
-                        waiver.SignedOn <= filter.SignedWaiverBefore));
+                        waiver.SignedOn.DateTime >= filter.SignedWaiverAfter &&
+                        waiver.SignedOn.DateTime <= filter.SignedWaiverBefore));
             }
             else if (Equals(filter.SignedWaiverAfter, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn >= filter.SignedWaiverAfter));
+                        waiver.SignedOn.DateTime >= filter.SignedWaiverAfter));
             }
             else if (Equals(filter.SignedWaiverBefore, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn <= filter.SignedWaiverBefore));
+                        waiver.SignedOn.DateTime <= filter.SignedWaiverBefore));
             }
 
             return userAccounts.Where(account =>
-                account.Waivers.Any(waiver => 
-                    waiver.SignedOn == filter.SignedWaiverOn));
+                account.Waivers.Any(waiver =>
+                    waiver.SignedOn.DateTime == filter.SignedWaiverOn));
         }
     }
 }
