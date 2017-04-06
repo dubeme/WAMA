@@ -236,8 +236,8 @@ namespace WAMA.Web.Controllers
         public async Task<IActionResult> ViewCertifications(string memberId)
         {
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
-            var Certifications = await _UserAccountService.GetUserAccountAsync(memberId);
-            ViewData["Certifications"] = await _CertificationService.GetCertificationsAsync(memberId);
+            var Certifications = await _CertificationService.GetCertificationsAsync(memberId);
+            ViewBag.AccountType = await _UserAccountService.GetUserAccountAsync(memberId);
             ViewBag.MemberId = memberId;
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertifications.cshtml", Certifications);
         }
