@@ -237,7 +237,7 @@ namespace WAMA.Web.Controllers
         {
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
             var Certifications = await _CertificationService.GetCertificationsAsync(memberId);
-            ViewBag.AccountType = await _UserAccountService.GetUserAccountAsync(memberId);
+            ViewBag.UserAccount = await _UserAccountService.GetUserAccountAsync(memberId);
             ViewBag.MemberId = memberId;
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCertifications.cshtml", Certifications);
         }
