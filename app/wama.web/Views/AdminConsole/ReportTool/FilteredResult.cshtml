@@ -15,27 +15,6 @@
     else
     {
         @Html.Partial("DownloadCSVButton.cshtml", ViewData["filter"])
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).FirstName)</th>
-                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).LastName)</th>
-                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).MiddleName)</th>
-                    <th class="no-wrap-text">@Html.LabelFor(x => x.ElementAt(0).Email)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var UserAccountViewModel in Model)
-                {
-                    <tr>
-                        <td class="no-wrap-text">@UserAccountViewModel.FirstName</td>
-                        <td class="no-wrap-text">@UserAccountViewModel.LastName</td>
-                        <td class="no-wrap-text">@UserAccountViewModel.MiddleName</td>
-                        <td class="no-wrap-text"><a href="mailto:@UserAccountViewModel.Email">@UserAccountViewModel.Email</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @Html.Partial("UserAccountTableDisplay", Model)
     }
 }

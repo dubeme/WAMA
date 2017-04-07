@@ -107,12 +107,12 @@ namespace WAMA.Core.Extensions
         /// <returns></returns>
         private static IQueryable<UserAccount> AppendSuspensionStatusQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
-            if (Equals(filter.AccountIsSuspended, null))
+            if (filter.AccountIsSuspended)
             {
-                return userAccounts;
+                return userAccounts.Where(account => account.IsSuspended);
             }
 
-            return userAccounts.Where(account => account.IsSuspended == filter.AccountIsSuspended);
+            return userAccounts;
         }
 
         /// <summary>
@@ -123,12 +123,12 @@ namespace WAMA.Core.Extensions
         /// <returns></returns>
         private static IQueryable<UserAccount> AppendApprovalStatusQuery(this IQueryable<UserAccount> userAccounts, UserSearchFilterViewModel filter)
         {
-            if (Equals(filter.AccountIsApproved, null))
+            if (filter.AccountIsApproved)
             {
-                return userAccounts;
+                return userAccounts.Where(account => account.HasBeenApproved);
             }
 
-            return userAccounts.Where(account => account.HasBeenApproved == filter.AccountIsApproved);
+            return userAccounts;
         }
 
         /// <summary>
@@ -147,25 +147,25 @@ namespace WAMA.Core.Extensions
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn >= filter.CertifiedAfter &&
-                        cert.CertifiedOn <= filter.CertifiedBefore));
+                        cert.CertifiedOn.DateTime >= filter.CertifiedAfter &&
+                        cert.CertifiedOn.DateTime <= filter.CertifiedBefore));
             }
             else if (Equals(filter.CertifiedAfter, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn >= filter.CertifiedAfter));
+                        cert.CertifiedOn.DateTime >= filter.CertifiedAfter));
             }
             else if (Equals(filter.CertifiedBefore, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn <= filter.CertifiedBefore));
+                        cert.CertifiedOn.DateTime <= filter.CertifiedBefore));
             }
 
             return userAccounts.Where(account =>
                 account.Certifications.Any(certification =>
-                    certification.CertifiedOn == filter.CertifiedOn));
+                    certification.CertifiedOn.DateTime == filter.CertifiedOn));
         }
 
         /// <summary>
@@ -184,25 +184,25 @@ namespace WAMA.Core.Extensions
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn >= filter.SignedWaiverAfter &&
-                        waiver.SignedOn <= filter.SignedWaiverBefore));
+                        waiver.SignedOn.DateTime >= filter.SignedWaiverAfter &&
+                        waiver.SignedOn.DateTime <= filter.SignedWaiverBefore));
             }
             else if (Equals(filter.SignedWaiverAfter, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn >= filter.SignedWaiverAfter));
+                        waiver.SignedOn.DateTime >= filter.SignedWaiverAfter));
             }
             else if (Equals(filter.SignedWaiverBefore, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn <= filter.SignedWaiverBefore));
+                        waiver.SignedOn.DateTime <= filter.SignedWaiverBefore));
             }
 
             return userAccounts.Where(account =>
-                account.Waivers.Any(waiver => 
-                    waiver.SignedOn == filter.SignedWaiverOn));
+                account.Waivers.Any(waiver =>
+                    waiver.SignedOn.DateTime == filter.SignedWaiverOn));
         }
     }
 }
