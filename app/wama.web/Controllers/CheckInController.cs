@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel;
@@ -11,13 +12,15 @@ namespace WAMA.Web.Controllers
     {
         private IUserAccountService _UserAccountService;
         private IWaiverService _waiverService;
+        private ICertificationService _CertificationService;
         private static ICheckInService _CheckInService;
 
-        public CheckInController(IUserAccountService userAccountService, ICheckInService checkInService, IWaiverService waiverService)
+        public CheckInController(IUserAccountService userAccountService, ICheckInService checkInService, IWaiverService waiverService, ICertificationService certificationService)
         {
             _UserAccountService = userAccountService;
             _waiverService = waiverService;
             _CheckInService = checkInService;
+            _CertificationService = certificationService;
         }
 
         [HttpGet]
@@ -33,6 +36,7 @@ namespace WAMA.Web.Controllers
             {
                 var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
                 var waiverInfo = await _waiverService.GetWaiverAsync(memberId);
+                var certificate = await _CertificationService.GetCertificationAsync(memberId);
 
                 if (userAccount == null)
                 {
@@ -43,6 +47,14 @@ namespace WAMA.Web.Controllers
                 else if (!userAccount.HasBeenApproved)
                 {
                     SetErrorMessages(AppString.AccountPendingApprovalMessage);
+                }
+                else if (userAccount.IsSuspended)
+                {
+                    SetErrorMessages(AppString.AccountSuspended);
+                }
+                else if (certificate != null && System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificate.ExpiresOn) > 0)
+                {
+                    SetErrorMessages(AppString.CertificateExpired);
                 }
                 else if (waiverInfo == null || System.DateTimeOffset.Now.Subtract(waiverInfo.SignedOn).TotalDays >= 90)
                 {
@@ -76,9 +88,15 @@ namespace WAMA.Web.Controllers
         {
             var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
 
-            string userName = userAccount.FirstName + " " + userAccount.LastName;
+            string userName = null;
+            if (userAccount != null)
+            {
+                userName = userAccount.FirstName + " " + userAccount.LastName;
+            }
 
-            if (signerName == null || !signerName.Equals(userName))
+            if (string.IsNullOrWhiteSpace(signerName) || 
+                string.IsNullOrWhiteSpace(userName) || 
+                !userName.Equals(signerName, StringComparison.OrdinalIgnoreCase))
             {
                 SetErrorMessages(AppString.SignatureMismatch);
             }
