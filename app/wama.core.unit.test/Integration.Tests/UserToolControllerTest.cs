@@ -11,7 +11,7 @@ using WAMA.Web.Controllers;
 using WAMA.Web.Model;
 using Xunit;
 
-namespace WAMAcut.Controllers
+namespace WAMAcut.Integration.Tests
 {
     public class UserToolControllerTest
     {
