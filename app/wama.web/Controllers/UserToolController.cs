@@ -169,7 +169,7 @@ namespace WAMA.Web.Controllers
                         await _CheckInService.CreateLogInCredentialAsync(user);
 
                         return RedirectToAction(
-                            actionName: nameof(UserToolController.Patrons),
+                            actionName: $"{user.AccountType}s",
                             controllerName: nameof(UserToolController).StripController());
                     }
                     catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
@@ -197,6 +197,7 @@ namespace WAMA.Web.Controllers
                     }
                 }
             }
+
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml", user);
         }
 
