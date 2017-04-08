@@ -116,7 +116,30 @@ namespace WAMA.Web.Controllers
 
         public IActionResult CreateNewUserAccount(UserAccountType type)
         {
+            switch (type)
+            {
+                case UserAccountType.Patron:
+                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_PATRONS);
+                    break;
+
+                case UserAccountType.Employee:
+                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_EMPLOYEES);
+                    break;
+
+                case UserAccountType.Manager:
+                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_MANAGERS);
+                    break;
+
+                case UserAccountType.Administrator:
+                    SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS_ADMINISTRATORS);
+                    break;
+
+                default:
+                    return RedirectToAction(nameof(AdminConsoleController.Index).StripController());
+            }
+
             ViewBag.AccountType = type;
+
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/CreateNewUserAccount.cshtml");
         }
 
