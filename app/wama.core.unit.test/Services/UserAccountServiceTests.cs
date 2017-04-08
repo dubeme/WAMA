@@ -123,10 +123,10 @@ namespace WAMAcut.Services
         }
 
         [Theory(DisplayName = "Approve UserAccounts")]
-        [InlineData("8521473", 1)]
-        [InlineData("6325149", 1)]
-        [InlineData("2016546", 1)]
-        [InlineData("6780655", 1)]
+        [InlineData("8521473", true)]
+        [InlineData("6325149", true)]
+        [InlineData("2016546", true)]
+        [InlineData("6780655", true)]
         public async Task SuspendUserAccountAsyncTest(string memberId, bool expectedSuspend)
         {
             await _UserAccountService.SuspendUserAccountAsync(memberId);
@@ -135,10 +135,10 @@ namespace WAMAcut.Services
         }
 
         [Theory(DisplayName = "Approve UserAccounts")]
-        [InlineData("8521473", 0)]
-        [InlineData("6325149", 0)]
-        [InlineData("2016546", 0)]
-        [InlineData("6780655", 0)]
+        [InlineData("8521473", false)]
+        [InlineData("6325149", false)]
+        [InlineData("2016546", false)]
+        [InlineData("6780655", false)]
         public async Task ReactivateUserAccountAsyncTest(string memberId, bool expectedApproval)
         {
             await _UserAccountService.ReactivateUserAccountAsync(memberId);
@@ -147,10 +147,10 @@ namespace WAMAcut.Services
         }
 
         [Theory(DisplayName = "Approve UserAccounts")]
-        [InlineData("8521473", 1)]
-        [InlineData("6325149", 1)]
-        [InlineData("2016546", 1)]
-        [InlineData("6780655", 1)]
+        [InlineData("8521473", true)]
+        [InlineData("6325149", true)]
+        [InlineData("2016546", true)]
+        [InlineData("6780655", true)]
         public async Task ApproveAccountAsyncTest(string memberId, bool expectedApproval)
         {
             await _UserAccountService.ApproveAccountAsync(memberId); //set user of memberid to approved
