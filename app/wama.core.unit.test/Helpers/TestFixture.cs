@@ -12,7 +12,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using WAMA.Core.Models.Provider;
 using WAMAcut.Services;
 
-namespace WAMAcut.Integration.Tests
+namespace WAMAcut.Helpers
 {
     /// <summary>
     /// A test fixture which hosts the target project (project we wish to test) in an in-memory server.

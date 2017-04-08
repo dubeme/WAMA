@@ -4,7 +4,7 @@ using WAMA.Core.Models;
 using WAMA.Core.Models.Provider;
 using WAMA.Core.Providers;
 
-namespace WAMAcut.Services
+namespace WAMAcut.Helpers
 {
     public class DummyDbContextProvider : DbContextProvider, IDbContextProvider
     {
@@ -29,6 +29,15 @@ namespace WAMAcut.Services
         public new WamaDbContext GetWamaDbContext(DbContextOptions dbOption)
         {
             throw new NotImplementedException();
+        }
+
+        public static WamaDbContext GetSqlServerDbOption()
+        {
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=wama.db;User Id=wama.dev;Password=BAD_P455W0RD;";
+
+            return new WamaDbContext((new DbContextOptionsBuilder<WamaDbContext>())
+                .UseSqlServer(connection)
+                .Options);
         }
     }
 }
