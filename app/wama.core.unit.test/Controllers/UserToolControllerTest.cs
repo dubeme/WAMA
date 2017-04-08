@@ -3,6 +3,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WAMA.Core.Models.DTOs;
 using WAMA.Core.Models.Service;
 using WAMA.Core.ViewModel.User;
 using WAMA.Web;
@@ -131,7 +132,7 @@ namespace WAMAcut.Controllers
         public void CreateNewUserAccount()
         {
             var userToolController = MockUserToolController();
-            var result = userToolController.CreateNewUserAccount();
+            var result = userToolController.CreateNewUserAccount(UserAccountType.Unknown);
 
             var viewResult = Assert.IsType<ViewResult>(result);
 
