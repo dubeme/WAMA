@@ -10,6 +10,7 @@ using WAMA.Core.Models.DTOs;
 using WAMA.Core.Services;
 using WAMA.Core.ViewModel;
 using WAMA.Core.ViewModel.User;
+using WAMAcut.Helpers;
 using Xunit;
 
 namespace WAMAcut.Services
@@ -99,10 +100,15 @@ namespace WAMAcut.Services
             Assert.Equal(expectedCount, users.Count());
         }
 
-        [Fact]
-        public async Task GetPendingUserAccountsAsyncTest()
+        [Theory(DisplayName = "Get pending UserAccounts")]
+        [InlineData(UserAccountType.Administrator, 0)]
+        [InlineData(UserAccountType.Employee, 0)]
+        [InlineData(UserAccountType.Manager, 0)]
+        [InlineData(UserAccountType.Patron, 0)]
+        public async Task GetPendingUserAccountsAsyncTest(UserAccountType accountType, int expectedCount)
         {
-            await Task.Delay(1);
+            var users = await _UserAccountService.GetPendingUserAccountsAsync(accountType);
+            Assert.Equal(expectedCount, users.Count());
         }
 
         [Fact]
@@ -117,22 +123,40 @@ namespace WAMAcut.Services
             await Task.Delay(1);
         }
 
-        [Fact]
-        public async Task SuspendUserAccountAsyncTest()
+        [Theory(DisplayName = "Approve UserAccounts")]
+        [InlineData("8521473", true)]
+        [InlineData("6325149", true)]
+        [InlineData("2016546", true)]
+        [InlineData("6780655", true)]
+        public async Task SuspendUserAccountAsyncTest(string memberId, bool expectedSuspend)
         {
-            await Task.Delay(1);
+            await _UserAccountService.SuspendUserAccountAsync(memberId);
+            var users = await _UserAccountService.GetUserAccountAsync(memberId);
+            Assert.Equal(expectedSuspend, users.IsSuspended);
         }
 
-        [Fact]
-        public async Task ReactivateUserAccountAsyncTest()
+        [Theory(DisplayName = "Approve UserAccounts")]
+        [InlineData("8521473", false)]
+        [InlineData("6325149", false)]
+        [InlineData("2016546", false)]
+        [InlineData("6780655", false)]
+        public async Task ReactivateUserAccountAsyncTest(string memberId, bool expectedApproval)
         {
-            await Task.Delay(1);
+            await _UserAccountService.ReactivateUserAccountAsync(memberId);
+            var users = await _UserAccountService.GetUserAccountAsync(memberId);
+            Assert.Equal(expectedApproval, users.IsSuspended); //reactive so suspend should be 0
         }
 
-        [Fact]
-        public async Task ApproveAccountAsyncTest()
+        [Theory(DisplayName = "Approve UserAccounts")]
+        [InlineData("8521473", true)]
+        [InlineData("6325149", true)]
+        [InlineData("2016546", true)]
+        [InlineData("6780655", true)]
+        public async Task ApproveAccountAsyncTest(string memberId, bool expectedApproval)
         {
-            await Task.Delay(1);
+            await _UserAccountService.ApproveAccountAsync(memberId); //set user of memberid to approved
+            var users = await _UserAccountService.GetUserAccountAsync(memberId);
+            Assert.Equal(expectedApproval, users.HasBeenApproved);
         }
     }
 }

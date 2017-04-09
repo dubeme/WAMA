@@ -51,7 +51,7 @@ namespace WAMA.Web.Controllers
             ViewData[AppString.ErrorMessages] = errors.AsEnumerable();
         }
 
-        public string HashString(string str)
+        public static string HashString(string str)
         {
             // https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing
 

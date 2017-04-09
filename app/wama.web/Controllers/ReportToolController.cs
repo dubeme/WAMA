@@ -148,6 +148,7 @@ namespace WAMA.Web.Controllers
         [HttpGet]
         public IActionResult Users()
         {
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_REPORTS_USERS);
             return View($"{Constants.ADMIN_CONSOLE_REPORT_TOOL_DIRECTORY}/AdvancedSearch.cshtml");
         }
 
