@@ -65,15 +65,17 @@ namespace WAMA.Web.Controllers
 
                 case Constants.ADMIN_CONSOLE_REPORTS_USERS:
                     var listservData = await _UserAccountService.GetUserAccountsAsync(filter.UserSearchFilter);
-                    extension = "text/txt";
-                    fileName = $"listserv_{reportDate}.txt";
+                    extension = "text/csv";
+                    fileName = $"listserv_{reportDate}.csv";
 
                     if (Equals(listservData, null) == false)
                     {
                         var formattedEmails = listservData
-                            .Select(ls => $"{ls.LastName}, {ls.FirstName} {ls.MiddleName} <{ls.Email}>");
+                            .Select(ls => $"{ls.MemberId}, {ls.FirstName}, {ls.LastName}, {ls.Email}");
+                        
+                        var header = "MemberId,FirstName,LastName,Email\r\n";
 
-                        csvBytes = System.Text.Encoding.ASCII.GetBytes(string.Join(";", formattedEmails));
+                        csvBytes = System.Text.Encoding.ASCII.GetBytes(header + string.Join("\r\n", formattedEmails));
                     }
 
                     break;
