@@ -10,6 +10,7 @@ using WAMA.Core.Models.DTOs;
 using WAMA.Core.Services;
 using WAMA.Core.ViewModel;
 using WAMA.Core.ViewModel.User;
+using WAMAcut.Helpers;
 using Xunit;
 
 namespace WAMAcut.Services
