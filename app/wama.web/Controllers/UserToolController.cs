@@ -230,7 +230,7 @@ namespace WAMA.Web.Controllers
             }
 
             ViewBag.MemberId = Certification.MemberId;
-            return View(Certification);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/AddCertification.cshtml",Certification);
         }
 
         public async Task<IActionResult> ViewCertifications(string memberId)
