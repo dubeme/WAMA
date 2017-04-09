@@ -44,6 +44,10 @@ namespace WAMA.Web.Controllers
                             controllerName: nameof(AdminConsoleController).StripController());
                     }
                 }
+                else
+                {
+                    return RedirectToAction(nameof(AdminAccessLogin));
+                }
             }
             catch (Exception ex)
             {

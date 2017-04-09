@@ -1,12 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WAMA.Core.Models.Service;
+using WAMA.Web.Model;
 
 namespace WAMA.Web.Controllers
 {
     public class AdminConsoleController : WamaBaseController
     {
-        public IActionResult Index()
+        private IUserAccountService _UserAccountService;
+
+        public AdminConsoleController(IUserAccountService userAccountService)
         {
-            return View();
+            _UserAccountService = userAccountService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var aggregate = await _UserAccountService.GetAggregatesAsync();
+
+            SetActiveConsoleTool(Constants.ADMIN_CONSOLE_HOME);
+            return View(aggregate);
         }
     }
 }
