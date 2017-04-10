@@ -60,16 +60,7 @@
             <label asp-for="Gender"></label>
             <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control"></select>
         </div>
-        @{if ((ViewBag.AccountType) == UserAccountType.Patron)
-            {
-                <input asp-for="HasBeenApproved" type="hidden" value="false" />
-            }
-            else
-            {
-                <input asp-for="HasBeenApproved" type="hidden" value="true" />
-            }
-        }
-
+        <input asp-for="HasBeenApproved" type="hidden" value="@(ViewBag.AccountType != UserAccountType.Patron)" />
         <div class="form-group col-xs-12">
             <label asp-for="InstitutionAffiliation"></label>
             <select asp-for="InstitutionAffiliation" asp-items="@Html.GetEnumSelectList<InstitutionAffiliation>()" class="form-control"></select>
