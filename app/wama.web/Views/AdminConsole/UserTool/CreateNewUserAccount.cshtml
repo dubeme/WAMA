@@ -33,7 +33,7 @@
             <label asp-for="MemberId"> </label>
             <input asp-for="MemberId"
                    class="form-control"
-                   pattern="[0-9]{7}"
+                   pattern="[0-9]{6, 7}"
                    title="Member ID must be in number and 7 digit long."
                    value="@memberId" />
         </div>
