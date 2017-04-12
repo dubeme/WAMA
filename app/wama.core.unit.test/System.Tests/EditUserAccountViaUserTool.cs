@@ -113,7 +113,7 @@ namespace WAMAcut.System.Tests
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
 
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(EDIT_ACCOUNT_URL, response.RequestMessage.RequestUri.AbsolutePath.ToLower());
         }
 
@@ -123,12 +123,12 @@ namespace WAMAcut.System.Tests
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
-                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.InstitutionAffiliation)}", $"{Gender.Male}"),
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.Gender)}", $"{Gender.Male}"),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
 
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(EDIT_ACCOUNT_URL, response.RequestMessage.RequestUri.AbsolutePath.ToLower());
         }
 
