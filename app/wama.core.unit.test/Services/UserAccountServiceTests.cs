@@ -101,10 +101,10 @@ namespace WAMAcut.Services
         }
 
         [Theory(DisplayName = "Get pending UserAccounts")]
-        [InlineData(UserAccountType.Administrator, 0)]
-        [InlineData(UserAccountType.Employee, 0)]
-        [InlineData(UserAccountType.Manager, 0)]
-        [InlineData(UserAccountType.Patron, 0)]
+        [InlineData(UserAccountType.Administrator, 10)]
+        [InlineData(UserAccountType.Employee, 10)]
+        [InlineData(UserAccountType.Manager, 10)]
+        [InlineData(UserAccountType.Patron, 10)]
         public async Task GetPendingUserAccountsAsyncTest(UserAccountType accountType, int expectedCount)
         {
             var users = await _UserAccountService.GetPendingUserAccountsAsync(accountType);

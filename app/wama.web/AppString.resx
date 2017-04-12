@@ -166,6 +166,9 @@
   <data name="NoAccountExistsWithID" xml:space="preserve">
     <value>No account with member ID {0} exists. Create a new account.</value>
   </data>
+  <data name="PasswordMisMatch" xml:space="preserve">
+    <value>Password and Confirm Password, must be the same.</value>
+  </data>
   <data name="PatronLabel" xml:space="preserve">
     <value>Patron</value>
   </data>

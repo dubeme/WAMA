@@ -34,15 +34,12 @@ namespace WAMA.Web.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var result = await _CheckInService.PerformCheckInAsync(loginCredential);
+                var result = await _CheckInService.PerformCheckInAsync(loginCredential);
 
-                    if (result.IsCheckedIn)
-                    {
-                        return RedirectToAction(actionName: nameof(AdminConsoleController.Index),
-                            controllerName: nameof(AdminConsoleController).StripController());
-                    }
+                if (result.IsCheckedIn)
+                {
+                    return RedirectToAction(actionName: nameof(AdminConsoleController.Index),
+                        controllerName: nameof(AdminConsoleController).StripController());
                 }
                 else
                 {
