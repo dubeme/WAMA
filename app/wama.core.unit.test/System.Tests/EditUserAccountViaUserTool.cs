@@ -21,6 +21,7 @@ namespace WAMAcut.System.Tests
         private const string TESTING_MEMBER_ID = "8833550";
         private const string ANOTHER_TESTING_MEMBER_ID = "0133550";
         private const string EDIT_ACCOUNT_URL = "/adminconsole/usertool/editaccount";
+        private readonly string TESTING_ACCOUNT_TYPE = $"{UserAccountType.Mantainance}";
 
         public EditUserAccountViaUserTool(TestFixture<Startup> fixture)
         {
@@ -103,10 +104,11 @@ namespace WAMAcut.System.Tests
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.RequestToken)}", HashString(string.Empty)),
                 new KeyValuePair<string, string>(
                     $"{nameof(UserAccountViewModel.InstitutionAffiliation)}",
                     $"{InstitutionAffiliation.Faculty}"),
-                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.RequestToken)}", string.Empty),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
@@ -120,6 +122,7 @@ namespace WAMAcut.System.Tests
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.InstitutionAffiliation)}", $"{Gender.Male}"),
             });
 
@@ -134,8 +137,8 @@ namespace WAMAcut.System.Tests
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.MemberId)}", $"{TESTING_MEMBER_ID}"),
-                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", $"{UserAccountType.Patron}"),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
@@ -156,13 +159,14 @@ namespace WAMAcut.System.Tests
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.MemberId)}", $"{TESTING_MEMBER_ID}"),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.RequestToken)}", null),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
 
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(EDIT_ACCOUNT_URL, response.RequestMessage.RequestUri.AbsolutePath.ToLower());
 
             // TODO: assert exception string for specific string
@@ -174,28 +178,30 @@ namespace WAMAcut.System.Tests
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.MemberId)}", $"{TESTING_MEMBER_ID}"),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.RequestToken)}", string.Empty),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
 
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(EDIT_ACCOUNT_URL, response.RequestMessage.RequestUri.AbsolutePath.ToLower());
         }
 
-        [Fact(DisplayName = "Edit account using a request token set to an white spaces")]
+        [Fact(DisplayName = "Edit account using a request token set to as white spaces")]
         public async Task EditUserAccountWithRequestTokenWhiteSpaces()
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.MemberId)}", $"{TESTING_MEMBER_ID}"),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.RequestToken)}", new string('\0', 7)),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
 
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(EDIT_ACCOUNT_URL, response.RequestMessage.RequestUri.AbsolutePath.ToLower());
         }
 
@@ -204,13 +210,14 @@ namespace WAMAcut.System.Tests
         {
             var payload = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.AccountType)}", TESTING_ACCOUNT_TYPE),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.MemberId)}", $"{TESTING_MEMBER_ID}"),
                 new KeyValuePair<string, string>($"{nameof(UserAccountViewModel.RequestToken)}", HashString(ANOTHER_TESTING_MEMBER_ID)),
             });
 
             var response = await _client.PostAsync(EDIT_ACCOUNT_URL, payload);
 
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(EDIT_ACCOUNT_URL, response.RequestMessage.RequestUri.AbsolutePath.ToLower());
         }
 
