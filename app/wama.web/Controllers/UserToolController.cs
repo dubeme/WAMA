@@ -254,7 +254,7 @@ namespace WAMA.Web.Controllers
             }
 
             ViewBag.MemberId = Certification.MemberId;
-            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/AddCertification.cshtml",Certification);
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/AddCertification.cshtml", Certification);
         }
 
         public async Task<IActionResult> ViewCertifications(string memberId)
@@ -289,7 +289,7 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAccount(UserAccountViewModel user)
         {
-            if (MeetsBasicRequirements(user, false))
+            if (UserMeetsBasicRequirements(user, false))
             {
                 if (string.IsNullOrWhiteSpace(user.UpdatedMemberId) == false)
                 {
@@ -306,7 +306,7 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ApproveAccount(UserAccountViewModel user)
         {
-            if (MeetsBasicRequirements(user))
+            if (UserMeetsBasicRequirements(user))
             {
                 await _UserAccountService.ApproveAccountAsync(user.MemberId);
             }
@@ -317,7 +317,7 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SuspendAccount(UserAccountViewModel user)
         {
-            if (MeetsBasicRequirements(user))
+            if (UserMeetsBasicRequirements(user))
             {
                 await _UserAccountService.SuspendUserAccountAsync(user.MemberId);
             }
@@ -328,7 +328,7 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ReactivateAccount(UserAccountViewModel user)
         {
-            if (MeetsBasicRequirements(user))
+            if (UserMeetsBasicRequirements(user))
             {
                 await _UserAccountService.ReactivateUserAccountAsync(user.MemberId);
             }
@@ -340,6 +340,37 @@ namespace WAMA.Web.Controllers
         public IActionResult DeleteAccount(UserAccountViewModel user)
         {
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
+        }
+
+        public async Task<IActionResult> SetPassword(string memberID)
+        {
+            if (string.IsNullOrWhiteSpace(memberID))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            // TODO: Better security, check that account even exists
+            var loginCredential = await _CheckInService.GetLogInCredentialAsync(memberID);
+
+            loginCredential = loginCredential ?? new LogInCredentialViewModel
+            {
+                MemberId = memberID
+            };
+            loginCredential.PasswordSetRequestVerificationToken = HashString(memberID);
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/SetPassword.cshtml", loginCredential);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetPassword(LogInCredentialViewModel loginCredential)
+        {
+            if (LoginGredentialMeetsBasicRequirement(loginCredential))
+            {
+                await _CheckInService.SetPasswordForLogInCredentialAsync(loginCredential);
+                return RedirectToAction(nameof(ViewAccount), new { MemberId = loginCredential?.MemberId });
+            }
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/SetPassword.cshtml", loginCredential);
         }
 
         private async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
@@ -372,30 +403,78 @@ namespace WAMA.Web.Controllers
             return null;
         }
 
-        private bool MeetsBasicRequirements(UserAccountViewModel user, bool ignoreModelState = true)
+        private bool UserMeetsBasicRequirements(UserAccountViewModel user, bool ignoreModelState = true)
         {
-            if (!ignoreModelState && !ModelState.IsValid)
-            {
-                this.SetErrorMessages(ModelState.Values
-                    .Where(val => val.ValidationState == ModelValidationState.Invalid)
-                    .Select(val => val.Errors.FirstOrDefault().ErrorMessage));
+            var allIsGood = ObjectIsNotNull(user) && HashIsGood(user.MemberId, user.RequestToken);
 
-                return false;
+            if (!ignoreModelState)
+            {
+                allIsGood &= ValidateModelState();
             }
-            else if (Equals(user, null))
+
+            return allIsGood;
+        }
+
+        private bool LoginGredentialMeetsBasicRequirement(LogInCredentialViewModel loginCredential)
+        {
+            var allIsGood = ObjectIsNotNull(loginCredential) &&
+                HashIsGood(loginCredential.MemberId, loginCredential.PasswordSetRequestVerificationToken) && 
+                ValidateModelState(nameof(loginCredential.CurrentPassword));
+
+            if (allIsGood && !loginCredential.PassWordsMatch)
+            {
+                this.SetErrorMessages(AppString.PasswordMisMatch);
+                allIsGood = false;
+            }
+
+            return allIsGood;
+        }
+
+        private bool ValidateModelState(params string[] exclude)
+        {
+            var modelIsGood = ModelState.IsValid;
+
+            if (!modelIsGood)
+            {
+                var invalidModelStateErrors = ModelState
+                    .Where(entry => exclude.Contains(entry.Key) == false && entry.Value.ValidationState == ModelValidationState.Invalid)
+                    .Select(entry => entry.Value.Errors.FirstOrDefault().ErrorMessage);
+
+                if (invalidModelStateErrors.Any())
+                {
+                    this.SetErrorMessages(invalidModelStateErrors);
+                }
+
+                modelIsGood = !invalidModelStateErrors.Any();
+            }
+
+            return modelIsGood;
+        }
+
+        private bool ObjectIsNotNull(object obj)
+        {
+            var objectIsNull = Equals(obj, null);
+
+            if (objectIsNull)
             {
                 this.SetErrorMessages(AppString.GenericErrorMessage);
-
-                return false;
             }
-            else if (Equals(HashString(user.MemberId), user.RequestToken) == false)
+
+            return !objectIsNull;
+        }
+
+        private bool HashIsGood(string value, string hash)
+        {
+            var hashIsGood = string.IsNullOrWhiteSpace(hash) == false &&
+                string.IsNullOrWhiteSpace(value) == false &&
+                hash.Equals(HashString(value));
+
+            if (hashIsGood == false)
             {
                 this.SetErrorMessages(AppString.GenericErrorMessage);
-
-                return false;
             }
 
-            return true;
+            return hashIsGood;
         }
     }
 }

@@ -109,7 +109,7 @@ namespace WAMA.Core.Services
             {
                 checkinActivity.IsCheckedIn = await dbCtx.LogInCredentials.AnyAsync(_loginCredntial =>
                     _loginCredntial.MemberId == loginCredential.MemberId &&
-                     _loginCredntial.HashedPassword == loginCredential.HashedPassword
+                     _loginCredntial.HashedPassword == loginCredential.Password
                 );
 
                 if (checkinActivity.IsCheckedIn)
@@ -210,6 +210,29 @@ namespace WAMA.Core.Services
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Sets the password for log in credential asynchronous.
+        /// </summary>
+        /// <param name="loginCredential">The login credential.</param>
+        /// <returns></returns>
+        public async Task SetPasswordForLogInCredentialAsync(LogInCredentialViewModel loginCredential)
+        {
+            using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
+            {
+                var old = dbCtx.LogInCredentials.SingleOrDefault(user => user.MemberId.Equals(loginCredential.MemberId));
+
+                if (old == null || string.Equals(loginCredential.CurrentPassword, old.HashedPassword) == false)
+                {
+                    throw new InvalidOperationException("No login credential updated");
+                }
+
+                old.HashedPassword = loginCredential.Password;
+
+                dbCtx.Entry(old).CurrentValues.SetValues(old);
+                await dbCtx.SaveChangesAsync();
             }
         }
     }

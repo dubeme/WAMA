@@ -72,5 +72,13 @@ namespace WAMA.Core.Models.Service
            DateTimeOffset start,
            DateTimeOffset end,
            ReportGranularity granularity);
+
+
+        /// <summary>
+        /// Sets the password for log in credential asynchronous.
+        /// </summary>
+        /// <param name="loginCredential">The login credential.</param>
+        /// <returns></returns>
+        Task SetPasswordForLogInCredentialAsync(LogInCredentialViewModel loginCredential);
     }
 }
