@@ -69,8 +69,12 @@
                 <input type="hidden" asp-for="@Model.AccountType" />
                 <input type="hidden" asp-for="@Model.RequestToken" />
 
+                @{
+                    var editAccountLink = $"{nameof(UserToolController.EditAccount)}?memberid={Model.MemberId}";
+                }
+
                 <div class="form-group">
-                    <a href="EditAccount?memberid=@Model.MemberId" class="btn btn-primary">
+                    <a href="@editAccountLink" class="btn btn-primary">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Account
                     </a>
                 </div>
@@ -103,6 +107,16 @@
                             </button>
                         </div>
                     }
+                }
+                else
+                {
+                    var setPasswordLinktLink = $"{nameof(UserToolController.SetPassword)}?memberid={Model.MemberId}";
+
+                    <div class="form-group">
+                        <a href="@setPasswordLinktLink" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Set Password
+                        </a>
+                    </div>
                 }
 
                 <div class="form-group">

@@ -69,7 +69,7 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to Your account has been suspecded! Please contact the front desk..
+        ///    Looks up a localized string similar to Your account has been suspended! Please contact the front desk..
         /// </summary>
         public static string AccountSuspended {
             get {
@@ -200,6 +200,15 @@ namespace WAMA.Web {
         public static string NoAccountExistsWithID {
             get {
                 return ResourceManager.GetString("NoAccountExistsWithID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Looks up a localized string similar to Password and Confirm Password, must be the same..
+        /// </summary>
+        public static string PasswordMisMatch {
+            get {
+                return ResourceManager.GetString("PasswordMisMatch", resourceCulture);
             }
         }
         
