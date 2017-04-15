@@ -153,10 +153,6 @@
   <data name="EmployeeLabel" xml:space="preserve">
     <value>Employee</value>
   </data>
-  <data name="ErrorMessages" xml:space="preserve">
-    <value>ErrorMessages</value>
-    <comment>A key that will be used for passing a collection of error messages to be sent to the user</comment>
-  </data>
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>Hmm! Seems like something weird happened, please try again in a few.</value>
   </data>

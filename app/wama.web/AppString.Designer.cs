@@ -168,15 +168,6 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to ErrorMessages.
-        /// </summary>
-        public static string ErrorMessages {
-            get {
-                return ResourceManager.GetString("ErrorMessages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///    Looks up a localized string similar to Hmm! Seems like something weird happened, please try again in a few..
         /// </summary>
         public static string GenericErrorMessage {
