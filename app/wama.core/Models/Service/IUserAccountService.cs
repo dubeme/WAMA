@@ -82,9 +82,9 @@ namespace WAMA.Core.Models.Service
         Task ApproveAccountAsync(string memberId);
 
         /// <summary>
-        /// Gets the aggregates asynchronous.
+        /// Gets the overall activity aggregates asynchronous.
         /// </summary>
         /// <returns></returns>
-        Task<AdminConsoleHomeViewModel> GetAggregatesAsync();
+        Task<AdminConsoleHomeViewModel> GetOverallActivityAggregatesAsync();
     }
 }

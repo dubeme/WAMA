@@ -16,7 +16,7 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var aggregate = await _UserAccountService.GetAggregatesAsync();
+            var aggregate = await _UserAccountService.GetOverallActivityAggregatesAsync();
 
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_HOME);
             return View(aggregate);

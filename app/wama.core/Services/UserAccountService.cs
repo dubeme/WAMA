@@ -221,7 +221,11 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<AdminConsoleHomeViewModel> GetAggregatesAsync()
+        /// <summary>
+        /// Gets the overall activity aggregates asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<AdminConsoleHomeViewModel> GetOverallActivityAggregatesAsync()
         {
             var aggregate = new AdminConsoleHomeViewModel();
 
