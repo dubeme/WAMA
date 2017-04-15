@@ -24,8 +24,13 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(bool success)
         {
+            if (success)
+            {
+                SetSuccessMessages(AppString.CheckInSuccessful);
+            }
+
             return View();
         }
 
@@ -68,9 +73,11 @@ namespace WAMA.Web.Controllers
                 else
                 {
                     await _CheckInService.PerformCheckInAsync(memberId);
-                    return RedirectToAction(
-                            actionName: nameof(Successful),
-                            routeValues: memberId);
+                    return RedirectToAction(actionName: nameof(Index),
+                        routeValues: new
+                        {
+                            success = true
+                        });
                 }
             }
 
@@ -94,8 +101,8 @@ namespace WAMA.Web.Controllers
                 userName = userAccount.FirstName + " " + userAccount.LastName;
             }
 
-            if (string.IsNullOrWhiteSpace(signerName) || 
-                string.IsNullOrWhiteSpace(userName) || 
+            if (string.IsNullOrWhiteSpace(signerName) ||
+                string.IsNullOrWhiteSpace(userName) ||
                 !userName.Equals(signerName, StringComparison.OrdinalIgnoreCase))
             {
                 SetErrorMessages(AppString.SignatureMismatch);
@@ -105,9 +112,15 @@ namespace WAMA.Web.Controllers
                 WaiverViewModel waiverViewMode = new WaiverViewModel();
                 waiverViewMode.MemberId = memberId;
                 waiverViewMode.SignedOn = System.DateTimeOffset.Now;
+
                 await _waiverService.AddWaiverAsync(waiverViewMode);
+
                 await _CheckInService.PerformCheckInAsync(memberId);
-                return RedirectToAction(actionName: nameof(Successful));
+                return RedirectToAction(actionName: nameof(Index),
+                    routeValues: new
+                    {
+                        success = true
+                    });
             }
 
             ViewBag.MemberId = memberId;
@@ -116,12 +129,6 @@ namespace WAMA.Web.Controllers
 
         [HttpGet]
         public IActionResult WaiverSignedButCertificationExpired()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Successful()
         {
             return View();
         }
