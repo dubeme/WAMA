@@ -106,6 +106,7 @@ namespace WAMA.Web.Controllers
                 waiverViewMode.MemberId = memberId;
                 waiverViewMode.SignedOn = System.DateTimeOffset.Now;
                 await _waiverService.AddWaiverAsync(waiverViewMode);
+                await _CheckInService.PerformCheckInAsync(memberId);
                 return RedirectToAction(actionName: nameof(Successful));
             }
 
