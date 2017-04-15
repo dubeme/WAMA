@@ -135,6 +135,9 @@
   <data name="CertificateExpired" xml:space="preserve">
     <value>Your cerficate has been expired.</value>
   </data>
+  <data name="CheckInSuccessful" xml:space="preserve">
+    <value>Check-in Successful</value>
+  </data>
   <data name="Controller" xml:space="preserve">
     <value>Controller</value>
   </data>
