@@ -17,8 +17,8 @@ namespace WAMA.Core.Extensions
         {
             return new Certification
             {
-                CertifiedOn = viewModel.CertifiedOn,
-                ExpiresOn = viewModel.ExpiresOn,
+                CertifiedOn = viewModel.CertifiedOn.Date,
+                ExpiresOn = viewModel.ExpiresOn.Date,
                 MemberId = viewModel.MemberId,
                 Type = viewModel.Type
             };
@@ -33,8 +33,8 @@ namespace WAMA.Core.Extensions
         {
             return new CertificationViewModel
             {
-                CertifiedOn = dto.CertifiedOn,
-                ExpiresOn = dto.ExpiresOn,
+                CertifiedOn = dto.CertifiedOn.Date,
+                ExpiresOn = dto.ExpiresOn.Date,
                 MemberId = dto.MemberId,
                 Type = dto.Type
             };
