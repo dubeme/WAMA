@@ -147,25 +147,25 @@ namespace WAMA.Core.Extensions
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn.DateTime >= filter.CertifiedAfter &&
-                        cert.CertifiedOn.DateTime <= filter.CertifiedBefore));
+                        cert.CertifiedOn >= filter.CertifiedAfter.Value.Date &&
+                        cert.CertifiedOn <= filter.CertifiedBefore.Value.Date));
             }
             else if (Equals(filter.CertifiedAfter, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn.DateTime >= filter.CertifiedAfter));
+                        cert.CertifiedOn >= filter.CertifiedAfter.Value.Date));
             }
             else if (Equals(filter.CertifiedBefore, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Certifications.Any(cert =>
-                        cert.CertifiedOn.DateTime <= filter.CertifiedBefore));
+                        cert.CertifiedOn <= filter.CertifiedBefore.Value.Date));
             }
 
             return userAccounts.Where(account =>
                 account.Certifications.Any(certification =>
-                    certification.CertifiedOn.DateTime == filter.CertifiedOn));
+                    certification.CertifiedOn == filter.CertifiedOn.Value.Date));
         }
 
         /// <summary>
@@ -184,25 +184,25 @@ namespace WAMA.Core.Extensions
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn.DateTime >= filter.SignedWaiverAfter &&
-                        waiver.SignedOn.DateTime <= filter.SignedWaiverBefore));
+                        waiver.SignedOn >= filter.SignedWaiverAfter.Value.Date &&
+                        waiver.SignedOn <= filter.SignedWaiverBefore.Value.Date));
             }
             else if (Equals(filter.SignedWaiverAfter, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn.DateTime >= filter.SignedWaiverAfter));
+                        waiver.SignedOn >= filter.SignedWaiverAfter.Value.Date));
             }
             else if (Equals(filter.SignedWaiverBefore, null) == false)
             {
                 return userAccounts.Where(account =>
                     account.Waivers.Any(waiver =>
-                        waiver.SignedOn.DateTime <= filter.SignedWaiverBefore));
+                        waiver.SignedOn <= filter.SignedWaiverBefore.Value.Date));
             }
 
             return userAccounts.Where(account =>
                 account.Waivers.Any(waiver =>
-                    waiver.SignedOn.DateTime == filter.SignedWaiverOn));
+                    waiver.SignedOn == filter.SignedWaiverOn.Value.Date));
         }
     }
 }

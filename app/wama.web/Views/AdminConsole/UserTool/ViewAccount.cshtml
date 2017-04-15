@@ -17,7 +17,7 @@
         <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
             @if (Model.AccountType == UserAccountType.Patron)
             {
-                @Html.Partial("DisplayError")
+                @Html.Partial("DisplayAlerts")
                 <div style="font-size:x-large">
                     <a href="@Url.Action(controller: controllerName,
                             action: nameof(UserToolController.ViewAccount),

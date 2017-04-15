@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WAMA.Core.Models.DTOs;
 using WAMA.Core.ViewModel;
@@ -51,6 +52,7 @@ namespace WAMA.Core.Models.Service
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
+        [Obsolete("Not used")]
         Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type);
 
         /// <summary>
@@ -82,9 +84,9 @@ namespace WAMA.Core.Models.Service
         Task ApproveAccountAsync(string memberId);
 
         /// <summary>
-        /// Gets the aggregates asynchronous.
+        /// Gets the overall activity aggregates asynchronous.
         /// </summary>
         /// <returns></returns>
-        Task<AdminConsoleHomeViewModel> GetAggregatesAsync();
+        Task<AdminConsoleHomeViewModel> GetOverallActivityAggregatesAsync();
     }
 }

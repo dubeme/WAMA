@@ -114,6 +114,15 @@ namespace WAMA.Web {
         }
         
         /// <summary>
+        ///    Looks up a localized string similar to Check-in Successful.
+        /// </summary>
+        public static string CheckInSuccessful {
+            get {
+                return ResourceManager.GetString("CheckInSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Looks up a localized string similar to Controller.
         /// </summary>
         public static string Controller {
@@ -164,15 +173,6 @@ namespace WAMA.Web {
         public static string EmployeeLabel {
             get {
                 return ResourceManager.GetString("EmployeeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///    Looks up a localized string similar to ErrorMessages.
-        /// </summary>
-        public static string ErrorMessages {
-            get {
-                return ResourceManager.GetString("ErrorMessages", resourceCulture);
             }
         }
         

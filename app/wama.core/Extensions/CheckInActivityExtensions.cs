@@ -29,7 +29,7 @@ namespace WAMA.Core.Extensions
         {
             return new CheckInActivityViewModel
             {
-                CheckInDateTime = dto.CheckInDateTime,
+                CheckInDateTime = dto.CheckInDateTime.LocalDateTime,
                 IsCheckedIn = dto.IsCheckedIn,
                 MemberId = dto.MemberId,
                 Member = dto.Member

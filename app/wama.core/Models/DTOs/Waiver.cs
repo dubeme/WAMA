@@ -16,7 +16,7 @@ namespace WAMA.Core.Models.DTOs
         /// <summary>
         /// Gets or sets the signed on of this Waiver.
         /// </summary>
-        public DateTimeOffset SignedOn { get; set; }
+        public DateTime SignedOn { get; set; }
 
         /// <summary>
         /// Gets or sets the member of this Waiver.

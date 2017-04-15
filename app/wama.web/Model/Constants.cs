@@ -26,5 +26,8 @@
 
         public const string DATA_TABLE = "data-table";
         public const string USER_ACCOUNT_TYPE = "user-account-type";
+
+        public const string SUCCESS_MESSAGES = "success-message";
+        public const string ERROR_MESSAGES = "error-message";
     }
 }

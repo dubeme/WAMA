@@ -78,7 +78,7 @@ namespace WAMA.Core.Services
             var checkinActivity = new CheckInActivity
             {
                 MemberId = memberId,
-                CheckInDateTime = DateTimeOffset.Now,
+                CheckInDateTime = DateTimeOffset.UtcNow,
                 IsCheckedIn = true,
             };
 
@@ -101,7 +101,7 @@ namespace WAMA.Core.Services
             var checkinActivity = new CheckInActivity
             {
                 MemberId = loginCredential.MemberId,
-                CheckInDateTime = DateTimeOffset.Now,
+                CheckInDateTime = DateTimeOffset.UtcNow,
                 IsCheckedIn = false,
             };
 

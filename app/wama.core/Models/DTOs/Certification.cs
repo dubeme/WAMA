@@ -19,11 +19,11 @@ namespace WAMA.Core.Models.DTOs
         /// <summary>
         /// Gets or sets the certified on of this Certification.
         /// </summary>
-        public DateTimeOffset CertifiedOn { get; set; }
+        public DateTime CertifiedOn { get; set; }
         /// <summary>
         /// Gets or sets the expires on of this Certification.
         /// </summary>
-        public DateTimeOffset ExpiresOn { get; set; }
+        public DateTime ExpiresOn { get; set; }
 
         /// <summary>
         /// Gets or sets the member of this Certification.

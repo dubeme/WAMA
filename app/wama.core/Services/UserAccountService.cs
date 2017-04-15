@@ -52,7 +52,6 @@ namespace WAMA.Core.Services
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        [Obsolete("Not used")]
         public async Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
@@ -221,7 +220,11 @@ namespace WAMA.Core.Services
             }
         }
 
-        public async Task<AdminConsoleHomeViewModel> GetAggregatesAsync()
+        /// <summary>
+        /// Gets the overall activity aggregates asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<AdminConsoleHomeViewModel> GetOverallActivityAggregatesAsync()
         {
             var aggregate = new AdminConsoleHomeViewModel();
 
