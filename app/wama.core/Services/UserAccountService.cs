@@ -52,7 +52,6 @@ namespace WAMA.Core.Services
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        [Obsolete("Not used")]
         public async Task<IEnumerable<ListservViewModel>> GetListservDataAsync(UserAccountType type)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
