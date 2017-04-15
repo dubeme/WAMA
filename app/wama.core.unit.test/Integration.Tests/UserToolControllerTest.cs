@@ -153,7 +153,7 @@ namespace WAMAcut.Integration.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
 
-            var errors = Assert.IsAssignableFrom<IEnumerable<string>>(viewResult.ViewData[AppString.ErrorMessages]);
+            var errors = Assert.IsAssignableFrom<IEnumerable<string>>(viewResult.ViewData[Constants.ERROR_MESSAGES]);
 
             Assert.Equal(1, errors.Count());
             Assert.Equal(errMessage, errors.First());

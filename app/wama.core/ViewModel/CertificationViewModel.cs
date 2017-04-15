@@ -13,24 +13,27 @@ namespace WAMA.Core.ViewModel
         /// Gets or sets the member identifier of this CertificationViewModel.
         /// </summary>
         public string MemberId { get; set; }
+
         /// <summary>
         /// Gets or sets the type of this CertificationViewModel.
         /// </summary>
         [Required]
-        [Display(Name = "Certification")]
+        [Display(Name = "Certification type")]
         public CertificationType Type { get; set; }
+
         /// <summary>
         /// Gets or sets the certified on of this CertificationViewModel.
         /// </summary>
         [Required]
         [DataType(DataType.Date)]   
-        [Display(Name = "Certificated Date")]
+        [Display(Name = "Date of Certification")]
         public DateTimeOffset CertifiedOn { get; set; }
+
         /// <summary>
         /// Gets or sets the expires on of this CertificationViewModel.
         /// </summary>
         [DataType(DataType.Date)]
-        [Display(Name = "Expire Date")]
+        [Display(Name = "Certification expiration date")]
         public DateTimeOffset ExpiresOn { get; set; }
 
         /// <summary>

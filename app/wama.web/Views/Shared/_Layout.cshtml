@@ -40,6 +40,13 @@
         </script>
     </environment>
 
+    <script type="text/javascript">
+        $("#@WAMA.Web.Model.Constants.SUCCESS_MESSAGES").fadeTo(2000, 500).slideUp(500, function () {
+            $(this).remove();
+        });
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

@@ -27,28 +27,38 @@ namespace WAMA.Web.Controllers
             ViewData[Constants.ADMIN_CONSOLE_ACTIVE_TOOL] = tool;
         }
 
+        public void SetSuccessMessages(params string[] successes)
+        {
+            SetSuccessMessages(successes.AsEnumerable());
+        }
+
+        public void SetSuccessMessages(IEnumerable<string> successes)
+        {
+            ViewData[Constants.SUCCESS_MESSAGES] = successes;
+        }
+
         public void SetErrorMessages(params string[] errors)
         {
-            ViewData[AppString.ErrorMessages] = errors.AsEnumerable();
+            SetErrorMessages(errors.AsEnumerable());
         }
 
         public void SetErrorMessages(IEnumerable<string> errors)
         {
-            ViewData[AppString.ErrorMessages] = errors;
+            ViewData[Constants.ERROR_MESSAGES] = errors;
         }
 
         public void AddErrorMessage(string error)
         {
             var errors = new string[] { error };
 
-            if (ViewData[AppString.ErrorMessages] is Enumerable)
+            if (ViewData[Constants.ERROR_MESSAGES] is Enumerable)
             {
                 errors = Enumerable
-                    .Concat(ViewData[AppString.ErrorMessages] as IEnumerable<string>, errors)
+                    .Concat(ViewData[Constants.ERROR_MESSAGES] as IEnumerable<string>, errors)
                     .ToArray();
             }
 
-            ViewData[AppString.ErrorMessages] = errors.AsEnumerable();
+            ViewData[Constants.ERROR_MESSAGES] = errors.AsEnumerable();
         }
 
         public static string HashString(string str)
