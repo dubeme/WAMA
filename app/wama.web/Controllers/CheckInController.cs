@@ -24,11 +24,15 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(bool success)
+        public IActionResult Index(bool success, bool certificateExpired)
         {
             if (success)
             {
                 SetSuccessMessages(AppString.CheckInSuccessful);
+            }
+            if(certificateExpired)
+            {
+                SetErrorMessages(AppString.CertificateExpired);
             }
 
             return View();
@@ -58,8 +62,14 @@ namespace WAMA.Web.Controllers
                     SetErrorMessages(AppString.AccountSuspended);
                 }
                 else if (certificate != null && System.DateTimeOffset.Compare(System.DateTimeOffset.Now, certificate.ExpiresOn) > 0)
-                {
-                    SetErrorMessages(AppString.CertificateExpired);
+                {                    
+                    await _CheckInService.PerformCheckInAsync(memberId);
+                    return RedirectToAction(actionName: nameof(Index),
+                        routeValues: new
+                        {
+                            success = true,
+                            certificateExpired = true
+                        });
                 }
                 else if (waiverInfo == null || System.DateTimeOffset.Now.Subtract(waiverInfo.SignedOn).TotalDays >= 90)
                 {
