@@ -105,7 +105,7 @@ namespace WAMA.Web {
         }
         
         /// <summary>
-        ///    Looks up a localized string similar to Your cerficate has been expired..
+        ///    Looks up a localized string similar to Your certificate has expired. Please contact the front desk to renew your certificate..
         /// </summary>
         public static string CertificateExpired {
             get {
