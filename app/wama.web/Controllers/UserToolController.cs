@@ -36,13 +36,7 @@ namespace WAMA.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewData["SuspendedAdministrator"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Administrator);
-            ViewData["SuspendedManager"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Manager);
-            ViewData["SuspendedEmployee"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Employee);
             ViewData["SuspendedPatron"] = await _UserAccountService.GetSuspendedUserAccountsAsync(UserAccountType.Patron);
-            ViewData["PendingAdministrator"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Administrator);
-            ViewData["PendingManager"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Manager);
-            ViewData["PendingEmployee"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Employee);
             ViewData["PendingPatron"] = await _UserAccountService.GetPendingUserAccountsAsync(UserAccountType.Patron);
             SetActiveConsoleTool(Constants.ADMIN_CONSOLE_USERS);
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/Index.cshtml");
@@ -418,7 +412,7 @@ namespace WAMA.Web.Controllers
         private bool LoginGredentialMeetsBasicRequirement(LogInCredentialViewModel loginCredential)
         {
             var allIsGood = ObjectIsNotNull(loginCredential) &&
-                HashIsGood(loginCredential.MemberId, loginCredential.PasswordSetRequestVerificationToken) && 
+                HashIsGood(loginCredential.MemberId, loginCredential.PasswordSetRequestVerificationToken) &&
                 ValidateModelState(nameof(loginCredential.CurrentPassword));
 
             if (allIsGood && !loginCredential.PassWordsMatch)

@@ -1,28 +1,16 @@
 ﻿@using WAMA.Web.Model;
 @using WAMA.Core.ViewModel.User;
 
-<h2>User account summaries</h2>
+<h2>User Account Summaries</h2>
 
-<h3 class="text-center">Accounts pending approval</h3>
+<h3 class="text-center">Accounts Pending Approval</h3>
 <div>
-    <h4>Pending Administrators</h4>
-    @Html.Partial("UserAccountTableDisplay", ViewData["PendingAdministrator"])
-    <h4>Pending Managers</h4>
-    @Html.Partial("UserAccountTableDisplay", ViewData["PendingManager"])
-    <h4>Pending Employees</h4>
-    @Html.Partial("UserAccountTableDisplay", ViewData["PendingEmployee"])
-    <h4>Pending Patrons</h4>
+    <h4>Pending Users</h4>
     @Html.Partial("UserAccountTableDisplay", ViewData["PendingPatron"])
 </div>
 
 <h3 class="text-center">Suspended Account List </h3>
 <div>
-    <h4>Suspended Administrators</h4>
-    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedAdministrator"])
-    <h4>Suspended Managers</h4>
-    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedManager"])
-    <h4>Suspended Employees</h4>
-    @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedEmployee"])
-    <h4>Suspended Patrons</h4>
+    <h4>Suspended Users</h4>
     @Html.Partial("UserAccountTableDisplay", ViewData["SuspendedPatron"])
 </div>
