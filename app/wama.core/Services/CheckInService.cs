@@ -222,7 +222,7 @@ namespace WAMA.Core.Services
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
-                var old = dbCtx.LogInCredentials.SingleOrDefault(user => user.MemberId.Equals(loginCredential.MemberId));
+                var old = dbCtx.LogInCredentials.SingleOrDefault(_loginCredential => _loginCredential.MemberId == loginCredential.MemberId);
 
                 if (old == null || string.Equals(loginCredential.CurrentPassword, old.HashedPassword) == false)
                 {
