@@ -28,15 +28,6 @@ namespace WAMAcut.Integration.Tests
 
             var viewResult = Assert.IsType<ViewResult>(result);
 
-            var suspendedAdministrator = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["SuspendedAdministrator"]);
-            var pendingAdministrator = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["PendingAdministrator"]);
-
-            var suspendedManager = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["SuspendedManager"]);
-            var pendingManager = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["PendingManager"]);
-
-            var suspendedEmployee = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["SuspendedEmployee"]);
-            var pendingEmployee = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["PendingEmployee"]);
-
             var suspendedPatron = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["SuspendedPatron"]);
             var pendingPatron = Assert.IsAssignableFrom<IEnumerable<UserAccountViewModel>>(viewResult.ViewData["PendingPatron"]);
         }
