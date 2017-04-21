@@ -94,12 +94,6 @@ namespace WAMA.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult WaiverNotSigned()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Waiver(string signerName, string memberId)
         {
@@ -138,21 +132,9 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult WaiverSignedButCertificationExpired()
-        {
-            return View();
-        }
-
-        [HttpGet]
         public IActionResult Waiver(string memberId)
         {
             ViewBag.MemberId = memberId;
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult AccountSuspended()
-        {
             return View();
         }
     }
