@@ -358,10 +358,17 @@ namespace WAMA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SetPassword(LogInCredentialViewModel loginCredential)
         {
-            if (LoginGredentialMeetsBasicRequirement(loginCredential))
+            try
             {
-                await _CheckInService.SetPasswordForLogInCredentialAsync(loginCredential);
-                return RedirectToAction(nameof(ViewAccount), new { MemberId = loginCredential?.MemberId });
+                if (LoginGredentialMeetsBasicRequirement(loginCredential))
+                {
+                    await _CheckInService.SetPasswordForLogInCredentialAsync(loginCredential);
+                    return RedirectToAction(nameof(ViewAccount), new { MemberId = loginCredential?.MemberId });
+                }
+            }
+            catch (Exception)
+            {
+                SetErrorMessages(AppString.GenericSettingPasswordError);
             }
 
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/SetPassword.cshtml", loginCredential);
