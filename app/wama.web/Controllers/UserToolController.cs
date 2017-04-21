@@ -26,12 +26,17 @@ namespace WAMA.Web.Controllers
         private IUserAccountService _UserAccountService;
         private ICheckInService _CheckInService;
         private ICertificationService _CertificationService;
+        private IWaiverService _WaiverService;
 
-        public UserToolController(IUserAccountService userAccountService, ICheckInService checkinService, ICertificationService certificationService)
+        public UserToolController(IUserAccountService userAccountService,
+            ICheckInService checkinService,
+            ICertificationService certificationService,
+            IWaiverService waiverService)
         {
             _UserAccountService = userAccountService;
             _CheckInService = checkinService;
             _CertificationService = certificationService;
+            _WaiverService = waiverService;
         }
 
         public async Task<IActionResult> Index()

@@ -223,8 +223,12 @@ namespace WAMAcut.Integration.Tests
             var mockCheckinService = new Mock<ICheckInService>();
             var mockUserAccountService = MockUserAccountService();
             var mockCertificationService = new Mock<ICertificationService>();
+            var mockWaiverService = new Mock<IWaiverService>();
 
-            var userToolController = new UserToolController(mockUserAccountService, mockCheckinService.Object, mockCertificationService.Object);
+            var userToolController = new UserToolController(mockUserAccountService, 
+                mockCheckinService.Object, 
+                mockCertificationService.Object, 
+                mockWaiverService.Object);
             return userToolController;
         }
 
