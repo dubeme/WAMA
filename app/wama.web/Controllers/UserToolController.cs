@@ -367,6 +367,22 @@ namespace WAMA.Web.Controllers
             return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/SetPassword.cshtml", loginCredential);
         }
 
+        public async Task<IActionResult> ViewCheckins(string memberId)
+        {
+            var checkins = await _CheckInService.GetCheckInActivitiesAsync(memberId);
+            ViewBag.UserAccount = await _UserAccountService.GetUserAccountAsync(memberId);
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewCheckins.cshtml", checkins);
+        }
+
+        public async Task<IActionResult> ViewWaivers(string memberId)
+        {
+            var checkins = await _WaiverService.GetWaiversAsync(memberId);
+            ViewBag.UserAccount = await _UserAccountService.GetUserAccountAsync(memberId);
+
+            return View($"{Constants.ADMIN_CONSOLE_USER_TOOL_DIRECTORY}/ViewWaivers.cshtml", checkins);
+        }
+
         private async Task<UserAccountViewModel> GetUserAccountAsync(string memberId)
         {
             if (!string.IsNullOrWhiteSpace(memberId))
