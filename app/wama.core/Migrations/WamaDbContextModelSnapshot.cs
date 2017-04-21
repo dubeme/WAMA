@@ -132,6 +132,8 @@ namespace WAMA.Core.Migrations
 
                     b.Property<string>("MemberId");
 
+                    b.Property<string>("Signature");
+
                     b.Property<DateTime>("SignedOn");
 
                     b.Property<DateTimeOffset>("__CreatedOn");
