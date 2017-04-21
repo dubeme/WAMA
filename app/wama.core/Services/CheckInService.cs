@@ -127,7 +127,7 @@ namespace WAMA.Core.Services
         /// </summary>
         /// <param name="memberId">The member identifier.</param>
         /// <returns></returns>
-        public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesForMemberAsync(string memberId)
+        public async Task<IEnumerable<CheckInActivityViewModel>> GetCheckInActivitiesAsync(string memberId)
         {
             using (var dbCtx = _DbCtxProvider.GetWamaDbContext())
             {
