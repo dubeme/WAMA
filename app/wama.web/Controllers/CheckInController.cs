@@ -99,30 +99,23 @@ namespace WAMA.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Waiver(string signerName, string memberId)
+        public async Task<IActionResult> Waiver(WaiverViewModel waiver)
         {
-            var userAccount = await _UserAccountService.GetUserAccountAsync(memberId);
-
-            string userName = null;
-            if (userAccount != null)
-            {
-                userName = userAccount.FirstName + " " + userAccount.LastName;
-            }
-
-            if (string.IsNullOrWhiteSpace(signerName) ||
-                string.IsNullOrWhiteSpace(userName) ||
-                !userName.Equals(signerName, StringComparison.OrdinalIgnoreCase))
+            var userAccount = await _UserAccountService.GetUserAccountAsync(waiver?.MemberId);
+            
+            // TODO: Ensure validity of waiver object
+            if (string.IsNullOrWhiteSpace(waiver?.Signature) ||
+                string.IsNullOrWhiteSpace(userAccount?.FirstNameLastName) ||
+                waiver?.Signature.Equals(userAccount?.FirstNameLastName, StringComparison.OrdinalIgnoreCase) == false)
             {
                 SetErrorMessages(AppString.SignatureMismatch);
             }
             else
             {
-                WaiverViewModel waiverViewMode = new WaiverViewModel();
-                waiverViewMode.MemberId = memberId;
-                waiverViewMode.SignedOn = DateTimeOffset.Now;
+                waiver.SignedOn = DateTimeOffset.Now;
 
-                await _waiverService.AddWaiverAsync(waiverViewMode);
-                await _CheckInService.PerformCheckInAsync(memberId);
+                await _waiverService.AddWaiverAsync(waiver);
+                await _CheckInService.PerformCheckInAsync(waiver.MemberId);
 
                 return RedirectToAction(actionName: nameof(Index),
                     routeValues: new
@@ -131,15 +124,16 @@ namespace WAMA.Web.Controllers
                     });
             }
 
-            ViewBag.MemberId = memberId;
-            return View();
+            return View(waiver);
         }
 
         [HttpGet]
         public IActionResult Waiver(string memberId)
         {
-            ViewBag.MemberId = memberId;
-            return View();
+            return View(new WaiverViewModel
+            {
+                MemberId = memberId
+            });
         }
     }
 }
