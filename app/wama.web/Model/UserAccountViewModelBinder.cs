@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -13,6 +15,10 @@ namespace WAMA.Web.Model
         private static Type UserAccountViewModelType = typeof(UserAccountViewModel);
         private const string USER_ACCOUNT_TYPE_NAME = nameof(UserAccountViewModel.AccountType);
 
+        private readonly IEnumerable<string> NamesOfRequiredFields = UserAccountViewModelType.GetProperties()
+                    .Where(property => property.GetCustomAttribute<RequiredAttribute>() != null)
+                    .Select(property => property.Name);
+
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
             await Task.Delay(0);
@@ -22,7 +28,19 @@ namespace WAMA.Web.Model
 
             if (Equals(UserAccountViewModelType, bindingContext.ModelType))
             {
-                var formValues = bindingContext.HttpContext.Request.Form
+                var namesOfMissingRequiredProperties = NamesOfRequiredFields.Except(
+                    bindingContext.HttpContext.Request.Form.Select(field => field.Key));
+
+                if (namesOfMissingRequiredProperties.Any())
+                {
+                    foreach (var missingPropertyName in namesOfMissingRequiredProperties)
+                    {
+                        bindingContext.ModelState.AddModelError($"{missingPropertyName}",
+                            $"Missing required property, ({missingPropertyName}).");
+                    }
+                }
+
+                var formFieldsExcludingUserAccountType = bindingContext.HttpContext.Request.Form
                     .Where(formEntry => !Equals(formEntry.Key, USER_ACCOUNT_TYPE_NAME));
 
                 var accountType = bindingContext.ValueProvider
@@ -31,9 +49,10 @@ namespace WAMA.Web.Model
 
                 var user = InstantiateUserAccountViewModel(accountType);
 
-                foreach (var item in formValues)
+                foreach (var item in formFieldsExcludingUserAccountType)
                 {
-                    var property = UserAccountViewModelType.GetProperty(item.Key);
+                    var property = UserAccountViewModelType.GetProperty(item.Key,
+                        BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
                     if (Equals(property, null) == false)
                     {
